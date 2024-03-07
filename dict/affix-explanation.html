@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<html>
+  <head>
+<br>
+<TITLE>Affix Files</TITLE>
+  </head>
+  <body BGCOLOR="#FFFFFF">
+<blockquote>
+<br>
+<h2>Affix Files</h2>
+<p>
+
+<p>The new system features an improved system for handling
+punctuation. As in the previous version, punctuation symbols are
+"stripped off" of words, in that a space is inserted between the
+symbol and a neighboring word; they can then be treated like ordinary
+words, and linked to other words or to the wall. In the new version,
+however, the symbols to be stripped off in this way can easily be
+specified and modified by the user, using an "affix file" which is
+read in by the parser when the program is run. An affix file is
+similar
+in format to a link grammar dictionary, with lists of strings (they
+need not be individual symbols, but may be any length), followed by a
+connector type. Strings to be stripped
+off from the left are listed under the category "LSTRIP+"; those to
+be stripped off from the right are listed under the category 
+"RSTRIP+". In the affix-file that we provide, for example, "$"
+is listed as a "LSTRIP+" symbol; "," is listed as a "RSTRIP+"
+symbol. When listed in the affix-file,
+punctuation symbols must be surrounded by quotation marks.
+
+<p>It may also be useful to list other things besides punctuation
+symbols in the affix file. In the version 4.0 affix-file that we provide, strings such
+as "'re" and "'ll" are also listed in the RSTRIP+ category, so that they too are
+stripped off from the right end of strings. Thus the sentence
+"you're crazy if you think he'll do it" is parsed like this:
+
+<pre>
+ +Spx+-Paf-+-MVs-+Cs+--Sp-+--Ce-+Ss+--I-+-Ox+
+ |   |     |     |  |     |     |  |    |   |
+you 're crazy.a if you think.v he 'll do.v it
+</pre>
+
+<p>One advantage of this is that the phrase-parser is then able to
+insert a phrase boundary between "you" and "'re":
+
+<pre>
+[S [NP You NP] [VP 're [ADJP crazy ADJP] VP] [SBAR if [S [NP you NP] [VP think  
+[SBAR [S [NP he NP] [VP 'll [VP do [NP it NP] VP] VP] S] SBAR] VP] S] SBAR] S] 
+</pre>
+
+<p><b>PRE+ and SUF+.</b>Two other categories may also be used in the affix file, "PRE+" and
+"SUF+". These are similar to "LSTRIP+" and "RSTRIP+", but with a
+difference.  A string listed under "PRE+" will get stripped off of the
+left end of a word, but only if the remainder of the word is not
+listed in the dictionary; the "SUF+" category is similar, except for
+right-strippable strings. 
+
+<p>While we do not PRE+ and SUF+ in the current
+English parser, they may be useful for other languages, for example to
+handle inflectional word endings. We use them in a small way in the
+German dictionary that we provide. Adjective endings are listed as
+"SUF+" strings; these are then stripped off (assuming that the
+total word "stem+ending" is NOT listed in the dictionary, and that
+remainder of the word IS listed as a word in the
+dictionary). Adjective stems
+and endings can then be listed independently, rather than listing all
+possible combinations. When an adjective+ending is typed in, the
+ending
+is stripped off and treated as a separate word; it is then linked to
+the stem with an "FS" link. For example, the sentence "Die schwarze
+Katze lief" produces this:
+
+<pre>
+linkparser> die schwarze Katze lief
+++++Time                                          0.00 seconds (0.00
+total)
+Found 1 linkage (1 had no P.P. violations)
+  Unique linkage, cost vector = (UNUSED=0 DIS=0 AND=0 LEN=12)
+
+    +-----------------W----------------+
+    |       +--------Dnf-------+       |
+    |       |       +----Ae----+       |
+    |       |       +-FSe-+    +---Ss--+
+    |       |       |     |    |       |
+LEFT-WALL die.d schwarz.a e Katze.n lief.s
+
+</pre>
+
+<p>Notice that the ending "e" is NOT stripped off of the word "Katze";
+this is because that word is listed in the dictionary as a whole.
+
+</blockquote>
+</body>
+</html>

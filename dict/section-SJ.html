@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Guide-to-Links: SJ</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<B><KBD><FONT SIZE="+1">*** Guide-to-Links ***<BR></FONT><FONT SIZE="+4">
+    SJ</FONT></KBD></B>
+
+<P>
+SJ connects nouns to the word "and" to create a conjoined noun
+phrase.
+The SJ link allows conjoined nouns to appear in almost any situation
+where a plain, common noun may appear: thus, typically, as subject,
+object or prepositional object.
+<PRE>
+                +------Spx-----+         
+         +--SJ--+--SJ--+       +---Pg---+
+         |      |      |       |        |
+      Mike.b and.j-n Joe.b went.v-d fishing.v 
+
+
+                    +-------Ju-------+        
+      +--Ss-+--MVp--+       +---SJ---+---SJ--+
+      |     |       |       |        |       |
+     he wrote.v-d for.p piano.n-u and.j-n flute.s 
+</PRE>
+In the above examples, the <tt>SJ</tt> links join the two nouns
+to the central coordinator "and".  The "and" acts as a head-word,
+connecting as if it were a noun itself: in the first case, connecting
+with an <tt>S</tt> link to form the subject of the sentence, and with
+a <tt>J</tt> link in the second example, to become the prepositional
+object.
+</P>
+<P>
+The subtypes <tt>SJl, SJr</tt>, standing for "left" and "right",
+are used to maintain sequential ordering; thus, for example:
+<PRE>
+         +-SJl--+--SJr--+ 
+         |      |       | 
+      Jack.b and.j-n Jill.f
+</PRE>
+Ordering is important for parsing comma-conjoined lists:
+<PRE>
+             +----SJl----+------Spx------+        
+         +SJl+SJr-+      +--SJr--+       +---K---+
+         |   |    |      |       |       |       |
+      Jack.b , Jill.f and.j-n Mike.b fell.v-d down.r 
+</PRE>
+</P>
+<P>
+The <tt>SJ*s</tt> subtype is used to coordinate singular nouns, 
+<tt>SJ*p</tt> coordinates plural, and <tt>SJ*u</tt> coordinates
+uncountable (mass) nouns. This is used for enforcing number 
+agreement in various situations:
+<PRE>
+      cars and trucks are vehicles
+      *cars and trucks is vehicles
+      *car and truck are vehicles
+</PRE>
+</P>
+<P>
+See also the <a href="coordination.html">conjunction</a> overview.
+</P>
+
+<A HREF="index.html">Grammar Documentation Page</A>.
+</BODY>
+</HTML>
+

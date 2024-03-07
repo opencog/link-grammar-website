@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Guide-to-Links: AN</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<B><KBD><FONT SIZE="+1">*** Guide-to-Links ***<BR></FONT><FONT SIZE="+4">
+    AN</FONT></KBD></B>
+<PRE>
+AN connects noun-modifiers to nouns.
+
+         +-----------D-----+
+         |    +-----AN-----+
+	 |    |	    +--AN--+--S--+
+         |    |     |      |     |
+	The income tax proposal was rejected
+
+Any singular noun may be used as a noun-modifier. All the
+noun-modifiers of a phrase are connected to the main noun of
+the phrase. Any number of noun modifiers may be connected.
+Thus nouns have a "@AN-" connector, conjoined with the rest of
+their expressions. Noun modifiers therefore always connect in
+parallel, rather than serially (sometimes this is
+counterintuitive, as in "income tax proposal").
+
+Noun-modifiers must normally occur after ordinary adjectival
+modifiers: "The stupid tax proposal was rejected", "*The tax
+stupid proposal was rejected". However, there are exceptions
+to this: "city clerical worker", "New York municipal
+bonds". For this reason, AN connections closer to the noun
+than A connections (or when no A connection is made) are
+allowed with cost 0; with cost 2, we allow AN connections
+further away than A connections. Nouns therefore have the
+following:
+
+dog:  {@AN-} & {@A- & {[[@AN-]]}} & ...
+
+In general, noun-modifiers may not be plural: "*The taxes
+proposal was rejected", "*I made an eggs sandwich". However,
+one does sometimes see plural noun modifiers: "arms control",
+"sales division", "weapons violations charges". Here again, we
+use the cost system, giving plural nouns "AN+" a cost of 2:
+
+dog: ({@A-} & D- & (S+....)) or AN+
+dogs: ({@A-} & D- & (S+....)) or [[AN+]]
+
+Noun modifiers may also not take determiners or post-nominal
+modifiers: "*The tax on liquor proposal was rejected" (unless
+hyphenated: see "<A HREF="section-A.html">A</A>"). Thus the AN+ on nouns is disjoined 
+from the rest of the expression.
+
+Proper nouns also have an AN+ connector, allowing them to act
+as modifiers to nouns: "The Smith tax proposal was
+rejected". (Proper-noun modifiers are allowed to follow
+ordinary noun modifiers, which is incorrect: "*The tax Smith
+proposal was rejected" is accepted.)
+
+</PRE>
+<A HREF="index.html">Grammar Documentation Page</A>.
+</BODY>
+</HTML>

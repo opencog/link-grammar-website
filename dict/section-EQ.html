@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Guide-to-Links: EQ</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<B><KBD><FONT SIZE="+1">*** Guide-to-Links ***<BR></FONT><FONT SIZE="+4">
+    EQ</FONT></KBD></B>
+
+<p>
+<tt>EQ</tt> is used in parsing equations embedded in scientific text:
+</p>
+
+<PRE>
+                                +-----MVa-----+        
+                                |     +---Xd--+---Xc--+
+            +----Ss----+---Pvf--+     |   +-EQ+-EQ-+  |
+            |          |        |     |   |   |    |  |
+     Phosphorylation was.v observed.v ( P.eq =.v 0.06 ) 
+</PRE>
+
+<p>
+The equals sign is marked as =.v because it behaves in a verb-like
+manner ("the probability is 0.06"). It is also taken to be the
+expression head, and is the point from which the equation connects 
+to the "outside world", using 
+<tt><a href="section-MX.html">MX-</a></tt> or
+<tt><a href="section-MV.html">MVa-</a></tt> links.
+</p>
+<p>
+Expression parsing is fairly constrained and weak: equations must 
+appear within parenthesis. Single letters and numbers can appear
+in equations, as well as nouns, which are treated as "subjects" or
+"objects". The <tt>EQ</tt> link is used only in these parenthetical
+equations; in free text, equals signs, less-than and greater-than
+signs, and similar are treated as synonnyms for the verb "is". In
+the example below, the <tt><a href="section-CV.html">CV</a></tt> link
+connects to the head verb of the dependent clause, in this case, the
+equals sign.
+</p>
+<PRE>
+                 +----CV---+   
+        +---TH---+-Cet-+-Ss+Op+
+        |        |     |   |  |
+    I think    that   x.n =.v 4 
+
+</PRE>
+<p>
+This is similar to how colons are treated:
+</p>
+<PRE>
+       +-----------------WV----------------+       
+       +------Wd------+---------Ss---------+       
+       |              |                    +--Osm-+
+       |              |                    |      |
+   LEFT-WALL  the  capital   of  Germany  :.v Berlin
+
+</PRE>
+<p>
+<A HREF="index.html">Grammar Documentation Page</A>.
+</p>
+</BODY>
+</HTML>

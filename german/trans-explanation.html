@@ -1,0 +1,92 @@
+<html>
+  <head>
+<blockquote>
+<br>
+<TITLE>Translation</TITLE>
+  </head>
+  <body BGCOLOR="#FFFFFF">
+<h2>English-to-German Translation and German Parsing</h2>
+<p>
+
+<p>With version 4.0, we are releasing a simple prototype 
+system for translating English to German. We are also releasing
+a simple German dictionary which can be used for parsing sentences,
+similar to the standard link grammar English dictionary. These 
+materials are found in the directory "translator", parallel to the
+directory "link-4.0" in the ftp directory.
+
+<p><b>The German Dictionary. </b>The German dictionary can be parsed
+like a regular dictionary, in the following fashion.  (This should be
+done from inside the link-4.0 directory. It requires that the
+directories are set up in the same way as in the ftp directory.)
+
+<pre>
+     parse ../translator/german.dict -a ../translator/german.affix -ppoff -coff
+</pre>
+<p>We will not attempt to explain the logic of the German dictionary in
+depth. Obviously it is similar to the English ones in certain ways,
+reflecting similarities between English and German syntax. One
+important
+difference is that in the German dictionary, the "head" of a clause -
+the word which attaches to the outside world - is the finite verb,
+rather
+than the subject noun:
+
+<pre>
+
+    +-------------------W------------------+
+    |      +---------------CO--------------+
+    |      +-------------Xc------------+   |
+    |      +-----------C-----------+   |   |
+    |      |   +---------Si--------+   |   +----Pa----+
+    |      |   |   +---B--+--PPIt--+   |   +-SIi+     |
+    |      |   |   |      |        |   |   |    |     |
+LEFT-WALL als ich ihn gesehen.v habe.v , war.i ich froh.a
+</pre>
+
+<p>This is necessary, because in many cases the finite verb in a
+German clause (e.g. "war" in the sentence above) precedes the subject
+noun, but also connects to a word (a participle or adjective) further
+to the right. Having the subject noun connect to the left of the
+finite verb would prevent this connection. The above sentence
+illustrates another important difference as well: often, the
+link-types found in English grammar appear in inverted forms. Instead
+of an O link connecting a verb to a following direct object, we find a
+B link connecting them in the reverse order (of course B links are
+used also in English, e.g. in relative clauses). We may also find PPI
+links (instead of PP) connecting a form of "have" to a preceding past
+participle, II links (instead of I) connecting a verb to a preceding
+infinitive participle, and so on.
+
+<p>Connector subscripts prove to be extremely useful in the German
+dictionary, to enforce the complex rules of agreement between noun
+and verb forms, articles and nouns, and adjectives and nouns. In the
+case of nouns, for example, we have this:
+
+<pre>
+     (((({@Ae-} & Dnmd-) or ({@Ar-} & Dnmi-)) & (Ss+ or SIs- or (Xd- & Xc+ & MX-))) or
+     ({@An-} & Dam- & (O- or J*a- or B+)) or ({@An-} & Ddm- & (J*d- or JB+)));
+</pre>
+
+<p>Notice that different forms of the "D-" connector are conjoined with
+the S+ / SI-, O-, and J- connectors, indicating that different forms
+of article are needed depending on the case. (J*a- and J*d- indicate
+accusative and dative prepositions, respectively.) Also, different
+forms of adjective (A-) are needed in the nominative case, depending on
+whether the article is definite ("der") or indefinite ("ein").
+
+<p><b>The English to German Translator.</b> The "translator" directory
+also contains a program for translating English into German. The
+program accepts an English sentence as input, and it parses it in the
+usual way. It then turns the resulting linkage into a "linkset"-- an
+unordered set of links. It replaces the English words with German
+equivalents, using "tables" (similar to link grammar dictionaries in
+format) representing these correspondences. It then manipulates the
+links of the linkset, replacing some links with others, adding and
+deleting some, etc., as required by German syntax. Finally, it uses
+the German dictionary (described above) to turn the new German linkage
+back into an ordered sequence of words. Click <a
+href="submit-to-translator.html">here</a> to experiment with the
+online version of the translator; this version also provides a
+tutorial which gives more detail about the workings of the translator.
+

@@ -1,0 +1,428 @@
+<?
+    include("../../format.inc");
+    printHeader("Link Grammar");
+?>
+
+<h2>Link Grammar Parser</h2>
+
+<p>The <a href="http://www.link.cs.cmu.edu/link/">original homepage</a>
+hosted at the Carnegie Mellon University lists an
+<a href="http://www.link.cs.cmu.edu/link/papers/index.html">
+extensive bibliography</a>
+(<a href="link-grammar-biblio.html">mirror</a>) referencing several
+dozen older (pre-2004) papers pertaining to the Link Grammar Parser.
+More recent publications and announcements are listed below.
+</p>
+
+<h3>Recent Applications and Publications</h3>
+<ul>
+<li>Linas Vepstas,
+    <a href="https://github.com/opencog/atomspace/raw/master/opencog/sheaf/docs/ccg.pdf">Combinatory
+    Categorial Grammar and Link Grammar are Equivalent</a>,
+    (July 2022).
+    </li>
+
+<li>Ben Goertzel, Andres Suarez Madrigal, Gino Yu,
+    <a href="https://arxiv.org/abs/2005.12533">Guiding Symbolic
+    Natural Language Grammar Induction via Transformer-Based
+    Sequence Probabilities</a>, (May 2020) arXiv:2005.12533
+    </li>
+
+<li>Vignav Ramesh, Anton Kolonin,
+    <a href="https://ieeexplore.ieee.org/document/9303220">Interpretable
+    Natural Language Segmentation Based on Link Grammar</a>,
+    2020 Science and Artificial Intelligence conference (S.A.I.ence)
+    Novosibirsk, Russia 14-15 Nov. 2020
+    https://doi.org/10.1109/S.A.I.ence50533.2020.9303220
+    </li>
+
+<li>Alex Glushchenko, Andres Suarez, Anton Kolonin, Ben Goertzel, Oleg Baskov,
+    <a href="https://link.springer.com/chapter/10.1007/978-3-030-27005-6_11>Programmatic
+    Link Grammar Induction for Unsupervised Language Learning</a>,
+    International Conference on Artificial General Intelligence,
+    AGI 2019: Artificial General Intelligence pp 111-120.
+    Springer.  Lecture Notes in Computer Science book series
+    (LNCS, volume 11654).  ISBN 978-3-030-27005-6
+    https://doi.org/10.1007/978-3-030-27005-6_11
+    </li>
+    
+<li>Kenneth Samuel, Onur Savas, Vikram Manikonda,
+    <a href="https://www.spiedigitallibrary.org/conference-proceedings-of-spie/10653/2306550/A-framework-for-relationship-extraction-from-unstructured-text-via-link/10.1117/12.2306550.short?SSO=1">A
+    framework for relationship extraction from unstructured text via link
+    grammar parsing</a>, Proceedings Volume 10653, Next-Generation
+    Analyst VI; 106530K (2018) https://doi.org/10.1117/12.2306550
+    Event: SPIE Defense + Security, 2018, Orlando, Florida, United States
+    27 April 2018
+    </li>
+
+<li>Lei Zhang, Yong Yu,
+    <a href="https://pdfs.semanticscholar.org/47eb/a4746a4bd12b2c5e61cce9d0a717617afd0c.pdf">Learning to Generate CGs from Domain Specific Sentences</a>
+     International Conference on Conceptual Structures,
+     ICCS-ConceptStruct 2001: Conceptual Structures: Broadening the Base pp 44-57 
+      Lecture Notes in Computer Science (LNCS, volume 2120)
+    </li>
+
+<li>Jianming Li, Lei Zhang, Yong Yu,
+    <a href="https://pdfs.semanticscholar.org/83ef/a7b9ccca65e45def78d22f845b557bd7b881.pdf">Learning to Generate Semantic Annotation for Domain Specific Sentences</a>
+    Semannot@K-CAP 2001.
+    </li>
+
+<li>Batura T., Bakiyeva A., Yerimbetova A., Mitkovskaya M., Semenova N.
+    "<a href="http://bulletin.iis.nsk.su/article/1607">Methods for
+    constructing natural language analyzers based on link
+    grammar and rhetorical structure theory</a>" // Computer Science. — 
+    2016. — # 40. — P. 37–51. 
+    </li>
+
+<li>Batura T., Murzin F., Semich D., Bakiyeva A., Yerimbetova A.
+    "<a href="http://bulletin.iis.nsk.su/article/1546">On some
+    graphs connected with texts in a natural language, link grammar and the
+    summarization process</a>" // Computer Science. — 2015. — # 38. — P. 37-49. 
+    </li>
+
+<li>Batura T., Murzin F., Bakiyeva A., Yerimbetova A. 
+    "<a href="http://bulletin.iis.nsk.su/article/1479">The methods of
+    estimation of the degree of similarity of sentences in a natural
+    language based on the link grammar</a>" // Computer Science. — 2014.
+    — # 37. — P. 55-69. 
+    </li>
+
+<li>Sajadi, A., Borujerdi, M. “Machine Translation Based on Unification
+    Link Grammar” Journal of Artificial Intelligence Review.
+    DOI=10.1007/s10462-011-9261-7, Pages 109-132, 2013.
+    </li>
+
+<li>Nguyễn Thị Thu Hương, Nguyễn Thúc Hải, Nguyễn Thanh Thủy,
+    "<a href="http://vjs.ac.vn/index.php/jcc/article/view/1451">Parsing
+    complex - compound sentences with an extension of Vietnamese link
+    parser combined with discourse segmenter</a>", Journal of Computer
+    Science and Cybernetics, Vol 28, No 4 (2012) DOI:
+    10.15625/1813-9663/28/4/1451 <a href="https://www.researchgate.net/publication/287444370_Parsing_complex_-_compound_sentences_with_an_extension_of_Vietnamese_link_parser_combined_with_discourse_segmenter">researchgate
+    link</a>
+    </li>
+
+<li>Jeff Elmore,
+    "<a href="http://www.youtube.com/watch?feature=player_embedded&v=Wk8zAr0R9zQ">Parsing
+    sentences with the OTHER natural language tool: LinkGrammar</a>"
+    YouTube video of presentation at the Python Convention, PYCON US 2012  
+    (See also: <a href="https://us.pycon.org/2012/schedule/presentation/187/">
+    the abstract</a>).
+    </li>
+
+<li>Sajadi, A., Abdollahzadeh, A. “Farsi Syntactic Knowledge
+    Representation using Link Grammar”, 2nd The Persian Language and 
+    Computer (Persian Coling), Volume 2, pp 659-684, 2010 (In Farsi)
+    </li>
+
+<li>Lonsdale, Deryle, and Hitokazu Matsushita. "<a href=
+    "http://linguistics.byu.edu/faculty/lonsdaled/lutportal1.pdf">Annotating
+    and exploring Lushootseed morphosyntax.</a>" 44th Annual
+    International Conference on Salish and Neighbouring Languages,(Eds. 
+    John Lyon and Joel Dunham), University of British Columbia Working
+    Papers in Linguistics. Vol. 30. 2011.
+    </li>
+
+<li>Blake Lemoine, 
+    <!-- <a href="http://www.louisiana.edu/~bal2277/NLGen2.doc">-->
+    <a href="./mirrors/NLGen2.doc">NLGen2:
+    A Linguistically Plausible, General Purpose Natural Language Generation
+    System</a> (2009).
+    </li>
+
+<li>Alan Akbik, Jürgen Broß,
+    "<a href="http://ceur-ws.org/Vol-491/semse2009_7.pdf">Wanderlust:
+    Extracting Semantic Relations from Natural Language Text Using
+    Dependency Grammar Patterns</a>" SEMSE 2009
+    </li>
+
+<li>Akshar Bharati, Dipti Misra Sharma, Sukhada,
+    <a href="http://web2py.iiit.ac.in/publications/default/download/inproceedings.pdf.93db111ed0efa931.4d617070696e672d4c47502d696e746f2d50616e696e692d43534154532d30392e706466.pdf">Adapting
+    Link Grammar Parser (LGP) to Paninian Framework
+    Mapping of Parser Relations for Indian Languages</a> (2009)
+    <i>National Seminar on Computer Science and its Applications in Traditional
+    Shastras (CSATS'09) Report No: IIIT/TR/2009/218</i>
+    </li>
+
+<li>Norshuhani Zamin, 
+    "<a href="http://dl.acm.org/citation.cfm?id=1579904">Information Extraction Using Link Grammar</a>",
+    CSIE '09 Proceedings of the 2009 WRI World Congress on Computer
+    Science and Information Engineering - Volume 05 Pages 149-153 
+    </li>
+
+<li>Jorg Hakenberg, <i>et al.</i>
+    <a href="http://www.aclweb.org/anthology/W/W09/W09-1411.pdf">Molecular
+    event extraction from Link Grammar parse trees</a>
+    Proceedings of the Workshop on BioNLP: Shared Task, pages 86–94,
+    Boulder, Colorado, June 2009
+    </li>
+
+<li>Teguh Bharata Adji, Baharum Baharudin, Norshuhani Zamin,
+    "<a href="http://link.springer.com/chapter/10.1007%2F978-3-540-85110-3_3">Applying
+    Link Grammar Formalism in the Development of
+    English-Indonesian Machine Translation System</a>",
+    Intelligent Computer Mathematics, 9th International Conference, AISC
+    2008, 15th Symposium, Calculemus 2008, 7th International Conference,
+    MKM 2008, Birmingham, UK, Proceedings pp 17-23
+    DOI 10.1007/978-3-540-85110-3_3
+    </li>
+
+<li>Qingquan Wang, Lili Rong,	Kai Yu,
+    "<a href="http://dl.acm.org/citation.cfm?id=1444251">Toward
+    a Categorical Link Grammar for Knowledge Piece Generation in
+    Emergency Decision-Making Support</a>", 
+    NCM '08 Proceedings of the 2008 Fourth International Conference on 
+    Networked Computing and Advanced Information Management - Volume 02
+    Pages 732-735.  doi 10.1109/NCM.2008.145
+    </li>
+
+<li>Denis Bechet, 
+    <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.4.2061">k-Valued
+    Link Grammars are Learnable from Strings</a>.
+    2008 Proceedings of FGVienna: The 8th Conference on Formal Grammar.
+    </li>
+
+<li>A.Sajadi and M.Borujerdi, "Syntactic Analysis using Unification Link
+    Grammar", 12th Annual International CSI Computer Conference
+    (CSISC'2007), Shahid Beheshti University, 20-22 February 2007)
+    </li>
+
+<li>Armin Sajadi, Abdollahzadeh, A.,
+    "<a name="http://web.cs.dal.ca/~sajadi/wp-content/uploads/2012/10/sajadi2006.pdf">Farsi
+    Syntactic Analysis using Link Grammar</a>" (In Farsi), 
+    Letter of Research Center of Intelligent Signal Processing, Vol 1(9),
+    25-37 (In Farsi), 2006.
+    </li>
+
+<li>Sajadi, A., Homayounpour, M.,
+    “<a name="http://en.journals.sid.ir/ViewPaper.aspx?ID=196862">Representation
+    of Farsi Morphological Knowledge using Link Grammar</a>” (In Farsi),
+    Letter of Research Center of Intelligent Signal Processing,
+    Vol 1(9), 41-55, 2006.
+    </li>
+
+<li>Filip Ginter, Sampo Pyysalo, Jorma Boberg, and Tapio Salakoski
+    "<a href="http://staff.cs.utu.fi/~ginter/fulltext/ginter06fslg.pdf">Regular
+    Approximation of Link Grammar</a>",
+    FinTAL 2006, LNAI 4139, pp. 564–575, 2006.
+    </li>
+
+<li>Sampo Pyysalo, Tapio Salakoski, Sophie Aubin and Adeline Nazarenko,
+    "<a href="http://www.biomedcentral.com/1471-2105/7/S3/S2">Lexical 
+    Adaptation of Link Grammar to the Biomedical Sublanguage: a 
+    Comparative Evaluation of Three Approaches</a>".
+    BMC Bioinformatics 2006.
+    </li>
+
+<li>Luis Tari and Chitta Baral,
+    <a href="http://www.public.asu.edu/~cbaral/papers/WS505BaralC.pdf">Using
+    AnsProlog with Link Grammar and WordNet for QA with deep reasoning</a>
+    9th International Conference on Information Technology (ICIT'06)
+    pp.125-128  doi.ieeecomputersociety.org/10.1109/ICIT.2006.90
+    </li>
+
+<li>Schneider, Gerold (1998). 
+    "<a href="http://web.archive.org/web/20060831175458/http://www.ifi.unizh.ch/cl/study/lizarbeiten/lizgerold.pdf">A 
+    Linguistic Comparison Constituency, Dependency, and Link Grammar</a>". 
+    Masters Thesis, University of Zurich.
+    </li>
+
+<li>Özlem Istek, Ilyas Cicekli
+    "<a href="http://www.cs.bilkent.edu.tr/~ilyas/PDF/ranlp2007_linkgrammer.pdf">A
+    Link Grammar for an Agglutinative Language</a>", 
+    Proceedings of Recent Advances in Natural Language Processing (RANLP 2007),
+    Borovets, Bulgaria, 2007, pp: 285-290.  (but also EACL-06 Proceedings ??)
+    </li>
+
+<li>Özlem Istek, 
+    "<a href="http://www.cs.bilkent.edu.tr/~ilyas/PDF/THESES/ozlem_istek_thesis.pdf">A
+    Link Grammar for Turkish</a>", Thesis, 2006
+    </li>
+
+<li>Shailly Goyal and Niladri Chatterjee,
+    "<a href="http://www.languageinindia.com/aug2005/hindiparsershailly1.html">Study
+    of Hindi Noun Phrase Morphology for Developing a Link Grammar
+    Parser</a>", <i>Language in India</i>, Volume 5 : 8 August 2005
+    </li>
+
+<li>Fabian M. Suchanek, Georgiana Ifrim, Gerhard Weikum, 
+<!-- 
+    "<a href="http://www.mpi-inf.mpg.de/~suchanek/publications/kdd2006.pdf">Combining
+-->
+    "<a href="http://web.archive.org/web/20081107094505/http://domino.mpi-inf.mpg.de/internet/reports.nsf/NumberView/2006-5-004">Combining
+    Linguistic and Statistical Analysis to Extract Relations from Web
+    Documents</a>" (2006)
+    </li>
+
+<li>P. Szolovits,  
+    "<a href="http://groups.csail.mit.edu/medg/projects/text/amia03c.pdf">Adding 
+    a Medical Lexicon to an English Parser</a>".  <i>Proc. AMIA 2003 Annual
+    Symposium.</i>  Pages 639-643. 2003.
+    </li>
+
+<li>Jing Ding, Daniel Berleant, Jun Xu, Andy W. Fulmer,
+    "<a href="http://web.archive.org/web/20080828001743/http://www.bcb.iastate.edu/courses/JingDing.pdf">Extracting
+    Biochemical Interactions from MEDLINE Using a Link Grammar
+    Parser</a>" Proceedings ICTAI 2003 
+    Proceedings of the 15th IEEE International Conference on Tools
+    with Artificial Intelligence 
+    </li>
+
+<li>Rania A. Abul Seoud, Nahed H. Solouma, Abou-Baker M. Youssef, and
+    Yasser M. Kadah, "<a href="http://ymk.k-space.org/papers/CIBEC06_BI1_8.pdf">PIELG: 
+    A Protein Interaction Extraction System using a Link Grammar Parser 
+    from Biomedical Abstracts</a>".
+    International Journal of Biological, Biomedical and Medical
+    Sciences 3;3 www.waset.org Summer 2008
+    </li>
+
+<li>I. Marshall and E. Safar, 
+    "<a href="http://visicast.co.uk/members/publications/D5-3Review2.pdf">Extraction
+    of semantic representations from syntactic CMU link grammar linkages</a>"
+    </li>
+
+<li>Trude Gentenaar, Job Tiel Groenestege, Ronald Poell,
+    "<a href="http://snt.ronaldpoell.eu/papers/Enhancing.pdf">Enhancement
+    of unstructured and structured information</a>".
+    CLIN 2004 Proceedings Abstract Information Extraction.
+    </li>
+
+<li><a href="http://skripsi.net/informatics/skripsi-syntax-analysis-of-bahasa-indonesia-using-link-grammar-parsing-algorithm">Skripsi: 
+    Syntax Analysis of Bahasa Indonesia using Link Grammar Parsing
+    Algorithm</a> and
+    <a href="http://digilib.its.ac.id/ITS-Master-3100003018397/156">ANALISIS
+    SINTAKSIS BAHASA INDONESIA DENGAN ALGORITMA PENGURAI LINK GRAMMAR</a>
+    </li>
+
+<li><a href="http://www.public.asu.edu/~cbaral/aquaint04-06/site-visit/feb-05/Using%2520LG%2520and%2520WordNet%2520on%2520Travel%2520Domain.ppt">Using
+    LG and WordNet on Travel Domain.ppt</a> (www.public.asu.edu)
+    </li>
+
+<li>Sandra Kubler
+    "<a href="http://www.aclweb.org/anthology-new/W/W98/W98-1203.pdf">Learning
+    a Lexicalized Grammar for German</a>"
+    NeMLaP3/CoNLL '98 Proceedings of the Joint Conferences on New Methods
+    in Language Processing and Computational Natural Language Learning
+    Pages 11-18
+    </li>
+</ul>
+
+<p>
+<h3>Some miscellaneous facts</h3>
+</p>
+<ul>
+<li>Any categorical grammar can be easily converted to a link grammar;
+    see section 6 of Daniel Sleator and Davy Temperley. 1993. 
+    "<a href="http://www.cs.cmu.edu/afs/cs.cmu.edu/project/link/pub/www/papers/ps/LG-IWPT93.pdf">Parsing
+    English with a Link Grammar.</a>"
+    <i>Third International Workshop on Parsing Technologies.</i></li>
+<li>Link grammars can be learned by performing a statistical analysis on
+    a large corpus: see John Lafferty, Daniel Sleator, and Davy Temperley.
+    1992. 
+    "<a href="http://www.cs.cmu.edu/afs/cs.cmu.edu/project/link/pub/www/papers/ps/gram3gram.pdf">Grammatical
+    Trigrams: A Probabilistic Model of Link Grammar.</a>" 
+    <i>Proceedings of the AAAI Conference on Probabilistic Approaches 
+    to Natural Language</i>, October, 1992. 
+    </li>
+</ul>
+
+<h3>Psycholinguistic research on dependency</h3>
+<p>
+There are a number of interesting psychological and experimental 
+analysis of the dependency properties of languages. Below is a
+selection that offers insight.
+</p>
+<ul>
+<li>It turns out that writing an algorithm for a no-crossing minimum
+    spanning tree is surprisingly painful; enforcing the no-crossing
+    constraint requies treatment of a number of special cases. But perhaps
+    this is not actually required! R. Ferrer i Cancho in “Why do syntactic
+    links not cross?”  EPL (Europhysics Letters) 76, 6 (2006), pp.
+    1228-1234. shows that, when attempting to arrange a
+    random set of points on a line, in such a way as to minimize euclidean
+    distances between connected points, one ends up with trees that almost
+    never cross!
+    </li>
+
+<li>Crossings are rare: Havelka, J. (2007). Beyond projectivity: multilingual
+    evaluation of constraints and measures on non-projective structures. In:
+    Proceedings of the 45th Annual Meeting of the Association of
+    Computational Linguistics (ACL-07): 608-615. Prague, Czech Republic:
+    Association for Computational Linguistics. 
+    </li>
+
+<li>Hubbiness is a better model of sentence complexity than mean
+    dependency distance: Ramon Ferrer-i-Cancho (2013) “Hubiness, length,
+    crossings and their relationships in dependency trees”, ArXiv 1304.4086
+    --- also states: maximum number of crossings is bounded above by mean
+    dependency length. Also, mean dependency length is bounded below by
+    variance of degrees of vertexes (i.e. variance in number of connectors a
+    word can have).
+    </li>
+
+<li>Language tends to be close to the theoretical minimum possible
+    dependency distance, if it was legal to re-arrange words arbitrarily.
+    See Temperley, D. (2008). Dependency length minimization in natural and
+    artificial languages. Journal of Quantitative Linguistics,
+    15(3):256-282. 
+    </li>
+
+<li>Park, Y. A. and Levy, R. (2009). Minimal-length linearizations for
+    mildly context-sensitive dependency trees. In Proceedings of the North
+    American Chapter of the Association for Computational Linguistics -
+    Human Language Technologies (NAACL-HLT) conference. 
+    </li>
+
+<li>Sentences with long dependencies are hard to understand: The original
+    claim is from Yngve, 1960, having to do with phrase-structure depth. See
+    -- Gibson, E. (2000). The dependency locality theory: A distance-based
+    theory of linguistic complexity. In Marantz, A., Miyashita, Y., and
+    O'Neil, W., editors, Image, Language, Brain. Papers from the first Mind
+    Articulation Project Symposium. MIT Press, Cambridge, MA. 
+    </li>
+
+<li>(Cite this, its good) Mean dependency distance is a good measure of
+    sentence complexity -- for 20 languages -- Haitao Liu gives overview
+    starting from Yngve. [Liu2008]. Haitao Liu “Dependency distance as a
+    metric of language comprehension difficulty”, 2008, Journal of Cognitive
+    Science, v9.2 pp 159-191 http://www.lingviko.net/JCS.pdf 
+    </li>
+
+<li>Sentences with long dependencies are rarely spoken: Hawkins, J. A.
+    (1994). A Performance Theory of Order and Constituency. Cambridge
+    University Press, Cambridge, UK. ----Hawkins, J. A. (2004). Efficiency
+    and Complexity in Grammars. Oxford University Press, Oxford, UK.
+    ----Wasow, T. (2002). Postverbal Behavior. CSLI Publications, Stanford,
+    CA. Distributed by University of Chicago Press. 
+    </li>
+
+<li>Dependency-length minimzation is universal: Richard Futrell, Kyle
+    Mahowald, and Edward Gibson, “Large-scale evidence of dependency length
+    minimization in 37 languages” (2015), doi: 10.1073/pnas.1502134112
+    </li>
+</ul>
+
+<h3>Of related interest</h3>
+<dl>
+<dt><b>Genia tagger</b>
+<dd>The <a href="http://www-tsujii.is.s.u-tokyo.ac.jp/GENIA/tagger/">Genia 
+    tagger</a> is useful for named entity extraction. BSD license
+    source.
+<dt><b>After the Deadline</b>
+<dd><a href="http://open.afterthedeadline.com">After the Deadline</a> is
+    a GPL-licensed language-checking tool.  If you just want to have
+    your text proof-read, this is probably a good choice.
+</dl>
+
+<hr />
+
+<script src="http://www.google-analytics.com/urchin.js"
+type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-4338066-1";
+urchinTracker();
+</script>
+
+<?
+    printFooter();
+?>

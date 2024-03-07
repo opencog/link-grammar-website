@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Guide-to-Links: CO</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<B><KBD><FONT SIZE="+1">*** Guide-to-Links ***<BR></FONT><FONT SIZE="+4">
+    CO</FONT></KBD></B>
+<PRE>
+CO is used to connect "openers" to subjects of clauses:
+
+             +----------CO------------+
+             |                        |
+1.        Apparently,                  they went to a movie
+2.                 On Tuesday,                     they went to a movie
+3.        Although they were tired,    they went to a movie
+4.          Leaving the kids at home,  they went to a movie
+5.        Abandoned by their parents,  they went to a movie
+6.   Still upset about Joe,          they went to a movie
+
+Various kinds of words have CO+ connectors: adverbs (ex.1),
+prepositions (ex.2), conjunctions (ex.3), participles
+(ex. 4-5), and adjectives (ex.6).
+
+Openers may take commas; almost all words with CO+ therefore
+have "({{Xd-} & Xc+} & CO+)". With participles and adjectives,
+the comma is obligatory; "*Still upset about Joe they went to
+a movie" seems wrong. The Xd- allows a comma before the phrase
+as well as after. This frequently happens if the opener is not
+at the beginning of the phrase: "They claimed that, on
+Tuesday, they went to a movie." If the opener begins the
+sentence, then a comma before the opener is of course
+incorrect, but we allow it. See "<A HREF="section-X.html">X</A>: Comma phrases".
+
+Nouns have optional @CO- connectors, conjoined with their
+C- and W- connectors, conjoined in turn with S+:
+
+        dog: ...({({@CO-} & (W- or C-)) or R-} & S+) or O- or J-...)
+
+(This expression is explained further below.)  Thus a CO link
+always has the subject of a clause on the right.
+
+Notice that the CO- on nouns carries "@": it is a
+"multi-connector", allowing an indefinite number of
+connections. In some cases, non-initial openers seems more
+like interrupters than openers, but the parser usually treats
+them as openers. In cases like this one, however, the second
+opener may also be treated as a post-verbal modifier of the
+first opener.
+
+        On Tuesday, leaving their kids at home, apparently,
+               they went to a movie
+
+<B>Openers on Different Kinds of Clauses</B>
+There are constraints on the way clauses can take
+openers. Main clauses can always take openers (ex. 1 below),
+as can subordinate and embedded clauses (ex. 2 and 3);
+relative clauses can only do so if they involve a relative
+pronoun (ex. 4 and 5); indirect questions cannot (ex. 6):
+
+        1. Screaming furiously, Fred left the room
+        2. I was about to leave when, screaming furiously,
+                Fred attacked me
+        3. I told her that, after the party, I would meet her
+        4. This is the man who, in some ways, I would like to hire
+        5. *This is a man, in some ways, I would like to hire
+        6. *I wonder who, on Tuesday, Jane had lunch with
+
+This is controlled by the fact that these clauses make
+different kinds of connections. Main clauses make a W
+connection to the left (usually to the wall); embedded and
+subordinate clauses make a C connection (to a subordinating conjunction
+or a verb or adjective). (In all these cases, the connection is made
+through the subject of the clause.) Indirect-question subjects have no
+left-branching connector at all. Relative clause subjects make
+C connections when a relative pronoun is present; otherwise
+they make R connections to the previous noun. Note that in the
+above expression for "dog", C- and W- are conjoined with CO+;
+R- is not.  Thus, when a noun subject is making a R-
+connection backwards, or when it is making no connection at
+all, it may not take an opener. Therefore ex. 5 and 6 are
+rejected.
+
+Questions and imperatives occasionally take openers, but this
+is rare.  Openers on questions and imperatives are rejected by
+our system; there is no way for the opener phrase to connect.
+
+A further distinction is necessary here. Participle phrases
+can modify main clauses as openers; they are very rarely
+found, however, on dependent clauses (either embedded or
+subordinate).
+
+        Shouting loudly, Fred ran out of the room
+        *Jane told us how shouting loudly, Fred ran out of the room
+        *Jane left the party after shouting loudly, Fred ran
+                out of the room
+
+For this reason we give participle phrases COp+; we then create
+two CO- connectors on nouns, one conjoined with W-, the other
+with C-. The one with C- is subscripted COd-:
+
+        {({@CO-} & W-) or ({@COd-} & C-) or R-} & S+
+
+<B>Participles as Openers</B>
+A further point is needed about participle openers. They
+appear to take complements in the same manner as ordinary
+participles. There is a problem here, however. While
+participles normally make a connection to the left to an
+auxiliary, they sometimes make a further-left connection to a
+fronted object, for example:
+
+              +-------B------+
+              |    +---Pg----+
+              |    |         |
+        What book are you reading
+
+For this reason, the Pg- or Pv- on participles must be to the left
+of the complement expression on participles. However, openers may
+not be used in this way. Moreover, on openers, the CO+
+connector (directly disjoined with the Pg- or Pv-) must be
+made further to the right than any complement connections:
+
+           +----------CO---------+
+           +---+                 |
+           |   |                 |
+        Saying he was innocent, John left the room
+        Angered by what he saw, John left the room
+
+           +------------------------+
+           +--CO--+                 |
+WRONG:     |      |                 |
+       *Saying,  John left the room he was innocent
+       *Angered, John left the room by what he saw
+
+Here, then, the CO+ must be to the right of the complement
+connectors on the expression. For this reason, we must fully
+disjoin the CO+ and Pg+/Pv+ connectors on passive and progressive
+participles.  This is necessary in any case for progressive
+participles in the case of gerunds; for gerunds, also, the S+
+must be to the right of the complement connectors on the
+expression. (See "<A HREF="section-S.html">S</A>s#g".) We also directly disjoin COp+ here
+with MVx- (used for comma participle phrases modifying verbs),
+and MX*p- (used for comma participle phrases modifying nouns).
+
+hitting: (Pg- & (O+...))   or    (O+...) & (Ss*g+ or COp+ or
+                                    MVx- or MX*p-);
+
+angered: (Pv- & {@MV+})    or    ({@MV+} & (COp+ or MVx- or MX*p-);
+
+<B>COq</B>
+COq is used for "paraphrasing" verbs, inserted as openers:
+"After dinner, he said, he left." See "<A HREF="section-CP.html">CP</A>". It might be argued
+that "he said" is really an "interrupter" here, not a opener:
+it cannot be used unless there is another opener preceding
+it. ("*He said, he left" seems wrong.) We treat it as an
+opener; however, in this case we do require a comma both
+before and after the paraphrasing expression, thus preventing
+this false positive in another way.
+
+COqi is used for paraphrasing verbs which require "filler-it"
+as subject; see "<A HREF="section-SF.html">SF</A>: filler-it".
+
+</PRE>
+<A HREF="index.html">Grammar Documentation Page</A>.
+</BODY>
+</HTML>

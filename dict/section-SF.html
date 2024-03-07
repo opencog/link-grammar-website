@@ -1,0 +1,341 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Guide-to-Links: SF</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<B><KBD><FONT SIZE="+1">*** Guide-to-Links ***<BR></FONT><FONT SIZE="+4">
+    SF</FONT></KBD></B>
+<PRE>
+SF is a special subject link-type used for certain "filler" subjects
+like "it" and "there". It interacts heavily with
+post-processing.  Post-processing is used both to enforce that
+certain predicates may not be used with "filler" subjects, and
+also that certain predicates may only be used with such
+subjects. SF is also used with a few special phrases like "to"
+and "that" phrases when used as subjects.
+
+     <B>Contents</B>
+     1. "Filler-it"
+     2. Constraints on "filler-only" phrases
+     3. "There" as a subject: SFst and SFp
+     4. Special subjects: SFsx
+
+<B>"Filler-it"</B>
+Many verbs and adjectives take complements like "to+infinitive"
+or "that+clause" (see "<A HREF="section-TO.html">TO</A>";
+see "<A HREF="section-TH.html">TH</A>"):
+
+	1. I expect that he will go
+	2. I am glad that he is going
+	3. He wants to go
+	4. He is eager to go
+
+However, there are certain adjective-complement and
+verb-complement phrases that may only be used with the subject
+"it".
+
+	5. It is likely that Jane will go
+	6. *Jane is likely that Jane will go
+	7. It seems that Jane should go
+        8. *Jane seems that Jane should go
+	9. It was suggested that Jane would go
+        10. *Jane was suggested that Jane would go
+	11. It is important to go
+        12. *Jane is important to go
+
+It can be seen in the dictionary that the verbs and adjectives
+on the left of "that" in exs. 5-10 - "seems", "likely" - have
+specially subscripted THi+ connectors, unlike "expect" and
+"glad" which have unsubscripted TH+ connectors. Moreover,
+"wants" and "eager" have TO+ connectors; "important" has,
+instead, a "TOi+" connector.  "It" also has a special "SFsi+"
+connector; verbs which "It" may connect to directly are given
+"SFs-" connectors, disjoined with their "S-". ("It" also has
+an ordinary "Ss+" connector; see below). Thus the connectors
+that may only be used with "it", as well as "it" itself, are
+marked with special connectors. We use this information in
+post-processing to make the distinctions noted above. 
+
+Recall that post-processing divides the links of a sentence
+into groups, corresponding roughly to subject-verb
+expressions.  In post-processing, we insist that any group
+which contains a THi link or a TOi link must contain an SFsi
+link.  In this way, we are able to reject ex. 6 above while
+accepting ex. 5.
+
+	+SFsi+--Paf-+-THi+--Ce+-S(e)-+I(e)+
+	|    |      |    |    |      |    |
+	It  is   likely that Jane  will  go
+
+	+-Ss-+--Paf-+-THi+--Ce+-S(e)-+I(e)+
+	|    |      |    |    |      |    |
+      *Jane  is   likely that Jane  will  go
+
+Of course, "it" may also be used referentially, as an ordinary
+pronoun: "It is black with a long tail". Thus "it" has the
+following:
+
+	it: SFsi+ or Ss+ or O- or J-;
+
+A sentence like ex. 5 will thus get two parses, one with 
+SFsi and one with Ss; the one with Ss will be rejected.	This
+is not merely vanity, but has an important function, as
+described below.
+
+There are a number of other verb-complement situations where
+"filler-it" is required as the subject. In all such cases,
+the complement connector is given an "i" subscript, and
+post-processing is used in the manner described above. These
+include "Ci", used for embedded clauses without "that" ("It is
+likely he'll do it"); "QIi", used in indirect questions ("It
+is clear who did it"); CPi, Eqi, and COqi, used in
+paraphrasing expressions ("She left, it seems"); TSi, used for
+subjunctive clauses ("It is important that she go"; and O#i,
+used in the construction "It is [object] who...".
+
+<B>Constraints on "Filler"-Only Phrases</B>
+Predicate phrases that may only be used with "it" as the
+subject, such as "likely that" and "important to", might be
+described as "filler-only".  There are other constraints on
+the way such phrases are used, beside the fact that "it" must
+be the subject. Only certain verbs and adjectives may be
+combined with them:
+
+	*It seems to be likely that Jane will go
+	*It is glad to be likely that Jane will go
+
+Thus, as well as enforcing that "it" is the subject of such
+phrases, we must ensure that they are not used in combination
+with predicates like "glad" and "wants to". Another way of
+thinking about this is that there is a "filler-it" which may
+not be used with "referential-only" predicates and a
+referential-"it" which may not be used with "filler-only"
+predicates. This is in fact the approach we use. The "S+"
+connector on "it" corresponds to referential uses, the "SF+"
+to "filler" uses.  We have already insisted that "filler-only"
+predicates (like "likely that") are not used with "S"; we now
+must require that "referential-only" phrases are not used with
+"SF".  This is again enforced with post-processing rules. The
+verb and adjective connectors (I, PP, Pg, Pa, Pv) on the verbs
+and adjectives that may be used with "filler-it" ("be",
+"seem") are subscripted with "f" (yielding If, PPf, Pgf, Paf,
+Pvf); all others, like those on "want" and "glad", are left
+unsubscripted. (Note that "it" can only make a direct SF
+connection to certain verbs anyway; thus the use of
+"filler-it" is partially controlled at the linkage level.)
+Post-processing rules then dictate that when an SFsi is
+present in a group, the only forms of verb connectors (I, PP,
+Pg, Pa, and Pv) which are allowed are those subscripted with
+an "f". The following linkage is thus rejected, because the
+group containing an SFsi also contains unsubscripted "Pa" and
+"TO" links.
+
+        +SFsi+-Pa-+-TO+If+-Paf-+-THi-+--Ce+S(e)+I(e)+
+        |    |    |   |  |     |     |    |    |    |
+       *It  is  glad to  be likely that  Joe  will go
+
+Many sentences with "it" receive two parses, one with "S" and
+one with "SF". The above sentence, for example, also receives
+this linkage:
+
+        +-Ss+-Pa-+-TO+If+-Paf-+-THi-+--Ce+S(e)+I(e)+
+        |   |    |   |  |     |     |    |    |    |
+       *It is  glad to  be likely that  Joe  will go
+
+This linkages is also rejected, however, because the "THi"
+requires an "SFsi". If a sentence contains "filler"-only links
+(in a group with "it"), the "S" parse will be invalid; if it
+contains referential-only links, the "SF" parse will be
+invalid. In this case, then, one linkage fails to meet the
+"SF" requirements, the other fails to meet the "S"
+requirements, and the sentence is rejected.
+
+Note that the division of the sentence into domains is
+essential here. Consider the sentence 
+
+        +SFsi+-Paf+THi-+--Ce-+S(e)+If(e)+Pa(e)+TO(e)+I(e)+
+        |    |    |    |     |    |     |     |     |    |
+	It  is likely that Jane will    be  glad   to   go
+
+If the sentence were not divided into domains, the
+post-processing rules would see that there are unsubscripted
+"Pa", "TO" and "I" links, which are incompatible with "SFsi"
+(as well as a THi link, incompatible with the "S" usage of
+"it"); thus the sentence would be rejected. With domains,
+however, the parser knows that "THi" goes with "It" and "glad
+to go" goes with "Jane", and everything is okay. The same
+thing applies also, of course, with relative clauses,
+subordinate clauses, and the like: "the weather was terrible,
+but we thought it was likely that Jane, who was an excellent
+sailor, would get the boat safely back to the shore". Such
+constructions would obviously wreak havoc with post-processing
+rules unless the clauses were clearly demarcated.
+
+The same applies with sentences with "to":
+
+        +SFsi+--Paf--+-TOi-+I(e)-+
+        |    |       |     |     |
+	it   is important to    go
+
+In this case, the "TOi" on "important" must begin a new
+domain, so that the post-processor knows that "go" does not
+relate to "filler-it" (with which it is incompatible). The
+tricky thing here is that "adjective+to" constructions do not
+always start new domains: in sentences like "He is ready to
+go", the infinitive clearly relates to the subject preceding
+the adjective. For such adjectives, we use unsubscripted
+TO. (Note that there are a few adjective-infinitive
+constructions, such as "certain" and "likely", that do not
+start new domains with "to", but which are compatible with
+"filler-it": "It is certain to be important to go". Such
+adjectives take "TOf".)
+
+<B>"There" as a subject: SFst and SFp</B>	
+SFst and SFp are used when "there" is acting as a subject:
+
+          +-SFst-+
+	  |      |
+	There seems to be a problem.
+
+          +-SFp-+
+          |     |
+	There seem to be problems.
+
+"There" therefore has "SFst+ or SFp+"; verbs which can connect
+directly to "there" have "SFst-" or "SFp-", as appropriate.
+It may seem odd to distinguish between singular and plural
+"there", since the forms are the same; this relates to
+post-processing.
+
+There are constraints on the way "there" can be used as a
+subject, which are enforced mainly through post-processing.
+This is similar to the case of "filler-it", only simpler. Like
+"filler-it", "there" is compatible only with certain verbs and
+adjectives:
+
+	There seems to have been a problem
+	There might appear to be a problem
+	*There is eager to be a dog
+	*There wants to try to be a dog
+
+These are precisely the verbs and adjectives that are
+compatible with "filler-it".  These verbs have already been
+specially subscripted; post-processing rules enforce that
+groups which contain unsubscripted links of these types
+may not also contain a "SFsi" (used with "filler-it").  Thus
+we simply make such links incompatible with "SFst" and
+"SFp" as well. In this way, we prohibit incorrect sentences
+like those above. (See "<A HREF="section-SF.html">SF</A>: Filler-it".)  Note, however, that,
+unlike "it", "there" is always a "filler" subject; it
+therefore has no ordinary "S+" connector.
+
+There are other constraints on "there". The "filler-only"
+phrases used with "it" (likely that, important to) may not be
+used with "There": "*There is likely that Jane is
+coming". Moreover, when "there" is acting as a subject, there
+must be an object in the clause ("*There seems to be likely"),
+and there must be number agreement between the object and the
+verb ("*There seem to be a dog here"). This is again enforced
+through post-processing. Forms of the verb "be" have O*t+
+connectors. "O-" connectors on singular nouns (used in
+ordinary direct-object links: see "<A HREF="section-O.html">O</A>") are given "s"
+subscripts; those on plural nouns have "p" subscripts.  When a
+form of "be" connects to an Os- or Op- connector on a noun, an
+Opt or Ost link is thus created:
+
+          +-SFp-+            +-Ost-+
+          |     |	     |     |
+      *	There seem to have been a dog here
+
+          +-SFst+             +-Ost-+
+          |     |	      |     |
+	There seems to have been a dog here
+
+PP rules then dictate that every SFst must have an Ost in its
+group and every SFp must have an Osp in its group. In the
+process, we also ensure that phrases used with "filler-it",
+like "likely that", do not occur with "there"; it turns out
+that there is no way for a group to contain a direct object
+and an predicative adjectival phrase like "likely that" at the
+same time.
+
+As discussed with "it", the use of post-processing domains is
+important here. Some nouns take "to" phrases as complements:
+"There was an effort to revive the bill".  A verb like
+"revive" in this case is fine, because it does not relate to
+the subject "there" ("*There seems to have revived the
+bill"). But in order for the post-processing rules to know
+this, the TOn link from the noun ("an EFFORT TO revive") must
+begin a new group, letting the parser know that a new subject
+is in force.
+
+<B>"Special Subjects": SFsx</B>
+SFsx is used for a few phrases that can act as subjects under
+rather constrained circumstances: "that"-clause phrases,
+"to"-infinitive phrases, and "where-when-why" phrases.
+
+          +-------SFsx-----+
+          +Ce-+-S--+       |
+	  |   |    |       |
+	That Joe  is angry is not surprising
+
+	 +------SFsx------+
+         +-I--+           |
+	 |    |           |
+	To invite Bill would be a mistake		
+
+	  +------SFsx---+
+	  +--Cs-+       |
+          |     |       |
+	Where they went is a mystery
+
+In each case, the subject phrase is a kind of phrase that
+occurs frequently as a verb complement. Thus we simply
+directly disjoin and conjoin "SFsx+" on the head word with
+whatever connectors are used for verb complements. With
+"that", for example:
+
+	that: Ce+ & (TH- or SFsx+)
+
+As with gerunds, constructions of this kind seem to vary quite
+gradually in their grammaticality (See "<A HREF="section-S.html">S</A>s#g").  However, they
+are much rarer than gerunds, and seem much more constrained.
+
+	Finishing college would make you more marketable
+	?To finish college would make you more marketable
+	The graduating of Fred changes the situation
+	?That Fred graduated changes the situation
+	
+Most often, such special subject phrases are used with the
+verb "be" and a few other verbs and adjectives ("seem",
+"appear", "likely"). these are the same predicates that may be
+taken by "filler-it" and "there". We already have a system in
+place in post-processing for restricting the predicates used
+with "filler-it" and "there" (which use "SFsi" and "SFst",
+respectively). (See "<A HREF="section-SF.html">SF</A>: Filler-it".)  For now, then, we
+simply apply those same constraints to "SFsx". (As with
+"there", we allow forms of "be" to take direct objects under
+these circumstances: "That John graduated is a problem".)
+This solution could probably be improved, however.
+
+There are further constraints on the use of "special
+subjects". They may not occur in relative clauses (ex. 1), and
+they may not invert with their auxiliary (exx. 2-3).
+
+	*The problem that John graduated is is very large
+	*Is that John graduated a problem?
+	*Is to graduate a good idea?		
+
+To solve the first problem, we give special subjects a
+restricted "clause" expression conjoined with their "SF+"
+connectors, omitting the "R-" connector which is conjoined
+with S+ on ordinary nouns. To solve the second problem, we
+simply do not give special subjects "SFI-" connectors.
+
+SFsic is used with comparatives; see "<A HREF="section-MV.html">MV</A>: Comparatives III".
+
+</PRE>
+<A HREF="index.html">Grammar Documentation Page</A>.
+</BODY>
+</HTML>

@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Guide-to-Links: R</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<B><KBD><FONT SIZE="+1">*** Guide-to-Links ***<BR></FONT><FONT SIZE="+4">
+    R</FONT></KBD></B>
+<PRE>
+R connects nouns to relative clauses. In subject-type
+relatives, it connects to the relative pronoun. In object-
+type relatives, it connects either to the relative pronoun
+or the subject of the relative clause if the relative pronoun is
+omitted.
+
+             +-----B------+
+             +-R--+C-+-S--+    
+             |    |  |    |                       
+     1. The dog  who I chased was black
+
+	     +----B----+
+	     +-R-+-RS--+
+             |   |     |
+     2. The dog who chased me was black
+
+             +--B------+
+             +-R-+--S--+
+             |   |     |
+     3. The dog  I  chased was black
+
+Consider the following simplified expressions:
+
+	dog: ...(R+ & B+)... & (({C- or R-} & S+) or O+ or...);
+	who: R- & (C+ or RS+);
+
+When a relative pronoun makes a R connection back to a main
+noun, it must make either a C connection to the subject of a
+new clause (in an object-type relative - ex.1 above), or a RS
+connection to a finite verb (in a subject-type relative -
+ex. 2 above). Note that, conjoined with their S+ connectors,
+nouns have not only C- but R-.  Thus, in object-type
+relatives, the main noun can connect directly to the subject
+of the relative clause; no relative pronoun is necessary
+(ex. 3 above).
+
+(Whereas the C- on nouns is conjoined with CO-, allowing
+openers, the R- on nouns is not: "*The man apparently John
+likes is here".)
+
+As well as taking a relative clause, nouns may take modifiers
+such as prepositional or participle phrases. Thus nouns have
+
+        ...{@M+} & {R+ & B+ & {[[@M+]]}}...
+
+This allows nouns to take one or more modifiers before the
+relative clause; with cost 2, they can also take modifiers
+after the relative clause (this is rare). (See "<A HREF="section-M.html">M</A>: 'M'
+modifiers used with relative clauses".)  We do not allow a
+noun to take multiple relative clauses. These sound all right
+in some cases ("The movie I saw that I told you about"), but
+in practice seem to be extremely rare.
+
+<B>Other Words with "(R+ & B+)"</B> 
+Some pronouns and determiners which act as noun phrases have a
+"R+ & B+" complex also: "ALL who apply for the job will be
+considered", "We need SOMEONE who can program well".
+
+Relative clauses may also occur within commas ("Dave, who you
+met yesterday, is here". In this case, however, a very
+different structure is formed. See "<A HREF="section-MX.html">MX</A>#r".
+
+<B>Relative Clauses and Post-Processing</B> 
+When a relative clause is created, an 'r' domain is begun, by
+the R link between the main noun and relative pronoun. This
+'r' domain spreads through the relative clause, and then
+through the B link hooking back to the main noun.
+
+             +-----------S-------+
+	     +-----B(r)-+        |
+	     +R(r)+RS(r)+-O(r)+  |
+             |    |     |     |  |
+	The dog  who chased  me was black        
+
+The point of the 'r' domain is to include all the links
+involved in the relative clause.  By ordinary domain logic,
+however, after spreading back through the B link, the domain
+would then continue to spread to the S link in the main clause
+and everything else to the right. This is clearly
+undesireable. We therefore create a special list of
+"restricted links" in post-processing. These are links through
+which domains are traced no further, when they extend back to
+the left of the root word (the word on the left end of the
+domain-starting link: the main noun, in this case).
+
+<B>Cycles in Relative Clauses</B>
+It will be noted that the linkages of relative clauses involve
+"cycles"; more links are present than are necessary to
+simply connect all the words.  Why is the cycle needed? In
+object-type relatives, it seems natural for the main noun to
+connect to the verb of which it is the implied object. But by
+requiring a connection to the subject of the relative clause
+as well, we can prevent question inversion at the linkage
+stage ("*The dog did Jane chase was black"); hence the C+ on
+relative pronouns.  Once we require the relative pronoun to
+connect to the right in object-type relatives, we must let it
+connect to the right in subject-type relatives as well; hence
+the "RS" connector. (There is another motivation for the RS
+connector, involving embedded clauses within relatives: see
+"<A HREF="section-RS.html">RS</A>".)
+
+As always with cycles, however, there is a danger here of
+strange ill-formed sentences arising, such as "The dog I died
+Jane chased was black". To prevent this, we include Bp and Bs
+in a list of "MUST_FORM_A_CYCLE" links.  Post-processing then
+insists that these links can only be used in cycles.
+
+<B>Special Uses of R</B>
+It was mentioned that R is used when the noun connects to the
+subject of the relative clause rather than to the relative
+pronoun.  R is also used for transitive infinitival phrases
+following nouns: "The TEAM TO beat is Miami". This
+construction is very rare and is given a cost of 2.
+
+There are certain modifiers which may precede noun-phrases
+(even pronouns), like "even" and "only". 
+
+	  +----------------RW---------------+
+	  +--Wd-+-Rx+--Sp-+---I--+--Os-+    |
+	  |     |   |     |      |     |    |
+	///// only you would.v say.v that ///// 
+
+These are not openers: they cannot be followed by a comma
+("*Only, you would say that"), and they can be used in
+relative clauses ("That is a face only a mother could
+love"). Since the R- on nouns is disjoined with CO-, it is
+convenient to use it in these cases. "Even" and "only" thus take
+R+, connecting to following subject; they then make another
+R link to the antecedent in relative clauses, and a C or W
+link to the left in other kinds of clauses. The R- and the R+
+on "even"/"only" are subscripted differently, as Re and Rx, to
+prevent "*...a face only only a mother could love".
+
+
+"Rw" is used similarly to Ct, Cta, and Rn to link question words to
+the relative clauses that follow them.
+
+For auxillary verbs, one has "(Rw- or Q-}".
+For nouns and others, one uses "(Rw+ & B*m+)" (for any *)
+For who,what,which,whom, one uses "(R+ & B*+)" (for any *)
+
+      +-------Bsw-----+    
+      |     +----PP---+    
+      +--Rw-+SIp*+    |    
+      |     |    |    |    
+     what  have  I  done ? 
+
+<B>See also:</B>
+* <B><A HREF="section-M.html">Mj: Prepositional-object relative clauses</A></B>
+
+
+</PRE>
+<A HREF="index.html">Grammar Documentation Page</A>.
+</BODY>
+</HTML>

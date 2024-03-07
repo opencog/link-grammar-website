@@ -1,0 +1,963 @@
+<?
+    include("../../format.inc");
+    printHeader("Link Grammar");
+?>
+
+<h2>Link Grammar Parser</h2>
+<hr />
+
+<h3>News</h3>
+
+<p>March, 2023: <a href="#download">link-grammar 5.12.3 released!</a> 
+<i>This release fixes several rare thread-related issues, including one
+involving regex. Disables aspell by default; aspell leaks memory!
+Includes new optimizations for the AtomSpace dictionary.</i>
+See below for a description of other changes in this release.
+</p>
+<h3>What is Link Grammar?</h3>
+
+<p>The Link Grammar Parser exhibits the linguistic (natural language)
+structure of English, Thai, Russian, Arabic, Persian and limited subsets
+of a half-dozen other languages. This structure is a graph of typed
+links (edges) between the words in a sentence. One may obtain the
+more conventional HPSG (constituent) and dependency style parses
+from Link Grammar by applying a collection of rules to convert to
+these different formats. This is possible because Link Grammar goes
+a bit "deeper" into the "syntactico-semantic" structure of a sentence:
+it provides considerably more fine-grained and detailed information
+than what is commonly available in conventional parsers.
+</p>
+
+<p>The theory of Link Grammar parsing was originally developed in 1991
+by Davy Temperley, John Lafferty and Daniel Sleator, at the time
+professors of linguistics and computer science at the Carnegie Mellon
+University.  The three initial publications on this theory provide the
+best introduction and overview; since then, there have been hundreds
+of publications further exploring, examining and extending the ideas.
+</p>
+
+<p>Although based on the 
+<a href="https://www.link.cs.cmu.edu/link/">original Carnegie-Mellon code
+base</a>, the current Link Grammar package has dramatically evolved and is
+profoundly different from earlier versions.  There have been innumerable
+bug fixes; performance has improved by more than an order of magnitude.
+The package is fully multi-threaded, fully UTF-8 enabled, and has been
+scrubbed for security, enabling cloud deployment.  Parse coverage of
+English has been dramatically improved; other languages have been added
+(most notably, Thai and Russian). There is a raft of new features,
+including support for morphology, dialects, and a fine-grained weight
+(cost) system, allowing vector-embedding-like behaviour. There is a
+new, sophisticated tokenizer tailored for morphology: it can offer
+alternative splittings for morphologically ambiguous words.
+Dictionaries can be updated at run-time, enabling systems that perform
+continuous learning of grammar to also parse at the same time. That is,
+dictionary updates and parsing are mutually thread-safe. Classes of
+words can be recognized with regexes. Random planar graph parsing is
+fully supported; this allows uniform sampling of the space of planar
+graphs.
+</p>
+
+<p>The latest addition is an experimental sentence generator; it is
+being used in the <a href="https://github.com/opencog/learn">OpenCog
+Language Learning</a> project, which aims to automatically learn Link
+Grammars from corpora, using brand-new and innovative information
+theoretic techniques, somewhat similar to those found in artificial
+neural nets (deep learning), but using explicitly symbolic representations.
+</p>
+
+<h3>Quick Overview</h3>
+<p>
+The parser includes API's in various different programming languages,
+as well as a handy command-line tool for playing with it.  Here's some
+typical output:
+</p>
+<pre>
+              linkparser&gt; This is a test!
+                 Linkage 1, cost vector = (UNUSED=0 DIS= 0.00 LEN=6)
+              
+                  +-------------Xp------------+
+                  +----->WV-----&gt;+---Ost--+   |
+                  +---Wd---+-Ss*b+  +Ds**c+   |
+                  |        |     |  |     |   |
+              LEFT-WALL this.p is.v a  test.n !
+              
+              (S (NP this.p) (VP is.v (NP a test.n)) !)
+              
+                          LEFT-WALL    0.000  Wd+ hWV+ Xp+
+                             this.p    0.000  Wd- Ss*b+
+                               is.v    0.000  Ss- dWV- O*t+
+                                  a    0.000  Ds**c+
+                             test.n    0.000  Ds**c- Os-
+                                  !    0.000  Xp- RW+
+                         RIGHT-WALL    0.000  RW-
+</pre>
+<p>
+This rather busy display illustrates many interesting things. For
+example, the <kbd>Ss*b</kbd> link connects the verb and the subject, and
+indicates that the subject is singular.  Likewise, the <kbd>Ost</kbd> link
+connects the verb and the object, and also indicates that the object
+is singular. The <kbd>WV</kbd> (verb-wall) link points at the head-verb of
+the sentence, while the <kbd>Wd</kbd> link points at the head-noun. The
+<kbd>Xp</kbd>
+link connects to the trailing punctuation. The <kbd>Ds**c</kbd> link connects
+the noun to the determiner: it again confirms that the noun is singular,
+and also that the noun starts with a consonant. (The <kbd>PH</kbd> link, not
+required here, is used to force phonetic agreement, distinguishing
+'a' from 'an').  These link types are documented in the
+<a href="http://www.abisource.com/projects/link-grammar/dict/index.html">
+English Link Documentation</a>.
+</p>
+<p>
+The bottom of the display is a listing of the "disjuncts" used for
+each word. The disjuncts are simply a list of the connectors that
+were employed to form the links. They are particularly interesting
+because they serve as an extremely fine-grained form of a "part of
+speech" or "grammatical category", although they also can be interpreted
+as 
+"<a href="https://en.wikipedia.org/wiki/Selection_(linguistics)">semantic
+selections</a>".
+Thus, for example: the disjunct <kbd>S- O+</kbd> indicates a
+transitive verb: its a verb that takes both a subject and an object.
+The additional markup above indicates that 'is' is not only being used
+as a transitive verb, but it also indicates finer details: a transitive
+verb that took a singular subject, and was used (is usable as) the head
+verb of a sentence.  The floating-point value is the "cost" of the
+disjunct; it very roughly captures the log-likelihood of this particular
+grammatical (and semantic!) usage.  Much as parts-of-speech correlate
+with word-meanings, so also fine-grained parts-of-speech correlate with
+much finer distinctions and gradations of meaning.
+</p>
+<p>
+The link-grammar parser also supports morphological analysis. Here is
+an example in Russian:
+</p>
+<pre>
+              linkparser&gt; это теста
+                 Linkage 1, cost vector = (UNUSED=0 DIS= 0.00 LEN=4)
+              
+                           +-----MVAip-----+
+                  +---Wd---+       +-LLCAG-+
+                  |        |       |       |
+              LEFT-WALL это.msi тест.= =а.ndnpi
+</pre>
+
+<p>
+The <kbd>LL</kbd> link connects the stem 'тест' to the suffix 'а'. The
+<kbd>MVA</kbd>
+link connects only to the suffix, because, in Russian, it is the
+suffixes that carry all of the syntactic structure, and not the stems.
+The Russian lexis is
+<a href="http://www.abisource.com/projects/link-grammar/russian/doc/">
+documented here</a>.
+</p>
+
+<p>
+The Thai dictionary is now fully developed, effectively covering the
+entire language.  An example in Thai:
+</p>
+<pre>
+            linkparser&gt; นายกรัฐมนตรี ขึ้น กล่าว สุนทรพจน์
+               Linkage 1, cost vector = (UNUSED=0 DIS= 2.00 LEN=2)
+            
+                +---------LWs--------+
+                |           +<---S<--+--VS-+-->O-->+
+                |           |        |     |       |
+            LEFT-WALL นายกรัฐมนตรี.n ขึ้น.v กล่าว.v สุนทรพจน์.n
+</pre>
+
+<p>
+The <kbd>VS</kbd> link connects two verbs 'ขึ้น' and 'กล่าว' in a serial verb
+construction. A summary of link types is
+<a href="https://github.com/opencog/link-grammar/tree/master/data/th/README.md">
+documented here</a>. Full documentation of Thai Link Grammar can be
+<a href="https://github.com/opencog/link-grammar/tree/master/data/th/LINKDOC.md">
+found here</a>.
+</p>
+
+<p>
+Thai Link Grammar also accepts POS-tagged and named-entity-tagged
+inputs. Each word can be annotated with the Link POS tag. For example:
+</p>
+<pre>
+            linkparser&gt; เมื่อวานนี้.n มี.ve คน.n มา.x ติดต่อ.v คุณ.pr ครับ.pt
+            Found 1 linkage (1 had no P.P. violations)
+               Unique linkage, cost vector = (UNUSED=0 DIS= 0.00 LEN=12)
+            
+                                      +---------------------PT--------------------+
+                +---------LWs---------+---------->VE---------->+                  |
+                |           +<---S<---+-->O-->+       +<--AXw<-+--->O--->+        |
+                |           |         |       |       |        |         |        |
+            LEFT-WALL เมื่อวานนี้.n[!] มี.ve[!] คน.n[!] มา.x[!] ติดต่อ.v[!] คุณ.pr[!] ครับ.pt[!]
+</pre>
+
+<p>
+Full documentation for the Thai dictionary can be
+<a href="https://github.com/opencog/link-grammar/tree/master/data/th/INPUT_FORMATS.md">
+found here</a>.
+</p>
+
+<p>
+The Thai dictionary accepts LST20 tagsets for POS and named entities,
+to bridge the gap between fundamental NLP tools and the Link Parser.
+For example:
+</p>
+
+<pre>
+            linkparser&gt; linkparser> วันที่_25_ธันวาคม@DTM ของ@PS ทุก@AJ ปี@NN เป็น@VV วัน@NN คริสต์มาส@NN
+            Found 348 linkages (348 had no P.P. violations)
+               Linkage 1, cost vector = (UNUSED=0 DIS= 1.00 LEN=10)
+            
+                +--------------------------------LWs--------------------------------+
+                |               +<------------------------S<------------------------+
+                |               |                +---------->PO--------->+          |
+                |               +----->AJpr----->+            +<---AJj<--+          +---->O---->+------NZ-----+
+                |               |                |            |          |          |           |             |
+            LEFT-WALL วันที่_25_ธันวาคม@DTM[!] ของ@PS[!].pnn ทุก@AJ[!].jl ปี@NN[!].n เป็น@VV[!].v วัน@NN[!].na คริสต์มาส@NN[!].n
+</pre>
+
+<p>
+Note that each word above is annotated with LST20 POS tags and NE tags.
+Full documentation for both the Link POS tags and the LST20 tagsets can be
+<a href="https://github.com/opencog/link-grammar/tree/master/data/th/TAGSETS.md">
+found here</a>. More information about LST20, e.g.
+annotation guideline and data statistics, can be
+<a href="https://arxiv.org/abs/2008.05055">found here</a>.
+</p>
+
+<p>
+The <kbd>any</kbd> language supports uniformly-sampled random planar graphs:
+</p>
+<pre>
+            linkparser&gt; asdf qwer tyuiop fghj bbb
+            Found 1162 linkages (1162 had no P.P. violations)
+            
+                         +-------ANY------+-------ANY------+
+                +---ANY--+--ANY--+        +---ANY--+--ANY--+
+                |        |       |        |        |       |
+            LEFT-WALL asdf[!] qwer[!] tyuiop[!] fghj[!] bbb[!]
+</pre>
+<p>
+The <kbd>ady</kbd> language does likewise, performing random morphological
+splittings:
+</p>
+<pre>
+            linkparser&gt; asdf qwerty fghjbbb
+            Found 1512 linkages (1512 had no P.P. violations)
+            
+                                              +------------------ANY-----------------+
+                +-----ANY----+-------ANY------+                  +---------LL--------+
+                |            |                |                  |                   |
+            LEFT-WALL asdf[!ANY-WORD] qwerty[!ANY-WORD] fgh[!SIMPLE-STEM].= =jbbb[!SIMPLE-SUFF]
+</pre>
+
+
+<h3>Theory</h3>
+<p>
+An extended overview and summary of Link Grammar can be found on the
+<a href="https://en.wikipedia.org/wiki/Link_grammar">
+Link Grammar Wikipedia page</a>,
+which touches on most of the important, primary aspects of the theory.
+However, it is no substitute for the original papers published on the
+topic:
+</p>
+<ul>
+<li>Daniel D. K. Sleator, Davy Temperley,
+    "<a href="https://www.cs.cmu.edu/afs/cs.cmu.edu/project/link/pub/www/papers/ps/tr91-196.pdf">Parsing English with a Link Grammar</a>",
+    October 1991 <i>CMU-CS-91-196</i>.
+<li>Daniel D. Sleator, Davy Temperley,
+    "<a href="https://www.cs.cmu.edu/afs/cs.cmu.edu/project/link/pub/www/papers/ps/LG-IWPT93.pdf">Parsing English with a Link Grammar</a>",
+    <i>Third International Workshop on Parsing Technologies</i> (1993).
+<li>Dennis Grinberg, John Lafferty, Daniel Sleator,
+    "<a href="https://www.cs.cmu.edu/afs/cs.cmu.edu/project/link/pub/www/papers/ps/tr95-125.pdf">A Robust Parsing Algorithm for Link Grammars</a>",
+    August 1995 <i>CMU-CS-95-125</i>.
+<li>John Lafferty, Daniel Sleator, Davy Temperley,
+    "<a href="https://www.cs.cmu.edu/afs/cs.cmu.edu/project/link/pub/www/papers/ps/gram3gram.pdf">Grammatical Trigrams: A Probabilistic Model of Link Grammar</a>",
+    1992 <i>AAAI Symposium on Probabilistic Approaches to Natural Language</i>.
+</ul>
+<p>
+A fairly comprehensive bibliography of papers written before 2004 
+is <a href="https://www.link.cs.cmu.edu/link/papers/index.html">here</a>
+and is <a href="papers/index.html">mirrored here</a>. A sampling of
+publications that reference Link Grammar in some way can be found
+<a href="recent-pubs.phtml">here</a>; some of these may be downloaded
+<a href="./mirrors/">here</a>.
+</p>
+
+<h3>Documentation</h3>
+<p>
+There is an extensive set of pages 
+<a href="dict/index.html">documenting the English dictionary</a>; specifically,
+the names of links and their meanings, as well as how to write new rules. 
+There is also a <a href="https://jon.dehdari.org/link-grammar/primer.html">
+short primer for creating dictionaries for new languages</a>.
+</p>
+
+<p>
+The documentation for the <a href="api/index.html">C/C++ programming API
+is here</a>.
+Bindings for other programming languages can be found in the 
+<a href="https://github.com/opencog/link-grammar/tree/master/bindings">bindings
+directory</a> in the
+<a href="https://github.com/opencog/link-grammar">GitHub Link Grammar Repo</a>.
+</p>
+
+<h3>System Summary</h3>
+<ul>
+<li>Actively maintained! New releases typically happen quarterly.</li>
+<li>Besides English, there are comprehensive Thai and Russian
+    dictionaries.  The Thai dictionary was provided by Prachya Boonkwan.
+    The Russian dictionary was provided by Sergey Protasov.
+    The Persian and Arabic subsystems were provided by
+    John Dehdari. A modest (thousand-word) German dictionary is included.
+    There are proof-of-concept dictionaries for Lithuanian, Indonesian,
+    Kazakh, Vietnamese, Hebrew and Turkish.</li>
+<li>Several machine-learning projects are attempting to automatically
+    learn LG grammars using unsupervised training methods on bulk text.
+<li>LG is a full morpho-syntactic parser; morphological disambiguation
+    is handled with a sophisticated tokenization system which tracks
+    alternative candidate word-splits (of words into morphemes) during
+    parsing.</li>
+<li>Multiple programming language bindings are available, including Ruby,
+    Python, Perl, Lisp, Java, Javascript, Ocaml and AutoIt.
+    <a href="https://github.com/opencog/link-grammar/tree/master/bindings">Look
+    here</a>.
+    </li>
+<li>A network (TCP/IP) parse server provides JSON-formatted parse
+    results.</li>
+<li>Integrated with the
+    <a href="https://wiki.opencog.org/w/LgParseLink">OpenCog Atomspace</a>.
+    This allows graph queries and graph tools to be applied to LG
+    output.
+<li>Fully multi-threaded; a standard build system; <kbd>pkg-config</kbd>
+    integration; a <kbd>CMake</kbd> config file, dynamic/shared library
+    support; pre-defined <kbd>Docker</kbd> containers; support for Linux
+    as well as Windows, MacOSX, FreeBSD.</li>
+<li>Several security audits have been performed, including fuzzing for
+    mal-formed input. Secure and robust for cloud deployment.
+<li>Source code hosted at
+    <a href="https://github.com/opencog/link-grammar">GitHub</a>.</li>
+<li>LGPL v2.1 license; see endnote for details.</li>
+</ul>
+
+</p>
+
+<hr />
+<a name="download" />
+<h3>Downloading Link Grammar</h3>
+<p>The source code to the system can be downloaded as a tarball. The 
+   current stable version is
+   <a
+href="http://www.abisource.com/downloads/link-grammar/5.12.3/link-grammar-5.12.3.tar.gz">Link
+   Grammar 5.12.3</a> (March 2023). Older versions are available 
+   <a href="http://www.abisource.com/downloads/link-grammar/">here</a>.
+   </p>
+<p>GitHub hosts <a href="https://github.com/opencog/link-grammar">the
+   primary link-grammar repository</a>. Issues (bugs) should be reported
+   there.  Developers who are not a part of the core development team
+   <i>should not use or deploy the source from github</i>.  It is unstable
+   and frequently buggy and broken! All users should use the tarballs, only!
+   </p>
+
+
+<a name="contact" />
+<h3>Mailing Lists</h3>
+<p>
+The mailing list for Link Grammar discussion is at
+<a href="https://groups.google.com/group/link-grammar?hl=en">the link-grammar google group</a>.
+</p>
+<p>
+  <b>Subscribe to link-grammar:</b>
+  <form action="https://groups.google.com/group/link-grammar/boxsubscribe">
+  <input type=hidden name="hl" value="en">
+  <p>Enter email: <input type=text name=email>
+  <input type=submit name="sub" value="Subscribe"></p>
+  </form>
+</p>
+
+<hr />
+<h3>Ongoing development by OpenCog</h3>
+<p>Ongoing development of Link Grammar is guided and supported 
+by the <a href="https://www.opencog.org/">Open Cognition
+project</a>, where the parser plays an important role in the 
+OpenCog natural language processing subsystem. Research and
+implementation is ongoing; current work includes investigations
+into
+<a href="https://arxiv.org/abs/1401.3372">unsupervised learning of
+language</a>.
+</p> 
+
+<h3>Stanford Parser Compatibility</h3>
+<p>A sibling project, <a href="https://wiki.opencog.org/w/RelEx">RelEx</a>,
+uses constraint-grammar-like techniques to extract dependency relations
+that are compatible with the
+<a href="https://nlp.stanford.edu/software/lex-parser.shtml">
+Stanford parser</a>. It's performance is comparable to the Stanford
+PCFG parsing model, and is more than three times faster than the
+Stanford "lexicalized" (factored) model.
+</p>
+<p>
+The RelEx project is no longer in active development. We learned (the hard
+way) that the native Link Grammar parses contain much more information
+than the Stanford dependency markup is capable of supporting. The
+Stanford-style dependencies are simply are not rich or sophisticated enough
+to produce the kind of data needed for semantic analysis and comprehension,
+viz. tasks such as predicate-argument extraction, framing, semantic selection,
+and the like.
+</p>
+
+<h3>Language generation</h3>
+<p>For sentence generation, i.e. the creation of grammatically correct
+sentences from a bag of semantic relations, the 
+<a href="https://wiki.opencog.org/w/Microplanner">
+microplanner</a> and
+<a href="https://wiki.opencog.org/w/Surface_Realization_(SuReal)">
+surface realization (sureal)</a> portion of OpenCog is strongly recommended.
+A short example is
+<a href="https://github.com/opencog/opencog/blob/master/examples/sureal/basic.scm">here</a>.
+These "sort-of work", but not very well.  The primary issue is that they
+do not make use of the statistical information available in language to
+choose likely or reasonable sentence constructions.
+</p>
+
+<p>We previously recommended two projects that should now be considered
+obsolete: NLGen and NLGen2. For your entertainment, they're still listed
+below: The <a href="https://launchpad.net/nlgen">NLGen</a>
+and <a href="https://launchpad.net/nlgen2">NLGen2</a> projects 
+provide natural language generation modules, based on, and compatible 
+with link-grammar and RelEx. They implement the 
+<a href="https://wiki.opencog.org/w/SegSim">SegSim</a> ideas for NL 
+generation.  See the following YouTube videos of a virtual dog, 
+showing some of NLGen's capabilities (circa 2009):
+<a href="https://www.youtube.com/watch?v=FEmpGRLwbqE">Demo of 
+Virtual Dog Learning to Play Fetch via Imitation and Reinforcement</a>,
+
+<a href="https://www.youtube.com/watch?v=vZtnjKcrdZQ">AI Virtual 
+Dog's Emotions Fluctuate Based on Its Experiences</a>,
+
+<a href="https://www.youtube.com/watch?v=of-BahzS8qQ">Demo of 
+Embodied Anaphora Resolution</a> and
+
+<a href="https://www.youtube.com/watch?v=ii-qdubNsx0">AI Virtual 
+Dog Answers Simple Questions about Itself and Its Environment</a>.
+</p>
+
+<!--
+<hr />
+<a name="demo" />
+<h3>On-line Link Grammar &amp; RelEx Demo</h3>
+<p>You can try the parser online, 
+<a href="https://linkgrammar.herokuapp.com/">
+here</a>.
+-->
+
+<hr />
+<h3>Linguistic Disclaimer</h3>
+<p>
+Link Grammar is a natural language parser, not a human-level artificial
+general intelligence. This means that there are many sentences that it
+cannot parse correctly, or at all.
+There are entire classes of speech and writing that it cannot handle,
+including twitter posts, IRC chat logs, Valley-girl basilect, Old and
+Middle English, stock-market listings and raw HTML dumps.</p>
+
+<p>Link Grammar works best with "newspaper English", as taught to and
+written by those educated in American colleges: standard-sized sentences,
+with proper grammar, proper punctuation, and correct capitalization.
+Link Grammar has difficulties with the following types of textual
+input:
+</p>
+
+<ul>
+<li>Phrases (that are not a part of a complete sentence). There
+    is some support for incomplete sentences with ellipsis. Many
+    kinds of short phrases that can be interpreted as commands or
+    instructions or exclamations are supported.
+<li>Twitter posts. These tend to be sentence fragments, often
+    lacking proper grammatical structure. You should strip off
+    hash-tags before sending text into the parser.
+<li>Any text containing a large number of spelling errors. The
+    parser does have a built-in "spelling-guesser", which explores
+    alternative spellings for words.
+<li>"Registers", such as newspaper headlines, where determiners
+    are omitted; for example, "Thieves rob bank." Note, however,
+    a "dialect" support system is in development, which can be
+    used to alter ranking favorability for different forms of
+    expression within a single dictionary.
+<li>Dialog, stage plays and movie scripts. Such dialog tends
+    to consist of interleaved sentences. External software would
+    be needed to disentangle distinct sentence streams.
+<li>Speech-to-text output. Such systems generate large numbers of 
+    mis-heard words that, taken at face value cannot be a part
+    of valid sentences. Even if such recognition was perfect,
+    spoken English tends not to be as well-constructed or
+    grammatical as written English.
+<li>Support for British English and Commonwealth English is poor.
+    This includes any English dialects spoken in India, Pakistan,
+    Nigeria, Bangladesh, South Africa, as well as former American
+    protectorates, such as the Philippines. British and regional
+    spelling of words is missing from the dictionaries.
+    The "dialect" support subsystem should be able to alleviate
+    this, provided that the lexis is appropriately curated.
+<li>Slang and various regional non-middle-class-American
+    dialects. This includes most dialects spoken by anyone
+    living in economically poor or under-educated geographical
+    regions, whether in urban housing projects or the red-state 
+    small-town and rural poor.  Self-identifying subgroup dialects
+    are also not handled, such as drug-culture, gang-culture and
+    hacker-culture.
+    The "dialect" support subsystem should be able to alleviate
+    this, provided that the lexis is appropriately curated.
+<li>Long run-on sentences. These can generate thousands of 
+    alternative parses in a combinatorial explosion.
+</ul>
+<p>
+It is hoped that the 
+<a href="https://arxiv.org/abs/1401.3372">unsupervised learning of
+language</a> proposal will be of sufficient power and ability to handle
+most of these exceptional cases. Work is currently ongoing.
+</p>
+
+<hr />
+<h3>Natural Language Support</h3>
+<P>
+Ranked in order of maturity.
+</P>
+<dl>
+<dt><b>English</b></dt>
+<dd>The main English documentation is <a href="dict/">here</a>.
+</dd>
+
+<dt><b>Thai</b></dt>
+<dd>A comprehensive set of dictionaries, covering more than 100K words,
+    first appears in version 5.10.4 (March 2022); a "final" version is
+    devlivered in version 5.10.5 (June 2022).  Documentation can be
+    found in the
+    <a href="https://github.com/opencog/link-grammar/blob/master/data/th/LINKDOC.md">LINKDOC.md</a>
+    file in github. Developed by Prachya Boonkwan with the support of
+    the National Electronics and Computer Technology Center in Thailand.
+</dd>
+
+<dt><b>Russian</b></dt>
+<dd>A set of Russian dictionaries providing full coverage for the language
+    have been incorporated into the main
+    distribution as of version 4.7.10 (March 2013). An older version,
+    from which these are derived, can be found at
+    <a href="http://slashzone.ru/parser/">http://slashzone.ru/parser/</a>. By
+    Sergey Protasov. Includes <a href="http://sz.ru/parser/doc/">link
+    documentation</a> (<a href="russian/doc">mirror</a>) and 
+    <a href="http://sz.ru/parser/doc/morph/">subscript (morphology) documentation</a>
+    (<a href="./russian/doc/morph/">mirror</a>).
+    Russian morpheme dictionaries can be had at 
+    <a href="http://aot.ru">http://aot.ru</a>.
+    <p>
+    Документация <a href=russian/doc/>по связям</a> и по
+    <a href=russian/doc/morph/>классам слов</a> доступна в виде списка примеров.
+</dd>
+
+<dt><b>Persian</b></dt>
+<dd>The Persian dictionaries from
+    <a href="https://jon.dehdari.org/">Jon Dehdari</a>
+    have been incorporated into the main distribution, as of version
+    5.0.0 (April 2014).  This includes a copy of the 
+    <a href="https://sourceforge.net/projects/perstem">Persian stemming</a>
+    engine, as significant morphology analysis needs to be performed
+    to parse Persian.
+</dd>
+
+<dt><b>Arabic</b></dt>
+<dd>The Arabic dictionaries from
+    <a href="https://jon.dehdari.org/">Jon Dehdari</a>
+    have been incorporated into the main distribution, as of version
+    5.0.0 (April 2014).  These are derived from the 
+    <a href="https://www.ling.ohio-state.edu/~jonsafari/arabiclg/arabiclg.20060829.tar.bz2">older,
+    original version</a>.
+    [<a href="http://www.abisource.com/downloads/link-grammar/arabic/">Mirror</a>]
+    These require the Aramorph stemming package, which is included.
+</dd>
+
+<dt><b>German</b></dt>
+<dd>A small German dictionary, consisting of 850 words, is included.
+    A brief description is provided
+    <a href="german/trans-explanation.html">here</a>.
+</dd>
+
+<dt><b>Lithuanian</b></dt>
+<dd>A small Lithuanian prototype dictionary has been created. It contains
+    a few hundred words.  A few basic sentences parse just fine; the current
+    version focuses on morphological analysis coupled with grammatical
+    analysis.
+    <a href="lithuanian/index.html">Documentation is here</a>.
+    <p>
+    Sukurta yra labai prasta Lietuvių kalbos žodynas; beveik neiks ikį šiol
+    neveikia. 
+    <a href="lithuanian/index.html">Čia dokumentacija</a>.
+</dd>
+
+<dt><b>Vietnamese</b></dt>
+<dd>A small Vietnamese prototype dictionary has been created. It contains
+    several hundred words.
+</dd>
+
+<dt><b>Indonesian</b></dt>
+<dd>A small Indonesian prototype dictionary has been created. It contains
+    about one hundred words.
+</dd>
+
+<dt><b>Hebrew</b></dt>
+<dd>A very small Hebrew prototype dictionary has been created. It contains
+    a few dozen words.  Almost nothing works correctly (yet).
+</dd>
+
+<dt><b>Kazakh</b></dt>
+<dd>A very small Kazakh prototype dictionary has been created. It contains
+    a few dozen words.  Almost nothing works correctly (yet).
+</dd>
+
+<dt><b>Turkish</b></dt>
+<dd>A very small Turkish prototype dictionary has been created. It contains
+    a few dozen words.  Almost nothing works correctly (yet).
+</dd>
+
+<dt><b>French, Luthor project</b></dt>
+<dd>The <a href="https://code.google.com/p/luthor/">Luthor</a> project
+    aims to develop a set of scripts to automatically construct 
+    Link Grammar linkage dictionaries by mining Wiktionary data.
+    Current efforts are focusing on French. (This project appears
+    to be defunct).
+</dd>
+
+</dl>
+
+<h3>Adjunct Projects</h3>
+<P>
+The default distribution for Link Grammar includes bindings for Java,
+Python, Vala, OCaML, Common Lisp, and AutoIt, as well as a SWIG FFI
+interface file.  Additional language bindings, and some related projects,
+are listed below:
+</P>
+
+<dl>
+<!-- <font color=#ff0000><i>(New!)</i></font> --> 
+
+<dt><b>RelEx Semantic Relation Extractor</b></dt>
+<dd><a href="https://wiki.opencog.org/w/RelEx">RelEx</a>
+    is an English-language semantic relationship extractor, built on
+    the Link Parser. It can identify subject, object,
+    indirect object and many other relationships between words in a
+    sentence. It will also provide part-of-speech tagging, noun-number
+    tagging, verb tense tagging, gender tagging, and so on. RelEx includes a
+    basic implementation of the Hobbs anaphora (pronoun) resolution
+    algorithm.
+    </dd>
+
+<!--
+Historical interest only
+Went off-line sometime in 2012 or 2013 ...
+<dt><b>Delphi bindings</b></dt>
+<dd>Delphi (Pascal) is a popular development environment for Windows.
+    The 
+    <a href="https://web.archive.org/web/20111013120024/http://www.lakraven.com/delphi-stuff/link-grammar-parser/">LaKraven
+    Page</a> provides the source for Delphi bindings, as well as
+    pre-compiled DLL's for Windows.
+    </dd>
+
+Out of date since 2006 ... 
+<dt><b>Alternative Java bindings</b></dt>
+<dd>Another, completely different set of Java bindings have been
+    developed: a 
+    <a href="http://www.chrisjordan.ca/~cjordan/code/LGInterface.tar.gz">tar
+    ball is here</a>. These are for the old version 4.1 only.
+    Note that these are not compatible with the bindings that ship, by
+    default, with the main link-grammar package.
+    </dd>
+
+Looks like the proai.com domain has been abandoned in 2010.
+<dt><b>.Net Framework bindings</b></dt>
+<dd><a href="http://proai.com/cs/files/folders/linkgrammar/default.aspx">.Net 
+     interface to Link Grammar</a> from Leonard Chalk/ProAI.
+     </dd>
+
+-->
+
+<dt><b>Ruby bindings</b></dt>
+<dd>Ruby bindings are coordinated at the 
+     <a href="https://www.deveiate.org/projects/Ruby-LinkParser">Ruby-LinkParser</a>
+     website.  The code can be found at the 
+     <a href="https://github.com/ged/linkparser">ged/link-parser</a>
+     github page.
+     </dd>
+
+<dt><b>Perl bindings</b></dt>
+<dd>Perl bindings, created by Danny Brian, can be found on the
+    <a href="https://search.cpan.org/~dbrian/Lingua-LinkParser/">Lingua-LinkParser</a>
+    page on CPAN. Caution: those bindings appear to be unmaintained;
+    currently, they include features that were removed more than than
+    five years ago. (We encourage a new maintainer to step up!)
+    There is also a 
+    <a href="https://www.foo.be/docs/tpj/issues/vol5_3/tpj0503-0010.html">tutorial</a>
+    written against a very old version of the bindings; some details may
+    be different.
+    </dd>
+
+<dt><b>Psi Toolkit (Perl)</b></dt>
+<dd>The <a href="http://psi-toolkit.amu.edu.pl/">Psi Toolkit</a>, an NLP
+    toolkit aimed at linguists and NLP engineers, includes bindings for 
+    link-grammar, via perl.
+    </dd>
+
+<!--
+
+Now part of version 5.8.0
+<dt><b>Javascript</b></dt>
+<dd>Obsolete Javascript bindings can be found at the 
+    <a href="https://github.com/dijs/link-grammar/">dijs/link-grammar</a>
+    github page. Someone, please port these to the latest version!
+    </dd>
+
+Deprecated
+<dt><b>Pre-parsed Wikipedia</b></dt>
+<dd>Parsed versions of various texts, including all articles from a
+    May 2008 dump of Wikipedia, as well as a partial parse of an October
+    2010 dump, are available at 
+    <a href="https://gnucash.org/linas/nlp/data/">https://gnucash.org/linas/nlp/data/</a>
+    </dd>
+
+Deprecated
+<dt><b>English dictionary extensions</b></dt>
+<dd><a href="http://www.eturner.net/linkgrammar-wn/">LinkGrammar-WN</a>
+     is a lexicon expansion for the English language Link Grammar Parser.
+     This project adds 14K new words to the dictionaries. The extended
+     lexicon is provided under the GPL license, and thus cannot be
+     merged back into the current project.  <b>NOTE:</b> these
+     extensions are rather old, and it is likely that they are no longer
+     compatible with current link-grammar versions.
+
+Olde news.
+<dt><b>Medical Text Analysis</b></dt>
+<dd>The <a href="http://groups.csail.mit.edu/medg/projects/text/">
+    MIT Computer Science and Artificial Intelligence Laboratory (CSAIL)
+    Clinical Decision Making Group</a> 
+    has done work to extend the Link Grammar dictionaries by adding
+    many new words. All but the six largest of these dictionaries
+    have been merged into link-grammar, since version 4.3.1 (January
+    2008). The 
+    large dictionaries EXTRA.2, EXTRA.3, EXTRA.8, EXTRA.9, EXTRA.12,
+    and EXTRA.17 have not been merged. These dictionaries contain
+    180K assorted medical, biological and biochemical terms and
+    phrases.</dd>
+
+More Olde news.
+<dt><b>BioLG</b></dt>
+<dd>The <a href="http://mars.cs.utu.fi/biolg/">BioLG</a> project is 
+    a modification of the Link Grammar Parser adapted for the 
+    biomedical domain, as described in 
+    <a href="http://www.biomedcentral.com/1471-2105/7/S3/S2">Lexical 
+    Adaptation of Link Grammar to the Biomedical Sublanguage: a 
+    Comparative Evaluation of Three Approaches (Sampo Pyysalo, 
+    Tapio Salakoski, Sophie Aubin and Adeline Nazarenko; BMC 
+    Bioinformatics 2006)</a>. Almost all of the BioLG changes 
+    have been merged back into the main line, as of version 4.5.0
+    (April 2009), with scattered bug-fixes after that.
+    </dd>
+-->
+
+</dl>
+<hr />
+<h3>Recent Changes</h3>
+
+<p>Version 5.12.3 (24 March 2023)</p>
+<p>
+<ul>
+<li>Assorted Atomese fixes.
+<li>Fix SAT-solver build breaks.
+<li>Add dictionary flag to disable built-in capitlization rules. #1468
+</ul>
+
+<p>Version 5.12.2 (9 March 2023)</p>
+<p>
+<ul>
+<li>Fix null-pointer deref in Atomese code.
+</ul>
+
+<p>Version 5.12.1 (5 March 2023)</p>
+<p>Improved AtomSpace behavior. In this version, MST parsing becomes
+not just usable, but also fast.
+<p>
+<ul>
+<li>Assorted enhancements and fixes for the AtomSpace dictionary. #1362
+<li>Fix missing HAVE_THREADS_H, affects Apple Homebrew. #1363
+<li>Fix regex thread-safety issue. #1370
+<li>Disable aspell; it leaks memory. #1373
+<li>Deduplicate linkages when overflow forces random selection. #1378 #1396
+<li>Fix direct dialect settings on connectors. #1382
+<li>Cleanup dictionary backends. #1391 thru #1395
+<li>English dict: paraphrasing fixes. #1398
+<li>Report CPU time usage only for the current thread. #1399
+<li>Extensive performance optimizations for MST dictionaries. #1402
+<li>Remove old broken max-cost computations. #1456
+</ul>
+
+<p>Version 5.12.0 (26 November 2022)</p>
+<p>
+This release contains an important bug-fix for a multi-threaded race
+and crash in the regex code. This is quite rare: I was seeing a crash
+after 24 hours when running 6 threads. If you're not running at that level,
+chances are slim you'll see it. But still.
+<p>
+Also notable: this version can attach to a live dictionary running in
+the AtomSpace. This offers some major improvements over the previous
+version; a bit more is planned, as integration becomes tighter.
+<p>
+<ul>
+<li>Fix crash when using the Atomese dictionary backend.
+<li>Fix generation tokenization bug when dict has no unknown word token.
+<li>Major Atomese dictionary extensions, including generation support.
+<li>Minor tweaks to `any` uniform random parse tree language.
+<li>Include U+202F NARROW NO-BREAK SPACE as a space character.
+<li>Fix the various regexes so that they're thread safe! #1354
+<li>Maybe(?) fix FreeBSD missing <kbd>-lstdthreads</kbd> #1355
+</ul>
+
+<p>Version 5.11.0 (27 September 2022)</p>
+<p>
+Most notable in this release is a preliminary prototype interface to
+the OpenCog AtomSpace. This allows working directly with language data
+in the AtomSpace; avoiding the need to export the language model. 
+<p>
+<ul>
+<li>Prototype support for dictionary in the AtomSpace.
+<li>English dict: assorted missing nouns, verbs. #1289
+<li>Performance improvements. #1309
+<li>Fix Windows build break in 5.10.4, 5.10.5 fixed in #1313
+<li>Fix "amy" language #1312
+<li>Fix multilib systems, e.g. elf32-i386 #1314
+<li>Corrected grapheme support for random morpheme sampling. #1315
+<li>Thai updates #1322
+<li>Punctuation fixes #1331
+<li>Affixes can now be specified with regexes #1334
+<li>The regex library PCRE2 is required by default.
+</ul>
+
+<p>Version 5.10.5 (17 June 2022)</p>
+<p>
+This version is the first to contain the final version of the Thai
+dictionary.
+<p>
+<ul>
+<li>Updated Docker files. #1288
+<li>English dict: broader handling of ellipsis.
+<li>Updated Thai dicts: #1292, #1294
+<li>Fix Thai regex's to work even with basic C++ regex lib. #1297
+<li>Performance improvements. #1298
+</ul>
+
+<p>Version 5.10.4 (4 March 2022)</p>
+<p>
+This is a notable and important release, as it is the first to
+include a complete Thai dictionary!
+<p>
+<ul>
+<li>English dict: fix relative clause, per mailing list.
+<li>Remove assorted length restrictions on word-size. #1283
+<li>Add missing files for building link-generator on Windows. #1285
+<li>Strip the internally added "._I" from subscripted idioms. #1287
+<li>New: Provisional Thai dictionary. #1279
+</ul>
+
+<p>Version 5.10.3 (14 February 2022)</p>
+<p>
+<ul>
+<li>Remove `node.js/package-lock.json` from tarball distribution. #1251
+<li>Fix Windows MSVC build break. #1253
+<li>Fix memory leak in the "!" link-parser command. #1256
+<li>Add C++ regex support. It is now the default for MSVC builds. #1258
+<li>Fix spell-guess for run-on words. #1249
+<li>Port link-generator to MS-Windows. #1269
+<li>Fix apostrophe handling for link-generator w/sqlite3 dicts. #1276
+</ul>
+
+<p>Version 5.10.2 (16 September 2021)</p>
+<p>
+<ul>
+<li>Fix python install path.
+<li>Fix size in brand-new `link-generator` (hits 32-bit & ARM) #1247
+</ul>
+
+<p>Version 5.10.1 (7 September 2021)</p>
+<p>
+<ul>
+<li>Fix perl bindings build fail. #1248
+</ul>
+
+<p>Version 5.10.0 (4 September 2021)</p>
+<p>
+The minor version number has been bumped because of a change to the
+link types used for idioms. Subscripts with an underbar are now
+reserved.
+<p>
+Users of the unsupervised language learning project will need
+this version. It contains fixes for random corpora generation.
+<p>
+<ul>
+<li>Expanded English vocabulary
+<li>Support dictionary "#define allow-duplicate-words true". #1204
+<li>Fix crash for sentences containing wildcard words. #1206
+<li>Connector names starting with "ID" are no longer reserved. #1208
+<li>Connector names starting with underbar are reserved for internal use.
+<li>".I" subscripts are no longer reserved; "._" subscripts are reserved.
+    These last three changes introduce linkage incompatibilities.
+<li>Fix parsing with nulls when using an sqlite3 dictionary.
+<li>Fix regexes for NetBSD when using libc regexes. #1223
+<li>English dict: fix many "how?" questions.
+<li>English dict: fix conditional sentences #1240
+</ul>
+
+<b>A list of older changes can be found 
+   <a href="older-changes.phtml">here</a>.</b>
+
+<hr />
+<h3>Website</h3>
+<p>Issues concerning this website should be addressed to
+   <a href="mailto:linasvepstas@gmail.com">Linas Vepstas 
+   - &lt;linasvepstas@gmail.com&gt;</a> or
+   <a href="mailto:domlachowicz@gmail.com">Dom Lachowicz 
+   - &lt;domlachowicz@gmail.com&gt;</a>.
+</p>
+<h3>License</h3>
+<p>Current versions of the Link Grammar parser software, language
+   dictionaries and documentation are available under the 
+   <a href="https://www.gnu.org/licenses/lgpl-2.1.html">LGPL v2.1
+   license</a>.  Versions prior to 5.0.0 are available under a variant
+   of the BSD license.
+<p>
+   Copyright (c) 2003-2004 Daniel Sleator, David Temperley, and John
+   Lafferty.  All rights reserved.
+<br>
+   Copyright (c) 2003 Peter Szolovits
+<br>
+   Copyright (c) 2004,2012,2013 Sergey Protasov
+<br>
+   Copyright (c) 2006 Sampo Pyysalo
+<br>
+   Copyright (c) 2007 Mike Ross
+<br>
+   Copyright (c) 2008,2009,2010 Borislav Iordanov
+<br>
+   Copyright (c) 2008-2022 Linas Vepstas
+<br>
+   Copyright (c) 2014-2022 Amir Plivatsky
+<br>
+   Copyright (c) 2021-2022 Prachya Boonkwan.
+</p>
+
+<script src="https://www.google-analytics.com/urchin.js"
+type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-4338066-1";
+urchinTracker();
+</script>
+
+<?
+    printFooter();
+?>

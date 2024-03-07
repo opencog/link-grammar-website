@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Guide-to-Links: K</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<B><KBD><FONT SIZE="+1">*** Guide-to-Links ***<BR></FONT><FONT SIZE="+4">
+    K</FONT></KBD></B>
+<P>
+<b><tt>K</tt></b> connects certain verbs with particles like "in", 
+"out", "up", and the like.
+
+<PRE>
+                  +-K-+
+                  |   |
+        The man came up        
+
+        *The man arrived up
+</PRE>
+Particles that can be used in this way have <tt>K-</tt> disjoined
+with everything else. (Most are also prepositions; a few, like
+"away", are not.)
+<P>
+We distinguish between verbs that can take particles and
+those that do not, but among particle-taking verbs, we do
+not distinguish between specific verb-particle pairs: we
+allow "We sorted them out/*up", "We put them in/*over".
+Some verb-particle pairings are treated as idiomatic phrases:
+"It ended up unwanted"; in such cases, the verb-particle pairing
+is forced by the idiomatic construction.
+<P>
+Verbs that take particles may be transitive ("pick"),
+intransitive ("come"), or trans/intrans ("move"). With
+transitive verbs, the particle may either precede or
+follow the direct object: "We picked the dog up"; "We
+picked up the dog". This yields the following expression.
+
+<PRE>
+        pick: (S- or ....) & ((K+ & O+) or ((O+ or B-) & {K+}));
+                                 
+                                ^ particle        ^ particle
+                              precedes object     follows object
+
+</PRE>
+The particle is almost always optional. (There are a few
+exceptions, like "put", which requires either a particle or a
+prepositional phrase: "We put it in", "*We put it".) However:
+if we made the particle optional in both the "pre-object" case
+and the "post-object case", then "We picked the dog" would
+receive two parses. So it must be obligatory in one case,
+optional in the other.
+<P>
+A further complication: with transitive verbs, the particle
+may always follow the object, but it may precede it only if
+the object is a full noun-phrase, not a pronoun: "We picked it
+up," "*We picked up it". We enforce this using
+post-processing.  In the expression for transitive verbs, the
+<tt>O+</tt> in the "particle-precedes-object" case is subscripted
+<tt>O*n+</tt>. Pronouns are then subscripted <tt>Ox-</tt>.
+<tt>Oxn</tt> links are then prohibited in post-processing.
+<P>
+<A HREF="index.html">Grammar Documentation Page</A>.
+</BODY>
+</HTML>

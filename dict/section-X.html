@@ -1,0 +1,380 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Guide-to-Links: X</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<B><KBD><FONT SIZE="+1">*** Guide-to-Links ***<BR></FONT><FONT SIZE="+4">
+    X</FONT></KBD></B>
+<PRE>
+X is used to connect punctuation symbols to words. Xc connects
+a word to a comma to the right; Xd connects a word to a comma
+to a left. Xp and Xi are used for periods; Xx is used with
+colons and semi-colons. In this entry we provide a general
+discussion of punctuation.
+
+     <B>Contents</B>
+     1. Comma phrases
+     2. Comma phrases at the beginning and end of sentences
+     3. Comma phrases in sequence
+     4. Xi: Abbreviations
+     5. Xp: Periods at ends of sentences
+     6. Xx and Xe: Colons and semi-colons
+     7. Other punctuation symbols
+
+<B>Comma Phrases</B>
+A wide variety of words and phrases can be used with commas on
+either side.  Some are noun-modifiers, using MX to connect to
+a previous noun. Some are verb-modifiers, using MV to connect
+to a previous verb or E to connect to a following one. Some
+are "openers", using CO to connect to a following clause
+subject. And some are quoting expressions ("he said"), which
+can be inserted at various places in the sentence. In each of
+these cases, the head word of the expression must link to
+commas on either side.
+
+          +-MX---+   
+          |  +Xd-+-----Xc-------+
+          |  |   |              |
+1.      John , a doctor         , is here         
+2.      John , with his mother  , is here
+3.      John , carrying the dog , left the room
+4.      John , who you know     , is here
+5.      John ,  to whom I spoke , is here
+
+          +--MV--+
+          |  +Xd-+-----Xc-------+
+          |  |   |              |                
+6.   We left , carrying the dog , and Fred followed
+7.   We left , quietly          , and Fred followed     
+8.   We left , with Jane        , and Fred followed
+9.   We left , when we saw him  , and Fred followed
+
+                     +-------CO-------+
+                 +Xd-+-----Xc-------+ |
+                 |   |              | |              
+10. He said that , after the party  , he had gone home
+11. He said that , eventually       , he had gone home
+12. He said that , after he saw us  , he had gone home
+
+                    +---Xd-+--Xc--+
+                    |      |      |
+            He left , he said     , and Joe followed   (CP-)
+               Jane , he said     , left the party     (Eq+)
+14. After the party , he said     , he left            (COq+)
+
+In each case, the head word must connect most closely to
+the words within the comma expression; then to the commas
+themselves; then to any words outside. So, for example, in
+ex. 2 above, prepositions have
+
+with:   J+ & (.... or (Xc+ & Xd- & MX-))
+
+        ^                 ^      ^     ^
+ link to prep.    links to commas  link to previous 
+  object                           noun
+
+In some cases, the commas are obligatory (such as noun
+modifiers of nouns, like ex. 1: "*Jane a doctor is here"). In
+other cases the commas are essentially optional, but for
+various reasons, we decided to use a different link-types for
+with-comma and without-comma expressions (for example,
+prepositional phrases modifying nouns use M without commas,
+MX with commas). In other cases, the commas are optional and
+the same connector is used with or without; this is the case,
+for example, with manner adverbs modifying verbs. Such adverbs
+therefore take "{Xc+ & Xd-} & MVa-".
+
+One special case must be discussed. On opener phrases, the
+following comma is optional; the preceding comma is also
+optional, and is only permitted when there is a following
+comma. 
+
+        He said that after the party he went home
+        He said that after the party, he went home
+        He said that, after the party, he went home
+       *He said that, after the party he went home
+
+Openers therefore take "{{Xd-} & Xc+} & CO+".
+
+<B>Comma Phrases at the Beginning and End of Sentences</B>
+It was said that, with the exception of openers, expressions
+generally require either two commas or none; it is not
+permitted to have only a comma at the beginning or only one at
+the end.  One very important exception to all this must be
+mentioned, namely, comma expressions at the beginnings and
+endings of sentences. The case of phrases at the beginning has
+been dealt with, since these are always openers; there the
+beginning comma may be omitted.  With phrases at the end,
+however, the linkage expressions proposed above will require a
+comma at the end of the sentence, and this is clearly wrong. A
+comma is not only not required; it is incorrect. (The same
+applies to openers; the expressions provided will allow a
+comma at the very beginning of the sentence.) As described
+above, then, the system will accept the incorrect sentences 1
+and 2 below, and reject the correct sentence 3.
+
+                 +-Xd+-----Xc-------+
+                 |   |              |
+1.      *He left , carrying the dog ,
+2.      *        , After the party  , he left
+3.      He left  , carrying the dog
+
+Regarding the false positives 1 and 2, we simply allow these.
+Rules of the form "word X is not permitted at the beginning
+or end of a sentence" do not seem to arise in syntax generally,
+only in punctuation; therefore we have not considered it
+important to accommodate them. (Clearly, a system for weeding
+out sentences beginning or ending with commas could easily be
+devised.) What is important is to allow sentence 3 above. This
+we do by installing a "right-hand wall". The right-hand wall has
+an "Xc-" connector; this may satisfy the demand of a comma-phrase
+head-word for a following comma, when the phrase occurs at the
+end of the sentence. Ex. 3 above will therefore be accepted:
+
+                 +-Xd+------Xc--------+
+                 |   |                |
+         He left , carrying the dog /////
+
+This punctuation usage is the only function of the right-hand
+wall. In cases where the punctuation function is not needed,
+we give the right-hand wall an "RW-", and the left-hand wall
+an "RW+"; thus the two walls connect to each other, preserving
+connectivity.
+
+<B>Comma Phrases in Sequence</B>
+In many cases, comma phrases can be used in sequence. These
+can either be cases of one comma phrase nested inside another
+(ex. 1 below), or one comma phrase following another, both
+modifying the same previous word (ex.2) or the same following
+word (ex.3); or one comma phrase modifying a previous word,
+and another modifying a following word (ex.4).
+
+                +--------------------Xc----+
+      +------MV-+         +---MX-----+     |
+      |   +-Xd--+         |  +---Xd--+-Xc+ |
+      |   |     |         |  |       |   | |
+1.He left , carrying the dog ,  a poodle , , and Fred followed
+
+          +---------MX--------+
+          +---MX---+          |
+          |  +-Xd--+-Xc-+  +Xd+---Xc-----+
+          |  |     |    |  |  |          |
+2.      Jane , a doctor ,  , who you met , is here
+
+3.      After he saw Jane, Fred said, he left the party
+4.      Although I liked my doctor, Mr. Smith, later, 
+                I chose a different one
+
+The structures shown for exx. 1 and 2 are those that would be
+required given the expressions above. However, this is
+obviously wrong.  Each phrase requires a comma before and
+afterwards; but multiple commas in a row are not required,
+indeed (again) they are not permitted. What seems to happen is
+that a single comma fulfills the demands of more than one
+phrase. In ex. 1, the final comma fulfills the Xc demand of
+both phrases; in ex. 2, the comma in the middle fulfills the
+Xc demand of the previous phrase and the Xd demand of the
+following one. We handle this by giving the comma the
+following expression:
+
+        ",": {@Xc-} & (Xc- or Xd+)
+
+Now, as well as making an obligatory Xd or Xd connection, it
+can make any number of additional Xc connections as well.
+For exs. 1 and 2 above, then, this yields:
+
+                      +----------------Xc-------+
+            +------MV-+         +---MX---+      |
+            |   +-Xd--+         |  +-Xd--+--Xc--+
+            |   |     |         |  |     |      |
+        He left , carrying the dog , a poodle   , and Fred followed
+
+          +---------MX-----+
+          +---MX---+       |
+          |  +-Xd--+-Xc-+Xd+---Xc-----+
+          |  |     |    |  |          | 
+        Jane , a doctor , who you met , is here
+
+There are three problems here. First, when a comma is serving
+the demands for more than one phrase, it is creating a cycle;
+it is linking two phrases together that are indirectly linked
+in some other way. Cycles are dangerous; they may allow
+non-cyclic expressions to form where they are not wanted
+(for example, "Jane, a doctor I saw Fred, a doctor, is here").
+To prevent these, we modify the comma expression slightly:
+
+        ",": ({@Xca-} & (Xd+ or Xc-))
+
+In post-processing, we then add "Xca" to the
+"MUST_FORM_A_CYCLE" list. This means that that any time an Xca
+connection is made (i.e., any time a single comma is being
+used in more than one phrase), the Xca must be part of a
+cycle.
+
+It is clear that the function of fulfilling several Xc+
+demands may also be performed by the right-hand wall: "We
+left, carrying the dog, a poodle". Thus the right-hand wall is
+given not just Xc-, but "{@Xca-} & Xc-".
+
+A second problem involves post-processing. The groups of
+links formed in post-processing are supposed to correspond to
+clauses. In some cases it seems appropriate for comma
+phrases to form groups; for example, in relative clauses
+("Jane , who you met , is here"). Again, however, a problem
+arises with multiple comma phrases. Consider the following
+sentence. Here, if left unchecked, the domain started by the
+first MX link will spread via the second comma to the
+second comma phrase ("a doctor"), which is clearly not part
+of the relative clause, but rather a direct modifier of the
+main noun. What's worse, it will then spread back through
+the second MX link and then through the rest of the
+sentence.
+
+          +-----------------S(r)------------+
+          +-----------MX(r)--------+        |
+          |     +---Xca(r)--+      |        |
+          +MX(r)+--B(r)--+  |      |        |
+          |  +Xd+  +S(r)-+  +Xd(r)-+Xc(r)+  |
+          |  |  |  |     |  |      |     |  |
+        Jane , who you  met , a doctor   , is here
+
+We solve this problem by creating an "IGNORE_THESE_LINKS" list
+in post-processing. Links in this list are simply ignore by
+post-processing; that is, no domains are traced through
+them. We add "Xca" to this list. Then, in the above sentence,
+the "r" domain started by the first MX will not spread through
+the Xca to the second comma phrase; it will be confined to the
+relative clause.
+
+A third problem involves false positives. Return to the cases
+discussed above, involving consecutive commas: "Jane , who you
+met , , a doctor , is here". We have allowed for the correct
+version of this sentence, in which the functions of the
+consecutive commas are all served by a single comma. But we
+have not prohibited the consecutive-comma sentence, which is
+of course incorrect. Here again, we have not worried much
+about this false positive, since the kind of rule involved
+("Do not allow more than one X in a row") seems to arise only
+in punctuation; presumably it could easily be dealt with if it
+were important to do so.
+
+<B>Xi: Abbreviations</B>
+Xi is used to connect periods to previous strings that need
+abbreviations. These include titles (Sen., Rev.), terms for
+streets and institutions (Ave., Co.), month abbreviations, and
+single letters, which are often used in names.
+
+<B>Xp: Periods at ends of sentences</B>
+Xp simply connects the period to the left wall at the end
+of a sentence. It is optional; sentences do not have to end
+in periods. In cases where a period is used, the period, not
+the left-wall, makes an RW connection to the right wall. 
+Exclamation marks and question marks also have Xp-, and thus
+can also end sentences. We do not distinguish between these
+symbols; any of the three may be used with any sentence.
+
+<B>Xx and Xe: Colons and Semi-Colons</B>
+Xx is used with colons and semi-colons. Unlike comma phrases -
+where a word is usually the head of the phrase, with the comma(s)
+acting as appendanges - with colons and semi-colons, the two
+phrases are attached together <B>through</B> the punctuation symbol.
+More specifically, the "Xx" attaches the colon or semi-colon back 
+to the wall.
+
+  +-----Xx-----+        
+  +-Wd--+      +Wd+
+  |     |      |  |
+/////   I left ; Joe stayed
+
+  +----------Xx--------+        
+  +-Wd--+              +Wd+
+  |     |              |  |              
+/////   I have an idea : we should go
+                         that John should go
+                         plastics
+
+With semi-colons, the following phrase must be a clause;
+semi-colons thus carry "Xx- & W+". With colons, the following
+phrase can be a clause, "to-" or "that-" phrase, noun
+phrase, or question; thus colons have "Xx- & (W+ or J+ or TH+
+or TOn+ or Qd+)".
+
+Colons may also be used in quoting expressions. For this 
+purpose, we give colons Xe-, and give quoting verbs Xe+ & Ce+.
+
+            +--Ce--+
+            +Xe-+  +
+            |   |  |
+        He said : "I refuse to comment."
+
+<B>Xj: Conjoined locative expressions</B>
+Xj is used in a fashion very similar to Xx, to join together multiple
+locative expressions (verbless replies to questions about location,
+such as "where is it?")
+
+    +-----------Xj----------+
+    +---->Wl--->+           |
+    |           |           +>Wl>+ 
+    |           |           |    |
+  /////  just over the wall ,  under the tree
+
+
+<B>Xs: dependent clauses</B>
+The word "so" can behave much like a semicolon, and so is sometimes
+linked with Xs, so that the dependent clause can link correctly.
+
+       +-----------Xs--------------+
+       |                           +---CV-->+
+       |                           |        |
+   LEFT-WALL he failed to appear, so we went on without him
+
+       +-----------Xx------------+
+       |                         +-->WV-->+
+       |                         |        |
+   LEFT-WALL he failed to appear ; we went on without him
+
+
+<B>Other Punctuation Symbols</B>
+Other symbols besides commas may be used with "comma phrases":
+parentheses "()" and double-dashes  "--". These symbols 
+carry Xd- and Xc+, and may therefore be used in all the kinds
+of comma phrases listed above.
+
+        Jane Smith (a doctor) attended the meeting
+        Jane Smith -- a doctor -- attended the meeting
+        We left (carrying the dog) and Fred followed
+
+Again, there are false positives here. Parenthese may be used
+anywhere commas are used, but this is sometimes incorrect:
+"Today) Jane left". Also, when a symbol is used on one end of
+a commma expression, there is no guarantee that the compatible
+symbol will be used on the other end: "Jane (a doctor, is
+here."
+
+Double dashes are also sometimes used like colons, and are
+followed by noun-phrases, clauses, etc.. For this we give "--"
+the same expression described above for ":".
+
+As noted above, "?" and "!" may be used at the ends of sentences,
+like periods. One difference is that they may also be used at
+the end of a quoted expression (followed by a quoting
+expression), whereas periods may not. 
+
+        "What are you doing?" he asked.
+        *"I am doing this." she replied.
+
+For this purpose we give "?" and "!" Xq+. Quoting verbs such
+as "said" are given Xq-, and may thus hook back to a "?" or
+"!" rather than the usual comma.
+
+"$" and "%" must be used with numbers. "$" must make an NI
+connection forward to a number; "%" must make an ND connection
+backwards. These symbols may then be used as noun phrases: "We
+lost 50% of our money", "I have $5". An ampersand "&" may connect
+two proper noun words together; thus it carries "G- & G+".
+
+</PRE>
+<A HREF="index.html">Grammar Documentation Page</A>.
+</BODY>
+</HTML>

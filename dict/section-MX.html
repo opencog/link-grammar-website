@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Guide-to-Links: MX</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<B><KBD><FONT SIZE="+1">*** Guide-to-Links ***<BR></FONT><FONT SIZE="+4">
+    MX</FONT></KBD></B>
+<PRE>
+MX connects nouns to post-nominal noun modifiers surrounded by commas.
+
+             +----MX--+
+             |  +-Xd--+-----Xc------+
+             |  |     |             | 
+        The dog , a poodle          ,     
+        The dog ,    who was black  , barked loudly
+        The dog ,   with a big nose , barked loudly
+        The dog ,   chasing the cat , barked loudly
+        The dog ,   annoyed by Fred , barked loudly
+        The dog ,   angry at Fred   , barked loudly        
+
+The MX connectors used here have different subscripts
+depending on the kind of modifying phrase. Most kinds of comma
+modifier phrases correspond to kinds of no-comma modifier
+phrases, which use M rather than MX. However, every word that
+takes MX- requires a comma on either side of its phrase; such
+words therefore carry (Xd- & Xc+ & MX-). See "<A HREF="section-X.html">X</A>: Comma phrases".
+
+Nouns may take any number of comma modifiers. Thus they carry
+"@MX+".
+
+     +--------------MX------------------+
+     +--------MX-------+                |
+     +----MX---+       |                |
+     |  +--Xd--+-Xc+-Xd+-----Xc------+Xd+-----Xc------+
+     |  |      |   |   |             |  |             | 
+The dog , a poodle , with black hair , who was pretty , ...
+
+Nouns can take without-comma modifiers as well as with-comma
+modifiers. However, any comma modifiers must follow any
+no-comma modifiers:
+
+        The dog with black hair, a poodle, was pretty
+        *The dog, a poodle, with black hair was pretty
+        The dog that I bought, a poodle, with black hair, 
+              was pretty
+        *The dog, a poodle, with black hair, that I bought 
+              was pretty 
+
+Nouns therefore have
+
+        dog: {@M+} & {R+ & Bs+ & {[[@M+]]}} & {@MX+}...
+
+             -----------------------------     ----
+                without-comma modifiers     with-comma
+                                
+Nouns can take noun phrases as modifiers with commas. In this
+case the commas are obligatory. (There is no corresponding
+without-comma phrase; "*The dog a poodle was pretty.") Nouns
+therefore have MX-, disjoined with their main "S+ or O-..."
+complex:
+
+        dog: Ss- or SIs+ or Os- or Js- or (Xc+ & Xd- & MX-);
+
+Proper nouns can act as noun modifiers too ("My professor,
+Ms. Smith, is very good"); thus they also have MX-.
+Determiners acting as noun-phrases are given MX- too, although
+this is rarely used ("?Jane and Bill, some of my friends, are
+here").
+
+Since nouns have MX- as well as MX+; they can act as
+noun-modifiers while taking their own noun-modifiers. This is
+a frequent source of ambiguity. For example, in the sentence
+"My professor, Ms. Smith, an expert on dogs, is here", the
+second and third noun-phrases could both modify the first, or
+the second could modify the first and the third could modify
+the second.
+
+Prepositions and progressive and passive participles also
+carry MX-. These usages correspond exactly to Mp, Mv, and Mg,
+used for prepositions and participle phrases without
+commas. As with Mv and Mg, the MX- on participles must start a
+domain; thus it is subscripted MX*p-, and this link-type is
+domain-starting.
+
+<B>MX#r: Relative Clauses with Commas</B>
+Relative clauses may also act as comma-modifiers. These differ
+slightly from ordinary no-comma relative clauses, however.
+First of all, the relative pronoun is obligatory, unlike in
+no-comma phrases.  Secondly, the relative pronoun must be
+"who" or "which"; "that" is not allowed.
+
+        My friend, who you met yesterday, is here
+        *My friend, you met yesterday, is here
+        *My friend, that you met yesterday, is here
+
+For this reason, we treat comma relative clauses quite
+differently from no-comma ones.  The relative pronoun acts as
+the head of the phrase. In subject relatives, it makes an
+ordinary subject (S) connection to the verb (unlike in
+no-comma relatives, where it makes a RS connection). In object
+relatives, it makes a B connection to the verb (whereas in
+no-comma relatives it makes a C connection to the relative
+subject). Therefore it behaves just like a question
+phrase. Indeed, the MX- on "who" is directly disjoined with
+the W- and QI- connectors used in indirect questions.
+
+who: (B*w+ or S**w+) & (Ws- or Wq- or QI- or (Xd- & Xc+ & MX*r-));
+
+             +--MX--+-S-+
+             |      |   |
+        My friend, who was drunk, left the party
+
+             +--MX--+----B----+
+             |      |         |
+        My friend, who Jane hated, left the party
+
+(The subscripts on B+ and S+ are irrelevant to MX-.) One
+complication here is that in subject relative clauses, the
+verb of the relative clause must agree with the main noun:
+"*My friend, who were drunk, left the party."  To handle this,
+we use post-processing. MX+ connectors on nouns are
+subscripted MXs+ or MXp+ for plural and singular.  This
+creates a MXsr or MXpr link with the relative pronoun; these
+links are domain-starting.  The verb that the relative pronoun
+connects to will then form an "Ss#w" or "Sp#w" link. We then
+dictate that a group containing a MXpr must contain a Sp#w;
+one containing a MXsr must contain a Ss#w.
+
+Prepositional relatives can also act as comma modifiers.  For
+this, prepositions have MX*j-. These connectors act exactly
+like Mj-; see "<A HREF="section-M.html">M</A>j". Finally, adjective phrases can serve as
+comma modifiers; adjectives therefore carry MX*a-, which is
+similar in function to Ma-.
+
+</PRE>
+<A HREF="index.html">Grammar Documentation Page</A>.
+</BODY>
+</HTML>

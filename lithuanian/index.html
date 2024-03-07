@@ -1,0 +1,186 @@
+<!DOCTYPE  HTML PUBLIC "-//IETF//DTD HTML//EN"><HTML>
+  <HEAD>
+    <TITLE>Link Grammar - Lietuvių Kalbos Gramatika</TITLE>
+  </HEAD>
+
+  <BODY BGCOLOR="#FFFFFF">
+<BLOCKQUOTE>
+    <H1 ALIGN="center">Link Grammar - Lietuvių Kalbos Gramatika</H1>
+
+<P>
+A prototype Lithuantian Link Grammar parser is being developed.
+It does very little at the moment.  This page collects some
+current documentation.
+<P>
+Lietuvių kalbos žodynas vos pradėtas. Įki šiol sukurata tiktai 
+pirma ir antra linksnioutė, pirmoji asmenuotė, 
+ir keleta sudaužytu gramatinių taisyklių.
+<P>
+<h1>Morfologija</h1>
+Morfologia tyrinėjama sų <tt>LL</tt> junktukų.
+<P>
+<tt>LL</tt> jungtis (kištukas): sujungia kamiena (liemuo) sų galūnė
+(fleksija):
+pvz. primoji linksnioutė:
+<pre>
+    piršt.= rakt.= būgn.= : LLPIRMIas+;
+    =as.pvv:  LLPIRMIas- &amp; &lt;vv-v-kas&gt;;
+    =o.pvk:   LLPIRMIas- &amp; &lt;vv-k-ko&gt;;
+    =ui.pvn:  LLPIRMIas- &amp; &lt;vv-n-kam&gt;;
+
+      +------------T---------------+    
+      |        +-LLPIRMIas-+-DVvvp-+    
+      |        |           |       |    
+  LEFT-WALL piršt.=     =as.pvv skauda  
+</pre>
+
+Panašiai ir antroji linksnioutė, trečioji asmenoutė, ir tt.:
+<pre>
+      +-------&gt;T------&gt;+            
+      |       +&lt;-DV*vp&lt;+----&gt;DG---&gt;+
+      |       |        |           |
+  LEFT-WALL aš.i skaitau.tevp knygą.avg1 
+
+   LEFT-WALL      hT         &gt;---T-----&gt;  dT         skaitau.tevp
+   aš.i           dDV*vp     &lt;---DV*vp-&lt;  hDV*vp     skaitau.tevp
+   skaitau.tevp   hDG        &gt;---DG----&gt;  dDG         knygą.avg1
+
+</pre>
+Pastebėkite rodyklės:
+<pre>
+      +------------&gt;T------------&gt;+
+      |       +&lt;------DV*vp&lt;------+
+      |       |       +&lt;----DG&lt;---+
+      |       |       |           |
+  LEFT-WALL aš.i knygą.avg1 skaitau.tevp 
+
+   LEFT-WALL     hT         &gt;---T-----&gt;  dT        skaitau.tevp
+   aš.i          dDV*vp     &lt;---DV*vp-&lt;  hDV*vp    skaitau.tevp
+   knygą.avg1    dDG        &lt;---DG----&lt;  hDG       skaitau.tevp
+
+</pre>
+
+Dabar, su morfologija:
+<pre>
+      +---------&gt;T---------&gt;+                
+      |       +&lt;---DV*vp&lt;---+------&gt;DG-----&gt;+
+      |       |     +LLATREt+        +LLANTR+
+      |       |     |       |        |      |
+  LEFT-WALL aš.i skai.= =tau.tevp knyg.= =ą.avg1 
+
+   LEFT-WALL      hT            &gt;---T-----&gt;  dT              =tau.tevp
+   aš.i           dDV*vp        &lt;---DV*vp-&lt;  hDV*vp          =tau.tevp
+   skai.=         LLATREtyti    ----LLATR--  LLATREtyti      =tau.tevp
+   =tau.tevp      hDG           &gt;---DG----&gt;  dDG             =ą.avg1
+   knyg.=         LLANTRIa      ----LLANT--  LLANTRIa        =ą.avg1
+
+</pre>
+
+<h1>Sintakse</h1>
+Apibrėžta žodžių tvarka: 
+(pavgota iš Algimanto Urbanavičiaus <a href="http://ualgiman.dtiltas.lt/zodziu_tvarka.html">
+Žodžių tvarka </a>)
+<ul>
+<li>prielinksnių vieta prieš daiktavardžių ar įvardžių linksnius, pvz.: ėjome
+<b>į mišką</b>; namas <b>be langų</b>;
+<li>neiginio vieta prieš neigiamąjį žodį, pvz.: <b>ne visi</b> taip gali;
+<li>klausiamųjų dalelyčių vieta sakinio pradžioje, pvz.: <b>Ar</b> visi susirinko?;
+<li> pažymimojo sakinio šalutinio dėmens vieta po pažymimojo žodžio, pvz.:
+Išaušo <b>diena, kurios</b> visi taip laukėm.
+</ul>
+
+
+<h2>Tariniai</h2>
+Tariniai (vieksmažodžiai) prisijunge prie sienos.
+<h3>Grynasis tarinys</h3>
+<pre>
+   +-------T----------+
+   |                  |
+LEFT-WALL  Pirštas skauda.
+
+   +------------T----------------+
+   |                             |
+LEFT-WALL  Nauja šluota gerai šluoja.
+</pre>
+
+<pre>
+    +-------T-------+--------Xp--------+
+    |      +--DV*vp-+-----DG-----+     |
+    |      |        |            |     |
+LEFT-WALL aš  skaitau.tevp  knygą.avg1 . 
+
+</pre>
+
+<h3>Suvestinis tarinys</h3>
+<pre>
+   +-----------T-----------+
+   |                       |
+LEFT-WALL vaikas pradėjo verkti
+</pre>
+
+<h3>Daiktavardžiai</h3>
+
+<tt>DK</tt> jungtis == Vardininkas Kas?
+<p>
+   DVv == vyriška, DVm == moteriška giminė
+<p>
+   DV*v == vienaskaita  DV*d == daugiskaita
+<p>
+   DV**p == pirmoji DV**a == antroji DV**t == trečioji  asmenuotė
+<p>
+pavizdžiui:
+<pre>
+    +-----------T----------+             
+    |          +---DVvvt---+-----DG-----+
+    |          |           |            |
+LEFT-WALL  Jonas.pvv  skaito.tevt  knygą.avg1 
+</pre>
+Čia, DVvvt reiškia kad: vyriška, vienaskaita, trečioji  asmenuotė
+<p>
+Įrgi:
+<pre>
+% DK == Kilmininkas Ko?
+% DN == Naudininkas Kam?
+% DG == Galininkas Ką?
+% DI == Įnagininkas Kuo?
+% DU == Vietininkas Kur?
+% DS == Šauksmininkas O!
+</pre>
+Tai pvz:
+<pre>
+    +-----------T----------+-----------DG-----------+
+    |          +---DVvvt---+            +-----DK----+
+    |          |           |            |           |
+LEFT-WALL  Jonas.pvv  skaitė.tkvt  brolio.pvk  knygą.avg1 
+</pre>
+
+<h1>Atidari klausimai</h1>
+Morphologija -- ar verta toliau skaldyti galūnes į sufiksus+galūnes: pvz.:
+<i>skaityti</i>: skai- <i>tau tai to tome tom tote čiau tei tė
+tėme tėm tėte tėt
+tydavau tydavai tydavo tydavome tydavom tydavote tydavot
+tysiu tysi tysime tysim tysite tysit
+tyčiau tytum tytumei tytų
+tytume tytumėm tytumėme tytute tytumėte tytumėt
+tyk tyki tykime tykim tykite tykit</i>
+<p>
+Galima irgį būtu suskaldyti: 
+<ul>
+<li><b>skai-</b><i>tau tai to tome tom tote čiau tei tė tėme tėm tėte tėt</i>
+<li><b>skai-ty-da-</b><i>vau vai vo vome vom vote vot</i>
+<li><b>skai-ty-si-</b><i>u =. me m te t</i>
+<li><b>skai-ty-</b><i>čiau</i>
+<li><b>skai-ty-</b><i>tų</i>
+<li><b>skai-ty-tu-</b><i>m mei me mėm mėme te mėte mėt</i>
+<li><b>skai-ty-</b><i>k</i>
+<li><b>skai-ty-ki-</b><i>=. me m te t</i>
+</ul>
+Čia, .= reiškia yra "null sufiksas", turi gramatine rolė, bet be raidžių.
+Neaišku ar vienaip ar kitaip geriau...
+
+
+<P>
+<A HREF="../">Link Grammar front page</A>
+
+  </BODY>
+</HTML>

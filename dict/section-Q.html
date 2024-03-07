@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Guide-to-Links: Q</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<B><KBD><FONT SIZE="+1">*** Guide-to-Links ***<BR></FONT><FONT SIZE="+4">
+    Q</FONT></KBD></B>
+<P>
+<b><tt>Q</tt></b> is used in questions, to link to auxilliary verbs,
+whenever there is s-v inversion (<i>i.e.</i> when there is no preceding
+object.) In truth queries, the auxiliary connects to the wall
+(ex. 1 below).
+In general WH-questions, it connects the question-word (WHEN, WHERE,
+WHY, HOW) to the auxilliary (ex. 2).  For locative questions,
+it connects the preposition to the auxilliary (ex.3). In this last case,
+there is no way to directly join the WH-locator to the auxilliary,
+without a link-crossing being forced (in this example, WHICH and
+WERE cannot be linked without violating planarity).
+<PRE>
+         +--Qd-+
+         |     |            
+       /////  Are you going to to the movie?
+
+         +--W--+-Qw-+
+         |     |    |
+       /////  Why  did you go?
+
+               +---------Qp-----+ 
+               +-----Js----+    |
+         +--W--+-JQ-+      |    |
+         |     |    |      |    | 
+       /////  In  which  room  were you working?
+</PRE>
+
+This can be contrasted with noun-focused questions, either of
+object-type or subject-type, where the question-word connects
+to the verb ("WHAT DID you buy", "WHO BOUGHT that").
+In the former case, there is s-v inversion, but no <tt>Q</tt>
+connection is made. Thus the <tt>Q-</tt> is optional on auxiliaries.
+<P>
+Post-processing ensures that when a question-word is used in
+object-type or when-where-why questions (but not subject-type
+questions), the outer group of the sentence contains some kind
+of <tt>SI</tt>; this is because in all such cases, a <tt>Wq</tt>
+is used to connect to the wall, and this requires an <tt>SI</tt>
+in the same group. Post-processing further ensures that <tt>SI</tt>
+links can only be used when a <tt>Wq</tt> is present 
+(see "<A HREF="section-SI.html">SI</A>"). However, in simple
+yes-no questions, question inversion must occur, yet no
+question word is present. Thus the <tt>Q+</tt> on the wall is
+subscripted <tt>Qd</tt>, and this is added to <tt>Wq</tt> on
+the list of link-types that permit s-v inversion. Similar
+considerations apply for the <tt>Qp</tt> link.
+<P>
+(Note that the <tt>Q-</tt> on auxiliaries is conjoined with <tt>SI+</tt>,
+but disjoined with <tt>S-</tt>; by link logic, it can only be used with
+<tt>SI+</tt>. Post-processing tightly constrains the use of <tt>SI</tt>,
+preventing it from occurring in indirect questions, relative clauses,
+<i>etc.</i>; the use of <tt>Q</tt> is thus automatically constrained as
+well.)
+<P>
+
+<h3><tt>Qd</tt>: Truth query, Conditionals</h3>
+<P>
+The <tt>Qd</tt> link, because it connects to auxilliaries,
+effectively indicates a truth-query.
+<PRE>
+            +------------Xp------------+
+            +-------->WV------->+      |
+            |        +----I*d---+      |
+            +-->Qd---+-SIp-+    +-Osm+ |
+            |        |     |    |    | |
+        LEFT-WALL did.v-d you see.v it ?
+
+            +--------------Xp--------------+
+            |        +---Paf---+           |
+            +-->Qd---+-SIs-+   +--MVp-+    |
+            |        |     |   |      |    |
+        LEFT-WALL was.v-d it fun.a there.r ?
+</PRE>
+
+It is also used in conditional constructions: specifically,
+post-posed conditionals with subject-verb inversion:
+<PRE>
+    +------------------->WV------------------------>+
+    +------------->Qd-------------------+           |
+    |                      +-----Iqj----+----PP-----+
+    |               +--PP--+-Ox-+  +-Xd-+-SI--+     |
+    |               |      |    |  |    |     |     |           
+LEFT-WALL I would have   seen  you ,   had   you   been there
+          I would have   done that ,   had   you   come with me
+</PRE>
+
+
+<h3><tt>Qw</tt>: WH-aux linking</h3>
+<P>
+The <tt>Qw</tt> link is used to connect WH-words to auxilliaries.
+This allows the primary verb to be marked as a head-verb (via the
+<tt><A HREF="section-WV.html">WV</A></tt> connector), the auxilliary
+marked with <tt>(Qw- & <A HREF="section-I.html">I+</A>)</tt>, thus
+forming a cycle closed by the <tt><A HREF="section-W.html">W</A></tt>
+connector between the WH-word and the wall.
+<PRE>
+            +--------------Xp-------------+
+            +---------->WV----------->+   |
+            |              +-----I----+   |
+            +-->Wq--+--Qw--+-SIp+     |   |
+            |       |      |    |     |   |
+        LEFT-WALL when  will.v you come.v ?
+        LEFT-WALL where will.v you  go.v  ?
+</PRE>
+<P>
+<h3><tt>Qp</tt>: Prep-what/which-aux linking</h3>
+<P>
+The <tt>Qp</tt> link is used when a truth query (<tt>Qd</tt> link)
+has been converted into a WH-query by a preposed preposition:
+<PRE>
+            +--------------------Xp-------------------+
+            +---------------->WV---------------->+    |
+            |      +--------Qp-------+           |    |
+            |      +----Js---+       +-----I-----+    |
+            +->Wj--+-JQ+Ds**c+       +-SIp+      |    |
+            |      |   |     |       |    |      |    |
+        LEFT-WALL by what means.s will.v you arrive.v ?
+</PRE>
+Ideally, there would also be a link between the WH-word and the
+auxilliary; but this is not possible in this case, as a link-crossing
+would be forced.
+<P>
+The <tt>Qp</tt> link also works when the auxilliary verb is elided:
+<PRE>
+            +---------------Xp--------------+
+            +------------>WV----------->+   |
+            |       +---------Qp--------+   |
+            |       +-----Js-----+      |   |
+            +-->Wj--+--JQ-+--D---+      |   |
+            |       |     |      |      |   |
+        LEFT-WALL  By   what   means  ....v ?
+        LEFT-WALL  For  what  reason  ....v ?
+        LEFT-WALL  To   what    end   ....v ?
+        LEFT-WALL  In   which   way   ....v ?
+</PRE>
+
+Other examples include:
+"IN which room WERE you working", "TO whom WERE you speaking".
+See <tt><A HREF="section-JQ.html">JQ</A></tt> and
+<tt><A HREF="section-J.html">J</A></tt> for details.
+
+<h3><tt>Qe</tt>: Adverbial questions</h3>
+<P>
+<tt>Qe</tt> is used to connect adverbs to following auxiliaries
+in adverbial questions:
+
+<PRE>
+
+                     +---I---+
+         +EEh-+--Qe--+-SI+   |
+         |    |      |   |   |
+        How quickly did you run
+
+</PRE>
+<tt>Qe</tt> can only be used in questions ("*Very quickly did you
+run").  This is enforced by the fact that the sentence must
+connect to the wall, and can only do so through "how". Again,
+the use of <tt>Qe</tt> in indirect questions is prevented because
+<tt>Q-</tt> on auxiliaries is conjoined with SI, whose use is
+constrained by post-processing.
+
+<P>
+One false positive must be addressed here, however:
+
+<PRE>
+         +------------B-------+
+         |           +----I---+
+         |    +--Qe--+-SI-+   |
+         |    |      |    |   |
+      * Who quickly did Jane hit
+
+</PRE>
+We prohibit this in post-processing by requiring that a group
+containing a <tt>Qe</tt> must contain an <tt>EEh</tt> - a link-type
+occurring only on the word "how".
+
+<h3><tt>Qa</tt>: Why-action questions</h3>
+<P>
+<tt>Qa</tt> is used to connect the question "why?" to action verbs:
+
+<PRE>
+          +---->WV--->+
+          +->Wv--+-Qa-+-MVp-+
+          |      |    |     |
+      LEFT-WALL why run.v away ?
+</PRE>
+
+<P>
+<A HREF="index.html">Grammar Documentation Page</A>.
+</BODY>
+</HTML>

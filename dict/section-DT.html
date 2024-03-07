@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Guide-to-Links: DT</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<B><KBD><FONT SIZE="+1">*** Guide-to-Links ***<BR></FONT><FONT SIZE="+4">
+    DT</FONT></KBD></B>
+<PRE>
+DT connects determiners with nouns in certain idiomatic time
+expressions like "next week" and "last Tuesday".
+
+	      +-------MVp---------+
+	      |               +DTi+
+	      |               |   |
+	I'm going to London next week		
+
+<B>Time Expressions</B>
+This might be a good place for a general discussion of time
+expressions.
+
+English contains many kinds of time expressions. The most common
+uses of these expressions are analogous to prepositional phrases
+(indeed, many time expressions are prepositional phrases). Time
+expressions therefore often connect to the rest of the sentence 
+with the same connectors as prepositional phrases: MVp+ (when
+following a verb), Mp+ (when following a noun phrase), and CO+ (when
+preceding a clause).
+
+Many time expressions are single words or simple prepositional
+phrases ("yesterday", "on Tuesday"), but many others are
+idiomatic in construction, and use special-purpose link-types
+like JT, DT, and Yt: "It happened three weeks ago / last
+Tuesday morning / two days after the party". (Certain place
+expressions like "five miles away", which use Yd, are similar
+in this regard.) In such cases, decisions must be made,
+sometimes rather arbitrarily, about which word in the time
+expressions will serve as the head, i.e., will make the MV
+connection to the rest of the sentence.
+
+When time expressions contain a preposition or conjunction,
+that word is almost always the head of the expression. Often
+the head word is modified by a quantity expression, using a Yt
+link (see "<A HREF="section-Y.html">Y</A>"). There are many time expressions, however,
+which do not use prepositions or conjunctions, such as this
+one:
+	      	       
+	I'm going to London next week
+
+With a phrase like "next week", we make "week" the head of the
+expression (we create a special "week.i" dictionary entry for
+such nouns); we use DTi to attach a word like "next" (or "last"). We
+then give "week.i" the usual prepositional phrase expressions: MVp-,
+Mp-, CO+.
+
+	week.i: DTi- & (MVp- or Mp- or CO+);
+	next: DTi+;
+
+	      +-------MVp---------+
+	      |               +DTi+
+	      |               |   |
+	I'm going to London next week		
+
+A phrase like "next week" can also be used a noun phrase. 
+
+	1.I'll be free after next week
+	2.Next week would be good
+	3.Are you ready for next week
+
+With certain prepositions, time expressions are very common as
+objects: "after", "by", "until" (ex. 1). For these we use JT
+(see "<A HREF="section-JT.html">JT</A>").  Other noun-phrase uses of time expressions are
+less common, and rather colloquial (exx. 2-3). Therefore we
+give "week.i" the usual "S+ or O- or J-" complex for nouns,
+but we give it a cost of 2.
+
+week.i DTi- & (MVp- or Mp- or CO+ or JT- or [[S+ or O- or J-]]);
+
+With phrases like "this week" and "every week", we must do
+something similar. However, there is an important difference
+between "this week" and "next week". "This week" is a
+well-formed noun phrase on its own, while "next week" is not. 
+Therefore the noun-phrase uses of "this week" (like exx. 1-3
+above) will take care of themselves, simply using the ordinary
+noun entry "week.n". 
+
+	  +-D-+--S-+
+          |   |    |
+	This week would be good
+
+We need only worry about the prepositional phrase usages: "I
+can see you this week". Therefore, for determiners like "this"
+aand "every", as well as phrases like "the_next" and
+"the_previous", we create a DTn connector, conjoined with the
+prepositional-phrase connectors of "week.i" but not the
+noun-phrase connectors:
+
+	week.i: ((DTn- or DTi-) & (MVp- or Mp...)) or 
+		(DTi- & (JT- or [[S+ or O-...]])
+
+	this: DTn+;
+	next: DTi+;
+
+Phrases can also be formed with all these determiners (both
+the DTn+ ones and the DTi+ ones) with month and
+day-of-the-week names. Again, such expressions occur most
+commonly as prepositional phrases or JT objects (exx. 4-6),
+but can also occur as noun phrases (exx. 7-8).  Again, we give
+the noun-phrase usages a cost of 2.
+
+	4. We should meet this Tuesday
+	5. You should do it before next January
+	6. Last Monday, I saw Fred
+	7. Next Tuesday would be good
+	8. Are you ready for next Monday
+
+A special case is phrases with the word "all": "all day",
+"all year". These can only be used prepositionally: "We worked
+all day", "*All day is too long". For these, we use DTa, which
+is conjoined on words like "day" with prepositional-phrase
+connectors but not noun-phrase connectors.
+
+Unlike words like "week", day and month names can be used as noun
+phrases with no determiner at all (exx. 9-10). Day names are often
+objects of "on", and month names are often objects of "in".
+These are so common that it seems sensible to give them a cost
+of 0; therefore we create special "ON" and "IN" connectors
+for them (ex. 11).
+
+	9. Monday would be good
+	10. Are you ready for April
+
+	       +---MV---+-ON-+
+	       |        |    |
+	11. I saw Fred on Monday		
+
+Month names can be used with dates and years. For this we use
+TM and TY. For this purpose, special categories have been
+created for numbers which are common as years and
+days-of-the-month.
+
+	    		    +-----TY----+     
+	  	       +-ON-+--TM-+ +-Xd+-Xc-+
+	 	       |    |     | |   |    |
+	I.p saw.v him on January 21 , 1990 ///// 
+
+TD is used to connect day-of-the-week names to word like "evening":
+"I saw him Tuesday evening". TA is used to connect adjectives like
+"late" to month names: "We did it in late December". There are some
+other subtle distinctions regarding time expressions which we will
+not go into here; the following sentences illustrate some of them.
+
+	I saw him Monday
+	*I saw him January
+	I saw him January 21
+	*January 21, I saw him
+	We did it on Jan 21
+	*We did it in Jan
+	*I saw him on early January 21
+	Monday's concert should be good
+	This Monday's concert should be good
+	This week's concert should be good
+	The Monday concert should be good
+	*The this week concert should be good
+	I saw him in January 1990
+
+</PRE>
+<A HREF="index.html">Grammar Documentation Page</A>.
+</BODY>
+</HTML>

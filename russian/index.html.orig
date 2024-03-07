@@ -1,0 +1,92 @@
+<html>
+  <head>
+   <meta http-equiv="Content-Type" content="text/html;charset=windows-1251">
+    <TITLE>Link Grammar for Russian - Грамматика связей для русского языка -  Разбор предложения</TITLE>
+  </head>
+  <body BGCOLOR="#FFFFFF">
+  <blockquote>
+    <h1>Грамматика связей (Link Grammar)</h1>
+
+Введите ваше предложение и нажмите "Разобрать".
+
+<UL>
+<LI> Вводите только одно предложение. Все, что вы введете, будет распознаваться как одно большое предложение.
+
+<LI> Рекомендуется использование правильной орфографии и отсутствие редких слов.
+
+<li> Парсер грамматики связей размечает слова тегами частей речи, например ".n" (существительное), ".v"
+   (глагол), ".a" (прилагательное), ".e" (наречие). Попробуйте использовать слова
+имеющие различные синтаксические категории, такие как "свечу", "молодой", "три" и смотрите правильно ли парсер их помечает.
+
+<li> Вы можете попробовать разбирать предложения по нарастающей сложности <a href=/parser/html4/>корпус 1</a>, <a href=/parser/html2/>корпус 2</a>
+
+<li> Документация <a href=/parser/doc/>по связям</a> и по <a href=/parser/doc/morph/>классам слов</a> доступна в виде списка примеров.
+
+<p>
+
+</UL>
+<a name="submit">
+
+
+<FORM METHOD="POST" ACTION="parse.pl#submit">
+<textarea name="Sentence" MAXLENGTH=200  wrap=virtual rows=3 cols=70></textarea><br>
+<INPUT TYPE="checkbox" NAME="NullLinks" CHECKED>Разрешить нулевые связи &nbsp;
+<INPUT TYPE="checkbox" NAME="AllLinkages" OFF>Показывать все связки &nbsp;
+<INPUT TYPE="HIDDEN" NAME="LinkDisplay" VALUE="on">
+<INPUT TYPE="HIDDEN" NAME="ShortLength" VALUE="6">
+<INPUT TYPE="HIDDEN" NAME="Maintainer" VALUE="parser_at_svp.zuzino.net.ru">
+<br>
+<INPUT TYPE="submit" VALUE="Разобрать одно предложение.">
+<br>
+</FORM>
+
+<hr>
+<li> <a href="http://img.sz.ru/lg/lg.tar.gz">russian lg.tar.gz for linux</a> Август 2012
+<li> (offtopic) <a href="http://sz.ru/search-quality/Protasov-Baranov-RamblerPFound.pdf">Rambler Click pFound - метрика качества поиска</a>, Октябрь 2011
+
+<li> <a href="Karpenko-Protasov-Language-Model-Pruning.pdf">Некоторые методы очистки моделей языка</a>, Июнь 2011
+<li> (offtopic) <a href="Protasov-Rambler-NR2010.pdf">Новое ранжирование Рамблера</a>, <a href="http://slashzone.ru/article.pl?sid=10/11/13/0853212&mode=thread">Почему мы отказались от MatrixNet</a>, Ноябрь 2010
+
+<li> (offtopic) <a href="Protasov-10-Incorrect-Comparisons.pdf">10 неправильных способов сравнивать качество поисковиков</a>, Февраль 2010
+<li> (offtopic) <a href="Protasov-Search-Quality.pdf">Поведенческие метрики для оценки качества поиска</a>, Ноябрь 2009, <a href="http://video.yandex.ru/users/optimizationru/view/30">video</a>
+
+
+<li> (offtopic) <a href="http://sz.ru/search-quality/">сравнение качества поисковиков</a>, Июль 2009
+<li> (offtopic) презентация про <a href="Ploshihin-Protasov-Parser.pdf">парсер вертикального поиска</a> на <a href=http://www.highload.info/>РИТ: Высокие нагрузки</a>, Сентябрь 2008
+<li> <a href="Protasov-Inference-Long-Trigram-Dialog2008.pdf">Доклад</a> и <a href="Protasov-Dialog08-present.pdf">презентация</a> про <a href=Protasov-Dialog08-present.pdf>дальнодействующие триграммы</a> на <a href=http://www.dialog-21.ru>Диалог-2008</a>, <a href=about_corpus.html>об используемом корпусе</a>, Июнь 2008
+<li> Некоторые эксперименты со статистическим машинным переводом (<a href=http://statmt.ru>англо-русский онлайн переводчик</a>) <a href=http://sz.ru/smt/>sz.ru/smt/</a>, <a href=http://statmt.ru>statmt.ru</a>, Январь 2008
+<li> <a href="Protasov-El-Inference-Long-Trigram-Dialog2007.pdf">Вывод и оценка параметров дальнодействующей триграммной модели языка</a>, <a href=Protasov-Inference-Long-Trigram.txt>[eng]</a>, Август 2007
+<li> <a href="Protasov-CAI06-present.pdf">Презентация</a> (<a href="Protasov-CAI06-present.pdf">обучение грамматики связей</a>) для КИИ-2006, Сентябрь 2006
+<li> (offtopic) <a href=http://sz.ru/speech-recognition/>Дикторонезависимое распознавание речи</a>, Август 2006
+<li> (offtopic) <a href=http://sz.ru/rutest/>Знаете ли Вы русский язык?</a>, Июль 2006
+<li> (offtopic) <a href=http://sz.ru/sets/>Списки слов</a>, Июнь 2006
+<li> <a href="Protasov-Unsupervised-Learning-Link-Grammar-for-Russian.pdf">Обучения с нуля грамматики связей русского языка</a>, <a href="corpora1-test.txt">corpora1-test.txt (к статье)</a>, Февраль 2006
+<li> <a href=/parser/html4/>Дополнительный корпус для тестирования парсеров</a>, Декабрь 2005
+<li> (offtopic) <a href=/parser/russian_evil_numbers095.txt>Телефоны спамеров Москвы (для spamassassin)</a>, Ноябрь 2005
+<li> <a href=Protasov-RussianLinkGrammar.pdf>Преимущества грамматики связей для русского языка</a>, Март 2005
+<li> <a href=/parser/html2/>Специализированные корпуса для тестирования парсеров и систем машинного перевода</a>, Декабрь 2004
+<li> <a href=/parser/perl.html>Работа с русским языком из Perl</a>, Октябрь 2004 (черновик)
+<li> <a href=/parser/about.html>О проекте</a>, Сентябрь 2004
+
+<hr>
+
+     <li>       <a href="http://www.link.cs.cmu.edu/link/papers/index.html">Link
+Grammar Bibliography</a>
+     <li>       <a
+href="http://www.dialog-21.ru/forum/memberinfo.aspx?mid=97">Информация об
+авторе: Сергей Протасов.</a>
+     <li>       <a href="http://en.wikipedia.org/wiki/Link_grammar">Link grammar - Wikipedia, the free encyclopedia</a>
+     <li>       <a href="http://www.rvb.ru/soft/catalogue/c01.html">Программы анализа
+и лингвистической обработки текстов</a>
+     <li>       <a href="http://protasov.moikrug.ru/">Сергей Протасов: Мой Круг</a>
+     <li>       <a href="http://www.compling-info.narod.ru/">Литература по
+Компьютерной Лингвистике</a>
+     <li>       <a
+href="http://lib.mexmat.ru/forum/viewtopic.php?t=4210">Моделирование русского
+языка</a>
+
+
+<hr>
+    <address>Sergey Protasov [parser собака svp точка zuzino точка net точка ru]</address>
+</body>
+</html>

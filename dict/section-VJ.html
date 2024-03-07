@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Guide-to-Links: VJ</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<B><KBD><FONT SIZE="+1">*** Guide-to-Links ***<BR></FONT><FONT SIZE="+4">
+    VJ</FONT></KBD></B>
+<P>
+<b><tt>VJ</tt></b> connects verbs to the word "and" to create a conjoined modifier
+phrase.
+
+<PRE>
+       +---Ss---+          
+       |  +--VJ-+--VJ--+
+       |  |     |      |
+      he ran and.j-v jumped
+</PRE>
+In the above example, the <tt>VJ</tt> links join the verbs "ran" and
+"jumped" to the central coordinator "and".  The "and" acts as a
+head-word, connecting to the subject as if it were a verb itself:
+joining with the <tt>S</tt> link to the subject on the left.
+</P>
+<P>
+There are many subtypes to the <tt>VJ</tt> link; these are summarized
+here, and reviewed in detail below.
+<dl>
+<dt><b>First position</b></dt>
+<dd>
+<ul>
+<li><tt>VJr</tt> - left
+<li><tt>VJl</tt> - right
+<li><tt>VJd</tt> - ditransitive
+</ul>
+</dd>
+<dt><b>Second position</b></dt>
+<dd>
+Controls agreement with subject
+<ul>
+<li><tt>VJ*s</tt> - singular subject
+<li><tt>VJ*p</tt> - plural subject
+<li><tt>VJ*g</tt> - conjoined gerunds
+<li><tt>VJ*h</tt> - conjoined past participles
+</ul>
+</dd>
+<dt><b>Third position</b></dt>
+<dd>
+Controls whether the conjunction can take an object.
+<ul>
+<li><tt>VJ**i</tt> - intranstive
+<li><tt>VJ**t</tt> - transitive
+</ul>
+</dd>
+</dl>
+</P>
+<P>
+The subtypes <tt>VJl, VJr</tt>, standing for "left" and "right",
+are used to maintain sequential ordering, which is important for
+comma-separated lists of verbs; thus, for example:
+<PRE>
+       +----Ss---+-----VJrsi-----+          
+       |    +VJls+      +--VJlsi-+--VJrsi--+
+       |    |    |      |        |         |
+      he ran.v-d , jumped.v-d and.j-v scored.v-d 
+</PRE>
+Notice that when infinitives are used, then the
+<a href="section-XJ.html"><tt>XJ</tt> link</a> is used instead.  
+This is probably a design flaw, and the approach taken for 
+<tt>XJi</tt> links should be harmonized with that for
+the other <tt>XJ</tt> link styles.
+</P>
+<P>
+The subtype <tt>VJd</tt> is used to conjoin ditransitive objects
+(where the verb takes for a direct and indirect object):
+<PRE>
+              +----------VJd---------+                
+              +------Osn------+      +------Osn------+
+       +-Sp*i-+--Os--+   +-Ds-+      +---Os--+   +-Ds+
+       |      |      |   |    |      |       |   |   |
+      I.p gave.v-d Bob.m a doll.n and.j-o Mary.b a gun.n 
+</PRE>
+There are many "complex" transitive verbs that can be conjoined in a 
+fashion similar to the above: transitive verbs that take particles,
+transitive verbs that can connect to phrases headed by <i>to ...</i>
+or <i>that ...</i>.  While the <tt>VJd</tt> subtype handles the
+most common case, that of ditransitive verbs, the more complex cases
+are not handled, or are not consistently handled in link-grammar.
+See also the discussion of this phenomenon in the page introducing
+conjunctions in link-grammar.
+</P>
+<P>
+The subtype <tt>VJ*s</tt> is used to enforce singular subjects:
+<PRE>
+       +-----Ss-----+          
+       |    +-VJlsi-+--VJrsi--+
+       |    |       |         |
+      he ran.v-d and.j-v jumped.v-d 
+</PRE>
+The subtype <tt>VJ*p</tt> is used to enforce plural subjects:
+<PRE>
+        +------Sp-----+          
+        |     +-VJlpi-+--VJrpi--+
+        |     |       |         |
+      they ran.v-d and.j-v jumped.v-d 
+</PRE>
+The subtype <tt>VJ*g</tt> is used to conjoin gerunds:
+<PRE>
+            +--------Pg*b-------+          
+       +-Ss-+        +---VJlg---+---VJrg--+
+       |    |        |          |         |
+      he was.v-d running.v and.v-fill jumping.v 
+</PRE>
+The subtype <tt>VJ*h</tt> is used to conjoin past participles:
+<PRE>
+            +------PP-----+          
+       +-Ss-+      +-VJlh-+--VJrht--+
+       |    |      |      |         |
+      he had.v-d run.v and.j-v jumped.v-d 
+</PRE>
+</P>
+<P>
+The <tt>VJ**i</tt> and <tt>VJ**t</tt> subtypes control whether 
+a conjunction can take an object.  The conjunction should take an 
+object if both verbs are transitive; for example, <i>I saw and 
+greeted Sue</i>, which should group together the verbs:
+<i>I (saw and greeted) Sue</i>, with the <i>and</i> acting
+as the head work, connnecting to the subject, and to the object:
+<PRE>
+       +-----Sp*i----+--------Os--------+
+       |     +-VJlpt-+--VJrpt--+        |
+       |     |       |         |        |
+      I.p saw.v-d and.j-v greeted.v-d Sue.f 
+</PRE>
+The above may be interpreted as two sentences: <i>I saw Sue</i>
+and <i>I greeted Sue</i>.  By contrast, 
+the subtype <tt>VJ**i</tt> is used to explicitly prohibit the
+above case, when one of the verbs is not transitive:
+<PRE>
+       +-----Sp*i-----+             
+       |      +-VJlpi-+-VJrpi+--Os-+
+       |      |       |      |     |
+      I.p fell.v-d and.j-v saw.w Sue.f 
+</PRE>
+That is, one cannot say <i>*I fell Sue</i>; the verb <i>to fall</i>
+is not transtive (not to be confused with the verb <i>to fell</i>,
+as in <i>to fell a tree</i>).
+</P>
+<P>
+See also the <a href="coordination.html">conjunction</a> overview.
+</P>
+<A HREF="index.html">Grammar Documentation Page</A>.
+</BODY>
+</HTML>
+

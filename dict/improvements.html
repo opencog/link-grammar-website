@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<br>
+
+  <head>
+    <title>Link Grammar Version 4.0 Improvements</title>
+  </head>
+
+  <body BGCOLOR="#FFFFFF">
+    <h1>Link Parser Version 4.0 Improvements</h1>
+
+<p>Version 3.0 of the Link Grammar parser was released in August 1998.
+Version 4.0, released in August 2000, contains some important changes.
+As well as some modest improvements in vocabulary and coverage, there
+are these significant new features:
+
+<ol>
+<li> The new version has what we call a "phrase-parser": a system which
+takes a "linkage" (the usual link grammar
+representation of a sentence,
+showing links connecting pairs of words) and derives a constituent or
+phrase-structure representation, showing conventional phrase
+categories
+such as noun phrase (NP), verb phrase (VP), prepositional phrase(PP),
+clause 
+(S), and so on. Click <a href="ph-explanation.html">here</a> for more
+information about this. You can also experiment with this feature using
+the online version of the parser (click 
+<a href="submit-sentence-4.html">here</a>).
+
+<p><li> Another new feature of version 4.0 is "morpho-guessing" of
+unknown words.  While earlier versions were able to guess the part of
+speech of a word based on its context, the new version also considers
+its spelling. For example, words ending in "-ed" are assumed to be
+past-tense verbs; words ending in "-ing" are assumed to be present
+participles. This greatly improves the ability of the parser to handle
+sentences containing multiple unknown words. Click <a
+href="morpho-explanation.html">here</a> for more information about
+this.
+
+<p><li>The new system features an improved system for handling
+punctuation. As in the previous version, punctuation symbols are
+"stripped off" of words, in that a space is inserted between the
+symbol and a neighboring word. In the new version,
+however, the symbols to be stripped off in this way can easily be
+specified and modified by the user, using an "affix file" which is
+read in by the parser when the program is run. This may also be useful
+for other phenomena besides punctuation, particularly for those
+designing parsers for other languages. Click <a
+href="affix-explanation.html">here</a> for more information about
+this. 
+
+<p><li>The new release includes a small system for English-to-German
+translation; it also includes a small German dictionary which can be
+used for parsing German sentences. Click <a
+href="../german/trans-explanation.html">here</a> for more information about
+this. 
+
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE  HTML PUBLIC "-//IETF//DTD HTML//EN"><HTML>
+  <HEAD>
+    <TITLE>Coordinating Conjunctions</TITLE>
+  </HEAD>
+
+  <BODY BGCOLOR="#FFFFFF">
+<BLOCKQUOTE>
+<CENTER><H1>
+Coordinating Conjunctions (old style) in the Link Grammar Parser<BR></H1>
+</CENTER>
+<PRE>
+
+</PRE>
+
+<H2>CONTENTS</H2>
+<BLOCKQUOTE>
+
+Coordinating conjunctions<BR>
+<BLOCKQUOTE>
+1.0. The original description of the handling of conjunctions<BR>
+1.1. The handling of conjunctions<BR>
+1.2. Uses of conjunctions<BR>
+1.3. Subscripts<BR>
+1.4. Some problems<BR>
+</BLOCKQUOTE>
+[Back to <A HREF="introduction.html">Introduction to Link Grammar</A>]
+[Back to <A HREF="../">Link Grammar front page</A>]
+</BLOCKQUOTE>
+<PRE>
+
+</PRE>
+
+<H2>Coordinating Conjunctions</H2>
+
+<P>Earlier versions of the Link Grammar parser (those prior to version 
+4.7.0) used a special technique for parsing sentences containing 
+conjunctions. This technique proved to have a number of disadvantages,
+and was removed in 2014, with version 5.2.0. Problems included:
+<ul>
+<li>A relatively non-specific way of conjoining parses, which leads to ...
+<li>A combinatorial explosion of possible linkages, which results in ...
+<li>Poor performance when parsing long, complex sentences.
+</ul>
+Worse, the technique was encoded purely algorithmically, in C code,
+making it (very) hard to modify, expand, or refine. None-the-less, this
+was done because the original authors believed that there was no other
+way; that the handling of coordinating conjunctions did not fit "naturally"
+into the theory of Link Grammar.  The current maintainers believe that
+this is not at all the case: that coordinating conjunctions can be handled
+quite well within the context of the main theory.  In fact, using ordinary
+links to handle conjunctions increases specifity and coverage, allowing
+a broader range of sentences to be parsed correctly, while reducing 
+combinatorial explosion, and providing a tremendous boost to performance
+(quite often, a factor of ten or more for most well-written, "literate"
+texts, of the kind that might contain long, complex sentences). What 
+follows below is a verbatim copy of the original description of conjunction 
+handling. The current technique, introduced in version 4.7.0, is described
+<A HREF="coordination.html">here</A>.  The use of the old-style,
+"fat" linkages is disabled in versions 4.7.0 through 5.2.0, and the 
+code to support it was permanently removed in 2014, in version 5.2.0.
+It can be enabled in these older versions by specifying the
+<tt>!use-fat=1</tt> flag at the parser prompt, or by calling
+<tt>parse_options_set_use_fat_links(TRUE)</tt> from C code.
+</P>
+
+<P><B>1.0. THE ORIGINAL DESCRIPTION OF THE HANDLING OF CONJUNCTIONS.</B> 
+Coordination constructions do not fit naturally into the framework
+of link grammars.  We have devised a method for automatically
+transforming the given link grammar into another one that captures the
+desired phenomena. (It involves internally generating special links
+for use with conjunctions, which we call "fat links".) This system is
+hard-wired in, and cannot easily be modified by the user.  However, it
+has proven to be effective in handling the vast majority of uses of
+conjunctions.  Our discussion will focus on the word "and", although
+the ideas apply to the use of "or", "but", "either-or", "neither-nor",
+"both-and", and "not only - but".
+
+<P><B>1.1. THE HANDLING OF CONJUNCTIONS.</B> We begin by proposing a simple
+definition of the use of "and" within the framework of link grammars.
+Then we'll mention a few problems with the definition, and suggest an
+improvement.  The second definition is the one used in our system.  It
+has drawbacks, but on balance it has proven to be remarkably
+effective.
+
+<P>Given a sequence S of words containing the word "and", a
+"well-formed 'and' list" L is a contiguous subsequence of words
+satisfying these conditions:
+
+<P>1. There exists a way to divide L into components (called "elements"
+of the well-formed "and" list) such that each element is separated
+from its neighboring elements by either a comma or the word "and" (or
+both).  (The comma and the "and" are not part of the element.)  The
+last pair of elements must be separated by "and" (or a comma followed
+by "and"). For example, in "The dog, cat, and mouse ran", "dog",
+"cat", and "mouse" are the elements of the well-formed "and"
+list "dog, cat, and mouse".
+
+<P>2. Each of the sequences of words obtained by replacing L (in S) by
+one of the elements of L is a sentence of the link grammar.
+
+<P>3. There is a way of choosing a linkage for each of these sentences
+such that the set of links outside of the "and" list elements are
+exactly the same in all of the sentences, and the connectors joining the
+sentence with its "and" list element are the same.  In other
+words, if we cut the links connecting the element to the rest of the
+sentence, remove that element from the sentence, and replace it by one
+of the other elements, then the cut links can be connected to the
+element so as to create a valid linkage.
+
+<P>The sequence S is grammatical if each instance of "and" in it is
+part of a well-formed and list. 
+ 
+<P>For example, consider the sentence "We ate popcorn and watched
+movies on TV for three days." The the phrase "ate popcorn and
+watched movies on TV" is a well-formed "and" list because it can be
+divided into elements "ate popcorn" and "watched movies on
+TV ", which satisfy all of the conditions above.  The following two
+linkages show this.  Note that in both cases the element is attached
+to the rest of the sentence with an "S" to the left and an "MV"
+to the right.
+
+<PRE>
+          +-------------------MVp-------------------+-----Jp-----+     
+  +-Wd-+Sp+--Os--+                                  |     +--Dmc-+     
+  |    |  |      |                                  |     |      |     
+///// we ate popcorn.n                            for.p three days.n  
+
+                              +---------MVp---------+-----Jp-----+  
+  +-Wd-+----------Sp----------+---Op---+--Mp-+Js+   |     +--Dmc-+  
+  |    |                      |        |     |  |   |     |      |  
+///// we                   watched movies.n on TV for.p three days.n
+</PRE>
+
+<P>There is a major problem with this definition.  It contains no
+requirement that the words of an element of an "and" list be connected
+to each other, nor be related in any way (other than being
+contiguous).  This allows many clearly ungrammatical sentences to be
+accepted, and generates numerous spurious linkages of correct
+sentences.  For example, it would imply that "I like the beer John and
+wine Harry drank" is a valid sentence.
+
+<P>We have two techniques to limit the set of sentences deemed
+grammatical by this rule.  The first is to simply restrict the types
+of connectors that can connect the element of the "and" list to the
+rest of the sentence. The list of connectors allowed to do this is
+contained in the list "ANDABLE-CONNECTORS" in the dictionary. (If a
+connector type is included in this list, this means, in effect, that
+several of them may be joined to a connector of the opposite type. So,
+including "S-" on this list allows "John ran and skipped".) See Section
+1.2 for further discussion of "andable connectors". 
+
+<P>The second method is to restrict the definition of a well-formed "and"
+list.  Say that a well-formed "and" list is a "strict and list" if it
+also satisfies the following condition: Each element must be connected
+to the rest of the sentence through exactly one of its words.  (It may
+use many connectors.)
+
+<P>This is the system that we have implemented. This logic of dealing
+with conjunctions is reflected in the parser's output. A sentence with
+conjunctions is outputted showing the sentence split up into several
+sub-sentences:
+
+<PRE>
+                                  +---J--+
+          +--------S----------+-MV+  +-D-+
+          |                   |   |  |   |
+        John, Dave, and Fred ran in the park
+
+                                  +---J--+
+               +---S----------+-MV+  +-D-+
+               |              |   |  |   |
+        John, Dave, and Fred ran in the park
+
+                                  +---J--+
+                          +S--+-MV+  +-D-+
+                          |   |   |  |   |
+        John, Dave, and Fred ran in the park
+</PRE>
+
+<P>Alternatively, the conjunctive linkages can be merged into one in
+the display. To use this mode, type "!union". For the above sentence,
+"!union" mode yields this:
+
+<PRE>
+        +----------Ss----------+              
+        |      +-------Ss------+    +---Js--+
+        |      |          +-Ss-+-MVp+  +-Ds-+
+        |      |          |    |    |  |    |
+      John , Dave , and Fred ran.v in the park.n 
+</PRE>
+
+In some cases, "!union" mode may result in "crossing" links - the
+one situation where this is possible:
+
+<PRE>
+       +------Ds------+      
+       |    +-------Ss------+
+       +-Ds-+         +--Ss-+
+       |    |         |     |
+      the cat.n and dog.n ran.v 
+</PRE>
+
+<P>Of course, several conjunctions may occur in a sentence: "John and
+Fred ran and jumped". In such cases, sub-linkages will be generated
+for each combination of and-list elements: "John ran, "John jumped",
+"Fred ran", and "Fred jumped". Nested "and" structures are also
+allowed, like "The people and their sons and daughters were there".
+In sentences containing several conjunctions, a large number of
+sub-linkages may be generated for a single linkage. For this reason,
+it may be preferable to use the "!union" display.
+
+<P>Conjunctions are a frequent source of ambiguity. For example, in
+the sentence "Several big cats and dogs with sharp teeth chased me",
+"several" may or may not apply to "dogs" (as a plural noun, "dogs"
+does not require a determiner); "big" may or may not apply to dogs;
+and "with sharp teeth" may or may not apply to cats. Linkages for all
+of these possibilities will of course be generated.
+
+<P><B>1.2. USES OF CONJUNCTIONS.</B> The implementation of conjunctions is
+"hard-wired" in, and cannot be easily modified.  However, it covers
+the vast majority of uses of coordinating conjunctions. First of all,
+it allows a wide variety of connector types to be used with
+conjunctions. As mentioned above, this is controlled by the connectors
+listed in the "ANDABLE-CONNECTORS" list in the dictionary. It can be
+seen that most common connector types (both "+" and "-" forms) are
+included on the list, permitting a variety of conjunctive expressions.
+Here are examples of some of the more commonly used
+"andable-connectors":
+
+<BLOCKQUOTE>
+<P>
+         John and Fred ran (S+) <BR>
+         John ran and jumped (S-) <BR>
+         I saw Sue and Mary (O-) <BR>
+         I saw and greeted Sue (O+) <BR>
+         She left with John and Fred (J-) <BR>
+         The dog I saw and chased was black (B-, S-) <BR>
+         It was big and black (P-) <BR>
+         The dog and the cat I saw were black (B+, R+) <BR>
+         She arrived and left on Tuesday (MV-) <BR>
+         She did it quickly and efficiently (MV-) <BR>
+         The dog and cat ran (D-) <BR>
+         I told her that I was coming and that you would be late (TH-)
+         <BR>
+         What did you tell her and what did she say (Wq-) <BR>
+         I left and she followed (Wd-) <BR>
+         Sue, a teacher and scholar, is here (MX-, Xc+, Xd-) <BR>
+</P>
+</BLOCKQUOTE>
+
+<P>Some connector types are not included on the "andable" list; the
+corresponding conjunctive usages are therefore not permitted. Many of
+these usages are not exactly ungrammatical, but simply never occur,
+like PP+: "?They have and we have gone", G- ("?Fred Smith and Jones
+are here" [meaning "Fred Smith and Fred Jones are here]"), ND+ ("?She
+left three days or weeks ago"), and EA+ ("?She is very or somewhat
+competent"). Others truly seem ungrammatical, like Q+: "*Would or
+could you go?".
+
+<P>As well as "and", the system also handles the conjunctions "or",
+"but", "either-or", "neither-nor", "both-and", and "not only - but":
+
+<PRE>
+
+ +--------------Sp-------------+          
+ +-----Sp----+--Os-+           +--Op---+
+ |           |     |           |       |
+we          ate popcorn or  watched movies
+we either   ate popcorn or  watched movies
+we neither  ate popcorn nor watched movies
+we both     ate popcorn and watched movies
+we          ate popcorn but watched movies           
+we not only ate popcorn but watched movies 
+
+</PRE>
+
+<P>All the words involved in conjunctive constructions--"and", "but",
+"or", "both", "nor", "either", "neither", "not", and "only"--must be
+included in the dictionary. (If such a word is removed, its
+conjunctive use will be disabled.) However, such words may also be
+given ordinary linkage expressions, and in fact are. These ordinary
+usages are considered along with their conjunctive usages. If no
+ordinary linkage expression is desired for a word, simply give it a
+linkage expression containing a dummy connector of some kind that will
+never be used, like "NO+".
+
+<P>A few usages of coordinating conjunctions are handled using
+ordinary link logic (this is why there are ordinary connector
+expressions for these words in the dictionary).  There is some overlap
+between the special ("fat-link") handling of conjunctions and the
+ordinary handling, so that some sentences receive multiple parses. For
+example, ordinary clauses conjoined together will receive two parses:
+"John ran and Fred walked". See the entries in the Guide-To-Links on
+"W" and "CC" for discussion these ordinary usages of conjunctions.
+
+<P><B>1.3. SUBSCRIPTS.</B> How should subscripts (on the connector names)
+be dealt with?  When two or more connectors with different subscripts
+are combined with "and", they may only connect to a connector that may
+connect to all of them.  For example, consider the following
+dictionary:
+
+<PRE>
+a:            Ds+; 
+the:          D+;
+those:        Dm+;
+cats dogs:    Dm-;
+cat dog:      Ds-;
+</PRE>
+
+<P>Among the determiners above only "the" can grammatically be allowed to
+modify the "and" list "cats and dog".  This is because the only
+connector which matches Dm- and Ds- is D+, not Ds+ or Dm+. This is the
+solution we implement.
+
+<P>There is an exception to be handled here, however. The system we've
+described so far would accept "the dog and cat runs", while rejecting
+"the dog and cat run".  Both of these judgements are wrong because in
+English whenever two singular subjects are "anded" together they
+become plural.  We have incorporated this exception: "Ss+" connectors,
+when "anded" together, may connect to an "Sp-", but not to an "Ss-".
+
+<P><B>1.4. SOME PROBLEMS.</B> There are a few problems to be
+discussed. Some of these are handled by the current system; others are
+not.  One problem is sentences like the following:
+
+<BLOCKQUOTE>
+        I gave Bob a doll and Mary a gun.  <BR>
+        This is a problem Moscow created and failed to solve. <BR>
+</BLOCKQUOTE>
+
+<P>The former will be rejected since in "I gave Bob a doll", "gave" is
+linked to both "Bob" and to "doll".  Thus, "Bob a doll" cannot be an
+element of a strict "and" list.  In the second sentence, "Moscow"
+needs to connect to "failed" and "problem" must connect to "solve", so
+"problems to solve" cannot be an element of a strict "and" list.  This
+phenomenon does occur (although rarely) in formal English, so we would
+like to solve it.  The problem remains in our current system.
+
+<P>Another problem arises with embedded clauses.  Consider the following
+linkage of the sentence "I think John and Dave ran".
+
+<PRE>
+           +-S-+--C--+-----S------+
+           |   |     |            |
+           I think John and Dave ran
+
+                             +-S--+
+                             |    |
+           I think John and Dave ran
+</PRE>
+
+<P>This linkage is a combination of the following two sentences "I
+think John ran" and "Dave ran".  This linkage should clearly be
+rejected.  (Actually, this linkage would not be found anyway in the
+current version, but this is a simple demonstration of the problem.)
+Intuitively, the problem with this linkage is that the same "S" link
+(the one between "and" and "ran") is being used to mean something that
+"I think" ("John ran") and also something that is just a fact ("Dave
+ran").  We have devised a system for detecting such patterns, using
+post-processing (see section 6).  As mentioned above, we handle
+conjunction sentences by expanding the original sentence into several
+subsentences.  We then compute the domain structure of the resulting
+linkage of each sentence.  Finally, the original linkage is deemed
+incorrect if the nesting structure of a pair of links descending from
+the same link ("e.g." the "S" links in the two sentences above) do not
+have the same domain ancestry (are contained in the same set of
+domains). Linkages which are considered incorrect in this way have
+the message "inconsistent domains" at the top of the display.
+
+<P>Another problem concerns the different kinds of conjunctions. Right
+now, our system does not distinguish between the various kinds of
+conjunctions allowed; any of them may be used with any "andable"
+connector. However, there appear to be different constraints on
+different conjunctions. This results in some false positives:
+
+<BLOCKQUOTE>
+I saw John and Fred <BR>
+*I saw John but Fred <BR>
+The dog or cat ran <BR>
+*The either dog or cat ran <BR>
+</BLOCKQUOTE>
+
+<P>A few other smaller problems should be mentioned. Sometimes adverbs are
+used with conjunctions:
+
+<BLOCKQUOTE>
+        He talked to Steve and, apparently, Fred <BR>
+        *He talked to, apparently, Fred <BR>
+</BLOCKQUOTE>
+
+<P>As the second sentence shows, it is the conjunction that makes the
+first adverbial use valid. We have no good way of handling this
+construction. Secondly, there are some special uses of punctuation
+with conjunctions. Sometimes, a comma is inserted both before and
+after the final element in an "and" list (ex.1). And sometimes
+semi-colons may be used instead of commas, particularly when the
+and-list elements themselves contain commas (ex. 2).
+
+<BLOCKQUOTE>
+        1. John, and Steve, are coming <BR>
+        2. John; my advisor, Steve; and several other people are
+           coming <BR>
+</BLOCKQUOTE>
+
+<P>Thus our system still needs some work in the area of conjunctions.
+
+    <HR>
+    <ADDRESS><A HREF="mailto:dtemp@theory.esm.rochester.edu">Davy
+    Temperley</A></ADDRESS>
+<!--  Created: Thu Mar  5 10:50:40 EST 1998 -->
+<!--  hhmts start -->
+Last modified: 6 July 2010
+<!--  hhmts end -->
+</BLOCKQUOTE>
+  </BODY>
+</HTML>

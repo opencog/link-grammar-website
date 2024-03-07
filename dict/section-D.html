@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Guide-to-Links: D</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<B><KBD><FONT SIZE="+1">*** Guide-to-Links ***<BR></FONT><FONT SIZE="+4">
+    D</FONT></KBD></B>
+<P>
+<tt>D</tt> connects determiners to nouns.
+
+<PRE>
+         +-D-+
+         |   |
+        The dog ran
+</PRE>
+
+Nouns have <tt>D-</tt>connectors conjoined with their main 
+"<tt>S+ or O- or J-...</tt>" expression.
+The <tt>D-</tt>is listed first on the expression,
+since it must connect closer than the main connection: "I saw
+the dog", "*The I saw dog".
+<P>
+Many words can act as either determiners or noun-phrases: "some",
+"many", "all", "this", and a number of others. Such words have
+<tt>D-</tt> disjoined with the main "<tt>S+ or O-...</tt>" found on nouns:
+
+<PRE>
+        many: Dmc+ or Sp+ or O-...;
+</PRE>
+
+The first two subscript places on <tt>D</tt> connectors relate to number
+agreement. Consider the following simplified entries.
+
+<PRE>
+	the: D+;
+	a: Ds+;
+	some: Dm+;
+	many: Dmc+;
+	much: Dmu+;
+
+	dog: Ds- & ...;
+	dogs: {Dmc-} & ...;
+	water: {Dmu-} & ...;
+	war: {D*u-} & ...;
+</PRE>
+	
+Essentially there are three categories of noun and determiner:
+singular, mass, and plural.  The first subscript place
+distinguishes between singular ("s") and everything else
+("m"); the second place distinguishes between plural ("c") and
+mass ("u") (for "countable" and "uncountable"). Nouns and
+articles which are singular-only have Ds; those which
+are plural-only have Dmc; those which are mass-only have Dmu;
+nouns which may be singular or mass have D*u-; determiners which
+may be plural or mass have Dm+; and determiners which may be
+mass, plural or singular have D+. (A few nouns, such as "fish",
+may be plural or singular; for these we create multiple 
+dictionary entries.)
+
+<h3><tt>Dmcn</tt>: Numeric determiners</h3>
+The <tt>Dmcn</tt> determiner is used for numeric quantifiers, such as
+<PRE>
+      +--Dmcn-+
+      |       |
+   twenty cookies
+
+</PRE>
+As explained above, the "m" subscript is for "multiple", the "c"
+subscript is for "count"; so "n" here indicates "numeric".
+This connector has essentially the same meaning
+as the <tt><A HREF="section-ND.html">ND</A></tt> numeric determiner. 
+A future version may (or may not!) make one of these two links 
+obsolete.
+
+<h3><tt>D**w</tt>: Question-determiners</h3>
+The third subscript place on <tt>D</tt> connectors relates only to
+post-processing. <tt>D**w</tt> connectors are used for question-
+determiners: "which", "what" and "whose". The "w" triggers
+post-processing constraints relating to question-inversion;
+see "<tt><A HREF="section-SI.html">SI</A></tt>: Questions without s-v inversion".
+D**w connectors are
+conjoined on question-determiners with other left-pointing
+connectors (<tt>QI-</tt> and </tt>W-</tt>);
+therefore such determiners cannot be
+used in normal declarative sentences, since no linkage will be
+found ("*I bought which eggs today"). Other false positives arise
+here which require post-processing; see "<tt><A HREF="section-B.html">B</A></tt>: More about dependent
+clauses".
+
+<h3><tt>Ds**v, Ds**c, Ds**x</tt>: Phonetic agreement</h3>
+The <tt>Ds**v</tt> and <tt>Ds**c</tt> connectors are used to enforce
+phonetic agreement of "a" and "an" when used with nouns that begin
+with a consonant or a vowel, respectively.  Thus, for example,
+the <tt>Ds**v</tt> connector will link only to nouns starting with
+a vowel:
+<PRE>
+          +-Ds**v-+
+          |       |
+    I ate an    apple
+
+</PRE>
+The <tt>Ds**c</tt> connector will link only to nouns starting with 
+a consonant:
+<PRE>
+          +-Ds**c-+
+          |       |
+    I ate a     pear
+</PRE>
+
+The <tt>Ds**x</tt> connector will link only to nouns that are preceeded
+by a modifier, thus invalidating the need for phonetic agreement. In this
+case the <tt><a href="section-PH.html">PH</a></tt> connector is used to
+force phonetic agreement.
+<PRE>
+          +--Ds**x--+
+          |         |
+    I ate a green apple
+</PRE>
+
+
+<h3>Determiners and Adjectives on Proper Nouns</h3>
+In general, proper nouns do not take determiners. However, there
+are a number of exceptions. A number of proper nouns may take
+the determiner "the": "The Emir of Kuwait died", "The Supreme 
+Soviet met today". For this we use the DG connector; see
+"<tt><A HREF="section-DG.html">DG</A></tt>". Beyond this, however, one quite often sees proper names
+taking determiners, for example with brand-names or with people.
+
+<PRE>
+	?The new David Letterman is a happy, secure David Letterman.
+	?I bought a Toyota to carry my Macintosh 
+</PRE>
+
+Thus we give proper nouns <tt>D-</tt> with cost 2. Note that in the first
+case the proper noun carries an adjective as well; this is also
+not uncommon in more colloquial writing. Thus proper nouns carry
+
+<PRE>
+	[[{@A-} & {D-}]] & (Ss+ or O- or J-...)
+</PRE>
+
+In giving proper nouns <tt>D-</tt> and <tt>A-</tt> connectors, we are
+essentially allowing them to be treated like common
+nouns. Other common-noun-like usages are not permitted: we do
+not allow proper nouns to act as plural forms or to take
+post-nominal modifiers such as prepositional phrases (but see
+"<tt><A HREF="section-JG.html">JG</A></tt>"). These usages do occasionally arise, however - with
+brand-names, for example. Some words for nations and
+religions, such as "American(s)" and "Muslim(s)", really seem
+like full-blown common nouns; thus they are included in
+ordinary common noun categories.
+
+<P>
+Other <tt>D</tt> subscripts relate to comparatives; 
+see "<tt><A HREF="section-MV.html">MV</A></tt>: Comparatives",
+sections I (<tt>Dm*m</tt>) and VII (<tt>Dm*y</tt>). <tt>Dm*k</tt>
+and <tt>Ds*k</tt> relate to the
+construction "such...that"; 
+see "<tt><A HREF="section-EA.html">EA</A></tt>xk: so...that". 
+
+<P>
+<A HREF="index.html">Grammar Documentation Page</A>.
+</BODY>
+</HTML>

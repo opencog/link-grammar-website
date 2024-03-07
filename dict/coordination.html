@@ -1,0 +1,270 @@
+<!DOCTYPE  HTML PUBLIC "-//IETF//DTD HTML//EN"><HTML>
+  <HEAD>
+    <TITLE>Conjunctions</TITLE>
+  </HEAD>
+
+  <BODY BGCOLOR="#FFFFFF">
+<BLOCKQUOTE>
+<CENTER><H1>
+Conjunctions (new style) in the Link Grammar Parser<BR></H1>
+</CENTER>
+<PRE>
+
+</PRE>
+
+<H2>CONTENTS</H2>
+<BLOCKQUOTE>
+
+Conjunctions<BR>
+<BLOCKQUOTE>
+1.1. Conjunction overview<BR>
+1.2. Miscellaneous Idiomatic Conjoining Expressions<BR>
+1.3. Known problems<BR>
+</BLOCKQUOTE>
+[Back to <A HREF="introduction.html">Introduction to Link Grammar</A>]
+[Back to <A HREF="../">Link Grammar front page</A>]
+</BLOCKQUOTE>
+<PRE>
+
+</PRE>
+
+<H2>Conjunction overview</H2>
+
+<P>
+Earlier versions of the Link Grammar parser (those prior to version 
+4.7.0) used a different, special technique for parsing sentences 
+containing coordinating conjunctions and other correlative structures.
+This technique, known as "fat links", and described 
+<A HREF="coordination-old.html">here</A>,
+proved to have a number of disadvantages, was deprecated in version
+4.7.0 (2010), and finally removed in version 5.2.0 (2014).  What
+follows is a description of the current mechanism.
+</P>
+<P>
+Conjunction refers to the joining together different parsts of a sentence
+using either coordinating conjunctions, correlative conjunctions, or
+subordinating conjunctions.  The most common coordinating conjunctions
+are <i>and, or, nor, but</i>, and are used to join together
+two grammatically similar or identical words or phrases.  Correlative
+conjunctions and subordinating conjunctions are set phrases enforcing more 
+complex, long-range structure.  Examples include
+<i>either ... or ..., not only ... but also ..., if ... then ...</i>, and
+so on.  Conjunctions of any of these types are (mostly) handled by the same
+technique within link grammar, although there is some variation.  The
+strongest link grammar patterns occur for coordinating conjunctions,
+which are supported by a half-dozen distinct link types, roughly aligned 
+with the part-of-speech or gramatical type of the words or phrases involved.
+These links include:
+<ul>
+<li><A NAME="AJ" HREF="section-AJ.html"><STRONG>AJ</STRONG></A>,
+   used for coordinating adjectives, such as "The BLACK AND WHITE 
+   cat sleeps."
+<li><A NAME="MJ" HREF="section-MJ.html"><STRONG>MJ</STRONG></A>,
+   used for coordinating prepositions and other post-nominal modifiers, 
+   such as "It is hidden IN OR NEAR the house."
+<li><A NAME="NI" HREF="section-NI.html"><STRONG>NI</STRONG></A>,
+   used for numerical ranges, such as "It takes  2 to 3 times the effort."
+<li><A NAME="QJ" HREF="section-QJ.html"><STRONG>QJ</STRONG></A>,
+   used for coordinating question words, such as "WHEN AND WHERE is the party?"
+<li><A NAME="RJ" HREF="section-RJ.html"><STRONG>RJ</STRONG></A>,
+   used for coordinating adverbs and other miscellaneous constructions, such as
+   "She did it QUICKLY AND QUIETLY."
+<li><A NAME="SJ" HREF="section-SJ.html"><STRONG>SJ</STRONG></A>,
+   used for coordinating nouns, such as "JOHN AND MARY are coming to the party."
+<li><A NAME="VJ" HREF="section-VJ.html"><STRONG>VJ</STRONG></A>,
+   used for coordinating verbs, such as "He RAN AND JUMPED"
+<li><A NAME="XJ" HREF="section-XJ.html"><STRONG>XJ</STRONG></A>,
+   used for miscellaneous idiomatic coordinating expressions, such as 
+   "... NOT ONLY x, BUT y": "You should NOT ONLY ask for your money
+   back, BUT demand it."
+<li><A NAME="V" HREF="section-V.html"><STRONG>V</STRONG></A>,
+   used for miscellaneous adpositions, such as "... TOOK ... FOR GRANTED".
+<li><A NAME="VC" HREF="section-VC.html"><STRONG>VC</STRONG></A>,
+   used for connecting subordinate clauses, such as 
+   "He STAYED SO he could see her".
+</ul>
+<P>
+Many of these link types have several common, recurring themes in their 
+structure and use. In general, these links only connect words with the
+same part-of-speech. Thus, for example: "The black and white 
+cat sleeps" gives the following parse:
+
+<pre>
+       +-------------Ds-------------+        
+       |             +-------A------+        
+       |     +--AJl--+--AJr--+      +---Ss--+
+       |     |       |       |      |       |
+      the black.a and.j-a white.a cat.n sleeps.v 
+</pre>
+Here, the <A HREF="section-AJ.html">AJ</A> link connects each adjective
+to the conjunction "and". The resulting conjunction behaves as if it
+were an adjective itself: so "and" will link to "cat" with the
+<A HREF="section-A.html">A</A> link, just as an ordinary adjective would.
+This arrangement is sometimes refered to as a "Prague style" dependency.
+It imposes a fundamentally hierarchical ordering: "and" acts as a
+head-word, with two dependent words: "black" and "white"; the combined
+phrase "black and white" acts as a single adjective.  This style for 
+handling coordination is used for other parts of speech as well; so, 
+for example, <A HREF="section-SJ.html">SJ</A> links combine nouns into
+a noun phrase:
+<pre>
+                +------Spx------+       +----Js----+
+         +-SJls-+--SJrs-+       +--MVa--+    +--Ds-+
+         |      |       |       |       |    |     |
+      Jack.b and.j-n Jill.f fell.v-d down.r the hill.n 
+</pre>
+Here, the conjoined "Jack and Jill" acts as a (plural) subject.
+</P>
+<P>
+The subtypes <tt>AJl</tt> and <tt>AJr</tt>, standing for "left" and
+"right", are used to maintain proper sequential ordering; this is
+useful for properly managing comma-conjoined lists:
+<pre>
+       +-------------------Ds------------------+        
+       |          +-----AJl-----+-------A------+        
+       |     +-AJl+-AJr-+       +--AJr--+      +---Ss--+
+       |     |    |     |       |       |      |       |
+      the black.a , orange.a and.j-a white.a cat.n sleeps.v 
+</pre>
+The <tt>l,r</tt> subtype is also used for most of the other links
+(so, for example, <tt>VJl</tt> and <tt>VJr</tt>), with
+a few exceptions: the <A HREF="section-NI.html">NI</A> link uses 
+<tt>NIf</tt> and <tt>NIt</tt> subtypes for numerical ranges, indicating
+the "from" and "to" ends of the range.
+</P>
+<P>
+Other subtypes are used for enforcing agreement of various sorts,
+such as number and tense; so, for example: "cars and trucks are vehicles"
+but "*car and truck are vehicles", "*car and truck is vehicle". 
+Agreement is discussed in greater detail in each individual link-type
+page.
+</P>
+<P>
+The basic mechanism shown above can be extended to, and employed for any sort
+of multi-word correlative conjunctions, such as "neither ... nor ..." or
+"not only ... but also ...". Agreement between the various parts is
+enforced by means of the <A HREF="section-XJ.html"><tt>XJ</tt></a> link.
+So, for example:
+<pre>
+        +------XJn------+------S*x-----+       
+        |        +-SJls-+--SJrs-+      +---I--+
+        |        |      |       |      |      |
+    neither.r Jack.b nor.j-n Jill.f will.v come.v 
+</pre>
+</P>
+
+<H3>Miscellaneous Idiomatic Correlating Expressions</H3>
+<P>
+Although the words "and", "or" are the conjunctions most commonly used
+to correlate words and phrases, there are also many more complex 
+idiomatic expressions that are used for coordination.  These include:
+<ul>
+<li>Not only ... but also ...
+<li>First ... next ...
+<li>If ... then ...
+<li>If .. only ...  "If there were only more like you"
+<li>ought ... if ... "That ought to be the case, if John is not lying"
+<li>Someone ... who ...  "Someone is outside who wants to see you"
+<li>It ... that ...  "It seemed likely that John would go"
+<li>...from X and from Y
+<li>By X, and by Y, ...
+</ul>
+Few of the above are implemented; those that are, are handled with the 
+<a href="section-XJ.html"><tt>XJ</tt></a>,
+<a href="section-RJ.html"><tt>RJ</tt></a> and
+<a href="section-V.html"><tt>V</tt></a> links.
+</P>
+
+<H3>Known problems</H3>
+<P>
+The implementation of the <tt>VC</tt> link is irregular, and overlaps
+significantly with the <tt>MVs</tt> link.  It also behaves very
+differrently from how the <tt>AJ</tt>, <tt>SJ</tt>, and <tt>VJ</tt>
+are implemented.  Both <tt>VC</tt> and <tt>MVs</tt> need review, and
+possibly, redesign.
+</P>
+<P>
+The <tt>V</TT> link deals with adpositions, but somewhat irregularly.
+Notice how the adpositions have a conjoining-like behaviour, but different ... 
+The overall theory should be clarified &amp; unified. See the README file
+that is shipped with the distro for more information.
+</P>
+<H3>The problem of complex verbs</H3>
+<P>
+The "Prague style" dependency works well when the conjoined words/phrases
+have a simple relationship to the rest of the sentence, but are
+problematic for more complex verb phrase conjunctions.  Consider the
+sentence <i>I taught these mice to jump, and those mice to freeze.</i>
+The first part of the sentence
+<pre>
+            +-------TOo-----+
+            +---Op------+   |
+       +-Sp-+     +-Dmc-+   +-I-+
+       |    |     |     |   |   |
+       I taught these mice to jump
+</pre>
+shows that <i>taught</i> acts as a head-word, and has two links to the
+right: the object link <tt>Op</tt> and the <tt>TOo</tt> link. A similar
+linkage is desired for the second half of the sentence; but how should
+this be acheived? There are two possibilities; neither are implemented
+by the current version of link-grammar, for reasons explained below.
+</P>
+<P>
+The first possibility is to imprint the verb-linking rules onto the
+conjunction, asking <i>and</i> to behave as if it were a verb:
+<pre>
+            +-----------V*taught----+
+            +------TOo--            +-------TOo----+
+            +---Op--                +---Op-----+   |
+       +-Sp-+                       |    +-Dmc-+   +-I-+
+       |    |                       |    |     |   |   |
+       I taught these mice to jump and those mice to freeze
+</pre>
+In the above, the verb <i>taught</i> links as usual, but also sports a
+custom <tt>VJ</tt> link to <i>and</i> that makes the <i>and</i> behave
+just like the verb. The problem with this scheme is that there are many
+exceptional verb linkages, and this requires a custom <tt>VJ</tt> link
+for each exceptional case (so that the correct linkage for <i>and</i> 
+can be forced).
+</P>
+<P>
+The second possibility is to attach all of the links to the conjunction,
+as below:
+<pre>
+            +-----V*super*and-------+
+            |          +--Op -------+-------TOo----+
+            |          |    +--TOo--+---Op-----+   |
+       +-Sp-+               |       |    +-Dmc-+   +-I-+
+       |    |                       |    |     |   |   |
+       I taught these mice to jump and those mice to freeze
+</pre>
+The above somewhat resembles the simple "Prague style" conjunction
+linkage, but is also dis-satisfying: by forcing both left- and 
+right-directed links onto the <i>and</i>, it makes it difficult
+or even impossible to determine the verb-phrase structure of the
+sentence. Do all left-facing links form one one verb-phrase, and all
+right-facing links form another? Or perhaps some of the left and
+right-facing links should be grouped into one verb-phrase, and the
+remainder into another?  This could be clarified by adding 
+"phantom nodes" to indicate the desired grouping; however, the 
+current link grammar has absolutely no concept of a "phantom node".
+</P>
+<P>
+Given these two choices, the first possibility appears to be the most
+natural, as it offers the greatest fidelity to verb-phrase structure.
+It does introduce the concept of "link transferance onto the conjunction"
+in order to make it workable. Although this can be implemented within
+the current theory of link-grammar, it does force the <i>and</i> to be
+festooned with a large variety of linkage rules, one for each
+exceptional verb linakge. There is currently no way of instructing the
+parser to treat the <i>and</i> "just like the verb before it".
+</P>
+    <HR>
+    <ADDRESS><A HREF="mailto:linasvepstas@gmail.com">Linas
+    Vepstas</A></ADDRESS>
+<!--  hhmts start -->
+Last modified: 8 September 2010
+<!--  hhmts end -->
+</BLOCKQUOTE>
+  </BODY>
+</HTML>

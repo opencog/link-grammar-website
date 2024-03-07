@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Abstract and Introduction from IWPT93 paper</title>
+  </head>
+
+  <body BGCOLOR="#FFFFFF">
+    <h1>Abstract and Introduction from IWPT93 paper</h1>
+
+Below is a portion of the introduction from <cite>Parsing English with a
+Link Grammar</cite>, by Daniel Sleator and Davy Temperley, which
+appeared in <I>The Third International Workshop on Parsing Technologies,
+1993</I>.  This <A HREF="http://www.cs.cmu.edu/afs/cs.cmu.edu/project/link/pub/www/papers/ps/LG-IWPT93.ps">paper </A>is also available in
+postsript form.  The first few paragraphs of the introduction contain a
+description of the basic logic of link grammars.
+
+<pre>
+
+       We define a new type of formal grammatical system called a LINK
+    GRAMMAR. A sequence of words is in the language of a link grammar
+    if there is a way to draw LINKS between words in such a way that
+    (1) the local requirements of each word are satisfied, (2) the
+    links do not cross, and (3) the words form a connected graph.  We
+    have encoded English grammar into such a system, and written a
+    program (based on new algorithms) for efficiently parsing with a
+    link grammar.    The breadth of English phenomena that our system
+    handles is quite large -- it handles:  noun-verb agreement,
+    questions, imperatives, complex and irregular verbs, many types of
+    nouns, past- or present-participles in noun phrases, commas, a
+    variety of adjective types, prepositions, adverbs, relative
+    clauses, possessives, coordinating conjunctions, and many other
+    things.  A number of sophisticated and new techniques were used to
+    allow efficient parsing of this very complex grammar.  Our program
+    is written in C, and the entire system may be obtained via
+    anonymous ftp.
+
+
+1.  Introduction
+
+Most sentences of most natural languages have the property that if arcs are
+drawn connecting each pair of words that relate to each other, then the
+arcs will not cross.  This well-known phenomenon, which we call PLANARITY,
+is the basis of LINK GRAMMARS, our new formal language system.
+
+A link grammar consists of a set of WORDS (the terminal symbols of the
+grammar), each of which has a LINKING REQUIREMENT. A sequence of words is a
+SENTENCE of the language defined by the grammar if there exists a way to
+draw arcs (which we shall hereafter call LINKS) among the words so as to
+satisfy the following conditions:
+
+  Planarity:     The links do not cross (when drawn above the words).
+
+  Connectivity:  The links suffice to connect all the words of the
+                 sequence together.
+
+  Satisfaction:  The links satisfy the linking requirements of each word
+                 in the sequence.
+
+The linking requirements of each word are contained in a DICTIONARY. To
+illustrate the linking requirements, the following diagram shows a simple
+dictionary for the words ``a'', ``the'', ``cat'', ``snake'', ``Mary'',
+``ran'', and ``chased''.  The linking requirement of each word is
+represented by the diagram above the word.
+
+
+<!--
+<A HREF="intro-dictionary-curve.small.gif"><IMG SRC="intro-dictionary-curve.small.gif"></A>
+-->
+
+                 O----+
+        +----D   D--+ |   +--S   O--+   +--S   S----+      S--+   +--O
+        |           | |   |         |   |           |         |   |
+     +--|--+      +-|--\-/-+       +-\-/-+       +--|--+     +|---|+
+     |  *  |      | *   *  |       |  *  |       |  *  |     |*   *|
+     +-----+      +--------+       +-----+       +-----+     +-----+
+        a            cat            Mary           ran       chased
+       the          snake
+
+
+At then end of each tentacle sticking out of each of these boxes is a
+character.  This is called a CONNECTOR. A connector is SATISFIED by
+matching it to a compatible connector (one with the same label) facing in
+the opposite direction.  Exactly one of the connectors attached to a given
+``*'' must be satisfied (the others, if any, must not be used).  Thus,
+``cat'' requires a D connector to its left, and either an O connector to
+its left or a S connector to its right.  Attaching a pair of matching
+connectors together corresponds to drawing a link between that pair of
+words.
+
+The following diagram shows how the linking requirements are satisfied in
+the sentence ``The cat chased a snake''.
+
+
+                                 +-----------O------------+
+                                 |                        |
+         +---D---+   +---S---+   |         +-----D----+   |
+         |       |   |       |   |         |          |   |
+      +--|--+  +-|---|-+    +|---|+     +--|--+     +-|---|--+
+      |  *  |  | *   * |    |*   *|     |  *  |     | *   *  |
+      +-----+  +-------+    +-----+     +-----+     +--------+
+        the       cat        chased        a          snake
+				  
+				  
+(The unused connectors have been suppressed here.)  It is easy to see that
+``Mary chased the cat'', and ``the cat ran'' are also sentences of this
+grammar.  The sequence of words:  ``the Mary chased cat'' is not in this
+language.  Any attempt to satisfy the linking requirements leads to a
+violation of one of the three rules.  Here is one attempt:
+				  
+				  
+              +--------------------D-------------+
+              |                                  |
+              |         +-----S---+   +------O---+---+
+              |         |         |   |          |   |
+           +--|--+  +---|---+    +|---|+       +-|---|--+
+           |  *  |  |   *   |    |*   *|       | *   *  |
+           +-----+  +-------+    +-----+       +--------+
+             the       Mary       chased           cat
+
+
+Similarly ``ran Mary'', and ``cat ran chased'' are not part of this
+language.
+
+A set of links that prove that a sequence of words is in the language of a
+link grammar is called a LINKAGE. From now on we'll use simpler diagrams to
+illustrate linkages.  Here is the simplified form of the diagram showing
+that ``the cat chased a snake'' is part of this language:
+
+
+                                   +---O---+
+                         +-D-+--S--+   +-D-+
+                         |   |     |   |   |
+                        the cat chased a snake
+
+
+We have a succinct, computer-readable notation for expressing the
+dictionary of linking requirements.  The following dictionary encodes the
+linking requirements of the previous example.
+
+
+
+                 words       |  formula
+                 ------------|-----------------
+                 a  the      |  D+
+                 ran         |  S-
+                 Mary  John  |  O- or S+
+                 chased      |  S- & O+
+                 snake  cat  |  D- & (O- or S+)
+
+
+
+The linking requirement for each word is expressed as a formula involving
+the operators &, and or, parentheses, and connector names.  The + or -
+suffix on a connector name indicates the direction (relative to the word
+being defined) in which the matching connector (if any) must lie.  The & of
+two formulas is satisfied by satisfying both the formulas.  The or of two
+formulas requires that exactly one of its formulas be satisfied.  The order
+of the arguments of an & operator is significant.  The farther left a
+connector is in the expression, the nearer the word to which it connects
+must be.  Thus, when using ``cat'' as an object, its determiner (to which
+it is connected with its D- connector) must be closer than the verb (to
+which it is connected with its O- connector).
+
+
+
+We can roughly divide our work on link grammars into three parts:  the link
+grammar formalism and its properties, the construction of a wide-coverage
+link grammar for English, and efficient algorithms and techniques for
+parsing link grammars.  We now touch briefly on all three of these aspects.
+
+Link grammars are a new and elegant context-free grammatical formalism.
+[Two footnotes are appropriate here.  (1) Link grammars resemble dependency
+grammars and categorial grammars.  There are also many significant
+differences.  The relationship between these formalisms and our work is
+described in section 7.  (2) The proof of the context-freeness of link
+grammars is not included in this paper, but appears in our technical
+report [14].  The reader is urged not to jump to any conclusions about the
+limitations of our system because of its near context-freeness.
+Context-free systems can differ in many ways, including the ease with which
+the same grammar can be expressed, the efficiency with which the same
+grammar can be parsed, and the usefulness of the output of the parser for
+further processing.]
+
+Link grammars have a unique combination of useful properties:
+
+
+  1.  In a link grammar each word of the lexicon is given a definition
+      describing how it can be used in a sentence.  The grammar is
+      distributed among the words.  Such a system is said to be LEXICAL.
+      This has several important advantages.  It makes it easier to
+      construct a large grammar, because a change in the definition of a
+      word only affects the grammaticality of sentences involving that
+      word.  The grammar can easily be constructed incrementally.
+      Furthermore, expressing the grammar of the irregular verbs of
+      English is easy -- there's a separate definition for each word.
+
+      Another nice feature of a lexical system is that it allows the
+      construction of useful probabilistic language models.  This has led
+      researchers to construct lexical versions of other grammatical
+      systems, such as tree-adjoining grammars [13].  Lafferty and the
+      present authors have also constructed such a probabilistic model
+      for link grammars [11].
+
+  2.  Unlike a phrase structure grammar, after parsing a sentence with a
+      link grammar words that are associated semantically and
+      syntactically are directly linked.  This makes it easy to enforce
+      agreement, and to gather statistical information about the
+      relationships between words.
+
+  3.  In English, whether or not a noun needs a determiner is independent
+      of whether it is used as a subject, an object, or even if it is
+      part of a prepositional phrase.  The algebraic notation we
+      developed for expressing a link grammar takes advantage of this
+      orthogonality.  Any lexical grammatical system, if it is to be used
+      by a human, must have such a capability.  In our current on-line
+      dictionary the word ``cat'' can be used in 369 different ways, and
+      for ``time'' this number is 1689.  A compact link grammar formula
+      captures this large number of possibilities, and can easily be
+      written and comprehended by a human being.
+
+  4.  Another interesting property of link grammars is that they have no
+      explicit notion of constituents or categories.  In most sentences
+      parsed with our dictionaries, constituents can be seen to emerge as
+      contiguous connected collections of words attached to the rest of
+      the sentence by a particular type of link.  For example in the
+      dictionary above, S links always attach a noun phrase (the
+      connected collection of words at the left end of the link) to a
+      verb (on the right end of the link).  O links work in a similar
+      fashion.  In these cases the links of a sentence can be viewed as
+      an alternative way of specifying the constituent structure of the
+      sentence.  On the other hand, this is not the way we think about
+      link grammars, and we see no advantage in taking that perspective.
+
+
+
+Our second result is the construction of a link grammar dictionary for
+English.  The goal we set for ourselves was to make a link grammar that can
+distinguish, as accurately as possible, syntactically correct English
+sentences from incorrect ones.  We chose a formal or newspaper-style
+English as our model.  The result is a link grammar of roughly eight
+hundred definitions (formulas) and 25000 words that captures many phenomena
+of English grammar.  It handles:  noun-verb agreement, questions,
+imperatives, complex and irregular verbs, many types of nouns, past- or
+present-participles in noun phrases, commas, a variety of adjective types,
+prepositions, adverbs, relative clauses, possessives, coordinating
+conjunctions, unbounded dependencies, and many other things.
+
+The third result described in this paper is a program for parsing with link
+grammars.  The program reads in a dictionary (in a form very similar to the
+table above) and will parse sentences according to the given grammar.  The
+program does an exhaustive search -- it finds every way of parsing the
+given sequence with the given link grammar.  It is based on our own O(n^3)
+algorithm (n is the number of words in the sentence to be parsed).  The
+program also makes use of several very effective data structures and
+heuristics to speed up parsing.  The program is comfortably fast -- parsing
+typical newspaper sentences in a few seconds on a modern workstation.
+
+</pre>
+
+    <hr>
+    <address><a href="mailto:sleator@cs.cmu.edu">Daniel Sleator</a></address>
+<!-- Created: Sun Mar 22 12:15:41 EST 1998 -->
+<!-- hhmts start -->
+Last modified: Sun Mar 22 22:25:13 EST 1998
+<!-- hhmts end -->
+  </body>
+</html>

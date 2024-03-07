@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+  <HEAD>
+<BLOCKQUOTE>
+<BR>
+<TITLE>Morpho-Guessing</TITLE>
+  </HEAD>
+  <BODY BGCOLOR="#FFFFFF">
+<H2>Morpho-Guessing</H2>
+<P>
+
+<P>A new feature of version 4.0 is "morpho-guessing" of unknown words.
+While the old version was able to guess the part of speech of a word
+based on its context, the new version also considers its
+spelling. Words that end in "-s" are assumed to be plural nouns or
+singular verbs; those ending in "-ed", past-tense (or passive) verbs;
+those ending in "-ing", present participles; those ending in "-ly",
+adjectives. This greatly improves the ability of the parser to handle
+sentences containing multiple unknown words. Words that have been
+treated in this way are marked with a "[!]". (The parser's old system
+of "unknown words" is still in place, for handling words whose
+spelling does not match any of the categories listed above; as before,
+these are marked with a "[?]".)
+
+<P>For example, consider the sentence
+<PRE>
+        Overhyped megamergers underperform horrifically
+</PRE>
+
+<P>None of these four words are in the parser's dictionary. Without
+morphoguessing, the parser would have no way of deciding between many
+possible interpretations. With morphoguessing, however, the parser is
+able to correctly identify the first as an passive verb form (used
+here as an adjective), the second as a noun, and the last as an
+adverb; from context, it is then able to guess that the third is a
+verb.
+
+<PRE>
+            +-------A-------+-------Sp-------+-------MVa-------+
+            |               |                |                 |
+     overhyped[!].v megamergers[!].n underperform[?].v   horrifically[!].e 
+
+     (S (NP overhyped megamergers)
+            (VP underperform
+                (ADVP horrifically)))
+</PRE>
+
+<P>(Given the same words in a different order--"overhyped megamergers
+horrifically underperform"--it can be seen that they are still
+correctly identified.)
+
+<P>Morpho-guessing is controlled by a sequence of regular expressions,
+specified in the file <tt>4.0.regex</tt>. This allows for rather
+fine-grained guessing: thus for example, the current file includes 
+rules for guessing Latin nouns and adjectives, as these occur
+ffrequently in biology texts, as well as rules for common
+chemical names, as they would appear in (bio-)chemistry texts.
+
+<h2>Spell guessing</h2>
+<P>In addition, recent versions of link-grammar include an optional
+spelling checker. If enabled, and an unknown word is encountered,
+the spelling checker will be consulted for alternative spellings.
+The use of the spelling checker can be toggled on and off with the
+flag <tt>!spell</tt>; use the flag <tt>!vars</tt> to see a listing
+of all variables, as well as the current value of each.
+
+<P>
+Thus, for example:
+
+<PRE>
+linkparser> This is a gest
+Found 6 linkages (6 had no P.P. violations)
+	Linkage 1, cost vector = (CORP=6.3879 UNUSED=0 DIS=0 AND=0 LEN=5)
+
+         +---Ost---+
+   +-Ss*b+  +--Ds--+
+   |     |  |      |
+this.p is.v a guest[~].n 
+
+	Linkage 2, cost vector = (CORP=6.3879 UNUSED=0 DIS=0 AND=0 LEN=5)
+
+         +---Ost--+
+   +-Ss*b+  +--Ds-+
+   |     |  |     |
+this.p is.v a nest[~].n 
+
+	Linkage 3, cost vector = (CORP=6.3879 UNUSED=0 DIS=0 AND=0 LEN=5)
+
+         +---Ost--+
+   +-Ss*b+  +--Ds-+
+   |     |  |     |
+this.p is.v a vest[~].n 
+
+	Linkage 4, cost vector = (CORP=6.3879 UNUSED=0 DIS=0 AND=0 LEN=5)
+
+         +---Ost--+
+   +-Ss*b+  +--Ds-+
+   |     |  |     |
+this.p is.v a test[~].n 
+
+</PRE>
+
+</BODY>
+</BLOCKQUOTE>
+</HTML>

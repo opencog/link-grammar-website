@@ -1,0 +1,336 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Guide-to-Links: M</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<B><KBD><FONT SIZE="+1">*** Guide-to-Links ***<BR></FONT><FONT SIZE="+4">
+    M</FONT></KBD></B>
+<PRE>
+M connects nouns to various kinds of post-nominal modifiers
+without commas, such as prepositional phrases, participle
+modifiers, prepositional relatives, and possessive
+relatives. (Phrases of these kinds with commas use MX; see
+"<A HREF="section-MX.html">MX</A>".)
+
+     <B>Contents</B>
+     1. Words taking @M+
+     2. "M" modifiers used with relative clauses
+     3. Mp: Prepositional phrases modifying nouns
+     4. Ma: Adjectival modifiers
+     5. Mv and Mg: Participle modifiers
+     6. Mv+, Mg+ used on conjunctions
+     7. Mr: Possessive relatives
+     8. Mj: Prepositional-object relative clauses
+     9. M with "not"
+
+<B>Words taking @M+</B>
+Nouns have optional "@M+" connectors, conjoined with their
+main "S+ or O- or J-..." expression and with their "{@A-} &
+D-". Other words carrying @M+ include certain determiners that
+can act as complete noun-phrases ("many", "some"), words like
+"something" and "everyone", and numbers. Pronouns do not. This
+yields
+
+         +-M--+
+         |    |
+    The man from London is here
+  Something with garlic would be good
+        Some of the programmers are excellent
+        Five of the programmers are excellent
+
+        *She of the programmers is excellent
+
+<B>"M" modifiers used with relative clauses</B>
+Most kinds of post-nominal modifiers use "M" connectors to
+connect to the previous noun. The exceptions are relative clauses:
+these do not use M+, but rather "R+ & B+" (see "<A HREF="section-R.html">R</A>").
+Note that words that take @M+ connectors have the following
+expression:
+
+    ...{@M+} & {R+ & B+ & {[[@M+]]}}...
+
+Nouns frequently take a relative clause, or one or more
+prepositional phrases; they rarely take both.  Occasionally
+they do, however: "The picture that I showed you of Jane",
+"The picture of Jane that I showed you". Therefore we have to
+allow "@M+" and "R+ & B+" both conjoined and disjoined, in
+either order; this is what the above expression
+provides. There is still something rather arbitrary about
+this, however. We allow any number of M connections
+(prepositional phrases, participle modifiers, etc.) to be
+made, or one relative clause followed or preceded by any
+number of M connections, but not multiple relative
+clauses. This was necessitated by the fact that relative
+clauses require two conjoined connectors, and there is no way
+of allowing indefinitely many "R+ & B+" connections to a
+word. In practice, however, multiple relative clauses are
+extremely rare.
+
+<B>Mp, Mf: Prepositional phrases modifying nouns</B>
+"Mp" is used for prepositional phrases modifying nouns.
+Prepositions therefore have Mp- connectors directly disjoined
+with MVp- (used for prepositional phrases modifying verbs) and
+conjoined with J+ (used for prepositional objects). (Some
+prepositions can take other kinds of objects besides
+noun-phrases, and thus have other connectors conjoined with
+"MVp- or Mp-": see "<A HREF="section-MV.html">MV</A>: Words taking MV-".) Almost all words
+that have Mp- also have MVp-; one exception is "of", which can
+modify nouns but not verbs ("*The dog ran of the yard").
+(A few verbs can be modified by "of": see "<A HREF="section-OF.html">OF</A>".)
+The Mf connector allows "of" phrases to be chained in order.
+
+It was mentioned that many determiners and numbers also
+have M+ connectors, as well as nouns. Thus the sentences
+below are all linked in essentially the same way:
+
+               +-Mp+---J------+
+               |   |          |
+   1. The salaries of the programmers are excellent
+   2.         Some of the programmers are excellent
+   3.         Five of the programmers are excellent
+
+This may seem counterintuitive. In ex. 1, the subject
+of "are" is "salaries"; in ex. 2 and ex. 3, it is really
+"programmers". We see no need to make this distinction,
+however. As well as the special use of "some" and "five"
+shown here, these words can act as independent noun-phrases
+taking no modifying phrase or quite different modifying
+phrases (ex. 4 and 5); and even constructions like ex.
+2 and 3 above sometimes arise where it is quite clear that
+"some", not the prepositional object, is the real subject
+(e.g., ex. 7).
+
+   4. Some are excellent
+   5. Some with doctorates are excellent
+   6. Some holding doctorates are excellent
+   7. (Most of the pictures of the executives are
+           terrible, but)
+           some of the programmers are excellent
+
+An object of a prepositional phrase may, of course, take its
+own prepositional phrase (or other modifying phrase). Since a
+noun may also take multiple modifying phrases, this frequently
+leads to ambiguity.  In addition, of course, prepositional
+phrases may modify verbs, using MV-. In the sentence "I saw a
+dog in the park by the river", for example, "by the river" may
+modify "saw", "dog", or "park".
+
+Mpc relates to comparatives; see "<A HREF="section-MV.html">MV</A>: Comparatives III".
+
+<B>Ma: adjectival modifiers</B>
+Ma connects nouns with post-nominal adjectival modifiers.
+
+                        +-Ma--+
+                        |     |
+   These are people unhappy about the economy
+   This is a trial certain    to attract attention
+
+This is only correct when the adjective has some kind of
+complement or modifier attached to it: "*These are people
+unhappy", "*This is a trial certain". We enforce this in
+post-processing. Ma connectors start a domain; post-processing
+then requires that a group containing an Ma contain one of a
+list of link-types, either complement links like "TO" or "TH",
+or the prepositional phrase link MVp.
+
+Mam relates to comparatives; see "<A HREF="section-MV.html">MV</A>: Comparatives II".
+
+Max is used for a few adjectives which can be used post-nominally
+without any complement, like "available":
+
+   This is the only apartment available
+   *This is the only apartment inexpensive
+
+<B>Mv and Mg: Participle Modifiers</B>
+Mv connects nouns with passive participles:
+
+        +--Mv-+
+        |     |
+   The dog chased by the man died
+
+Mg connects nouns with present participles:
+
+        +--Mg-+
+        |     |
+   The dog chasing the man died
+
+These are sometimes known as "participle modifiers". Every
+passive verb form has a Mv-, directly disjoined with its Pv-
+(used in normal passive constructions). Every present
+participle has an Mg-, directly disjoined with Pg- (used in
+normal present participle constructions). Thus in complex
+verbs, whatever complement is normally required or allowed by
+the participle (O+, TH+, TO+, etc.) will be required or
+allowed here. (Passive verb-forms have different complement
+expressions from active forms; see "<A HREF="section-P.html">P</A>v".)
+
+   The dog chased by the man was black
+   *The dog chased the man was black
+   *The dog chasing was black
+   The dog chasing the man was black
+   People expecting to see the President will be disappointed
+   *People expecting will be disappointed
+
+If Mv- is directly disjoined with Pv- in every case, and Mg-
+with Pg-, why have two different connector types?  The reason
+relates to post-processing. Post-processing divides a sentence
+into groups of links, in which each group corresponds,
+roughly, to a clause: the set of links involved in a
+subject-verb expression (as well as any direct object,
+indirect object, or prepositional phrases). If the clause
+contains a embedded clause, this forms its own group. In some
+cases that participles are used, they belong to the same
+subject-verb expression as the previous links (ex. 1 below).
+In cases of participle modifiers, however, the participle
+indicates the beginning of a new subject-verb expression
+(ex. 2).
+
+                           +----J----+
+    +--D--+-S-+--Pv-+--MV--+   +--D--+
+    |     |   |     |      |   |     |
+   The study was mentioned in the journal
+
+                                   +--J(e)--+
+                   +-Mv(e)-+-MVp(e)+   +D(e)+
+                   |       |       |   |    |
+   I've read the study mentioned   in the journal
+
+Thus Mg and Mv links must start new domains; Pv and Pg links
+must not.
+
+This distinction is particularly important in cases where we
+use post-processing to enforce subject-verb constraints, such
+as "filler" uses of "it" and "there". Post-processing must
+know that in cases of participle modifiers, the verb in the
+participle modifiers does not apply to the subject of the main
+clause; thus it knows that "There seems to have been a study
+mentioned in the journal" is correct, while "There seems to
+have mentioned a study in the journal" is incorrect. See "<A HREF="section-SF.html">SF</A>:
+Filler-it".
+
+<B>Mv+, Mg+ used on conjunctions</B>
+Some conjunctions can also take present and past participles
+instead of noun-phrases and clauses: "We saw a movie ABOUT
+CATCHING dogs", "We entered BY CLIMBING in the window",
+"He will respond WHEN QUESTIONED". Mv and Mg are used
+here to connect the conjunction to the participle.
+
+Again, the question arises here: why use Mg+ and Mv+ rather
+than Pv+ and Pg+? This is a difficult question, and again,
+relates only to post-processing.  Recall that Mg and Mv begin
+new domains; they imply that a new subject is in force. In
+many cases this seems to hold true with participles modifying
+prepositions and conjunctions.  This is particularly true when
+the preposition modifies a noun (ex. 1), but also sometimes
+when it modifies a verb (ex. 2).
+
+                +---Mp-+---Mg-+
+                |      |      |
+   1. We saw a great movie about catching dogs
+
+             +-------MVp---+-Mg---+
+             |             |      |
+   2. She criticized us   for   chasing the dog
+   3.?There was a problem while catching the dog
+
+In other cases, however, it seems that the previous subject is
+still implied:
+
+   4. We talked about catching dogs
+   5. We angered her by chasing the dog
+   6. The man died while chasing the dog
+
+At the moment, this has little effect on well-formedness.
+The only cases it matters are where post-processing checks are
+used to control the uses of "there". If we used Pg connectors
+rather than Mg, then sentences like ex. 3 above would be
+prohibited; perhaps they should be. In any case, for now,
+Mg and Mv are used in all such cases.
+
+<B>Mr: Possessive Relatives</B>
+Mr is used for relative clauses involving "whose":
+
+        +-Mr-+-Ds*w+-S--+
+        |    |     |    |
+   the dog whose owner died was black
+
+                   +---Bsm--+
+        +-Mr-+-Ds*w+     +S-+
+        |    |     |     |  |
+   the dog whose owner John hit was black
+
+The two constructions shown here are exactly analagous
+to the uses of "whose" (and other question-determiners
+like "which") in indirect questions. A combination of
+link logic and post-processing rules enforces very
+tight constraints on the use of Ds#w and Bsm (and hence
+of Mr as well); see "<A HREF="section-SI.html">SI</A>: Questions without s-v inversion",
+"B: Object-type Questions".
+
+Like Mg and Mv connectors and relative clauses (R+ & B+),
+Mr connectors start a new domain. See Mg and Mv for an
+explanation.
+
+<B>Mj: Prepositional-object relative clauses</B>
+Mj is used for relative clauses in which the main
+noun is the object of a preposition:
+
+                +---Cs--+
+           +-Mj-+-Jw-+  |
+           |    |    |  |
+   1. The man   to whom I was speaking was tall
+
+                +------Cs-----+
+                +----J----+   |
+           +-Mj-+--JQ-+-D-+   |
+           |    |     |   |   |
+   2. The man   to whose wife I was speaking was tall
+
+The "JQ" and "Jw" links used here are also used in
+prepositional questions ("To whom were you speaking").
+See "<A HREF="section-JQ.html">JQ</A>"; see "<A HREF="section-J.html">J</A>w".
+
+Prepositions have "Mj- & Cs+" conjoined with J+ (which forms
+the "Jw" link with "whom"), and disjoined with "MVp- or Mp- or
+(Wj- & Qd+)..." (used in prepositional questions).  This
+raises possible problems. In relative constructions like the
+above, the prepositional object used must be a relative
+pronoun like "whom" (*The man to the man I was speaking was
+tall", "*The man to John's wife I was speaking was tall".
+Furthermore, we must prevent "whom" and "whose" being used in
+any old way: "*I was speaking to whom", "*I was speaking to
+whose wife".  These problems have been dealt with already in
+connection with prepositional questions: e.g., "To whom were
+you speaking?".  There, we have Wj - the link connecting the
+preposition to the wall - start a domain whose group contains
+only the initial prepositional phrase of the sentence; we then
+require that every group containing a Wj contain a Jw or a JQ,
+and that Jw and JQ may occur only in groups containing a
+Wj. (see "<A HREF="section-JQ.html">JQ</A>".) Here, then, all we have to do is add "Mj" to
+the list of links that require JQ or Jw and satisfy the
+requirement of JQ and Jw.  The same constraints that apply in
+prepositional questions then automatically apply here.
+
+Note that this system very naturally permits more nested
+constructions like "The dog to the wife of whose owner you
+were speaking is here".
+
+<B>M with "not"</B>
+The word "not" is sometimes used with noun-modifying phrases:
+"Students not enrolled in the course must pay a fee", "Students
+not taking the course for credit must pay a fee:.
+
+       +-Mvn-+-Mv--+
+       |     |     |
+   Students not enrolled in the course must pay a fee
+
+Notice that the noun connects to the participle <B>through</B> the
+word "not". The Mv- on "not" is subscripted simply to prevent it
+from starting a domain. Similar constructions can be formed with
+Mp, Ma, and Mg.
+
+</PRE>
+<A HREF="index.html">Grammar Documentation Page</A>.
+</BODY>
+</HTML>

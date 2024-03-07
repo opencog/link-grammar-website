@@ -1,0 +1,62 @@
+<html>
+  <head>
+   <meta http-equiv="Content-Type" content="text/html;charset=utf8">
+    <TITLE>Link Grammar for Russian - Грамматика связей для русского языка -  Разбор предложения</TITLE>
+  </head>
+  <body BGCOLOR="#FFFFFF">
+  <blockquote>
+    <h1>Грамматика связей (Link Grammar)</h1>
+
+Введите ваше предложение и нажмите "Разобрать".
+
+<UL>
+<LI> Вводите только одно предложение. Все, что вы введете, будет распознаваться как одно большое предложение.
+
+<LI> Рекомендуется использование правильной орфографии и отсутствие редких слов.
+
+<li> Парсер грамматики связей размечает слова тегами частей речи, например ".n" (существительное), ".v"
+   (глагол), ".a" (прилагательное), ".e" (наречие). Попробуйте использовать слова
+имеющие различные синтаксические категории, такие как "свечу", "молодой", "три" и смотрите правильно ли парсер их помечает.
+
+<li> Вы можете попробовать разбирать предложения по нарастающей сложности <a href=http://slashzone.ru/parser/html4/>корпус 1</a>, <a href=http://slashzone.ru/parser/html2/>корпус 2</a>
+
+<li> Документация <a href=./doc/>по связям</a> и по <a href=./doc/morph/>классам слов</a> доступна в виде списка примеров.
+
+<p>
+
+</UL>
+<a name="submit">
+
+
+<FORM METHOD="POST" ACTION="http://slashzone.ru/parser/parse.pl#submit">
+<textarea name="Sentence" MAXLENGTH=200  wrap=virtual rows=3 cols=70></textarea><br>
+<INPUT TYPE="checkbox" NAME="NullLinks" CHECKED>Разрешить нулевые связи &nbsp;
+<INPUT TYPE="checkbox" NAME="AllLinkages" OFF>Показывать все связки &nbsp;
+<INPUT TYPE="HIDDEN" NAME="LinkDisplay" VALUE="on">
+<INPUT TYPE="HIDDEN" NAME="ShortLength" VALUE="6">
+<INPUT TYPE="HIDDEN" NAME="Maintainer" VALUE="parser_at_svp.zuzino.net.ru">
+<br>
+<INPUT TYPE="submit" VALUE="Разобрать одно предложение.">
+<br>
+</FORM>
+
+<hr>
+
+     <li>       <a href="http://www.link.cs.cmu.edu/link/papers/index.html">Link
+Grammar Bibliography</a>
+     <li>       <a href="http://www.dialog-21.ru/forum/memberinfo.aspx?mid=97">Информация об
+авторе: Сергей Протасов.</a>
+     <li>       <a href="http://en.wikipedia.org/wiki/Link_grammar">Link grammar - Wikipedia, the free encyclopedia</a>
+     <li>       <a href="http://www.rvb.ru/soft/catalogue/c01.html">Программы анализа
+и лингвистической обработки текстов</a>
+     <li>       <a href="http://protasov.moikrug.ru/">Сергей Протасов: Мой Круг</a>
+     <li>       <a href="http://www.compling-info.narod.ru/">Литература по
+Компьютерной Лингвистике</a>
+     <li>       <a href="http://lib.mexmat.ru/forum/viewtopic.php?t=4210">Моделирование русского
+языка</a>
+
+
+<hr>
+    <address>Sergey Protasov [parser собака svp точка zuzino точка net точка ru]</address>
+</body>
+</html>

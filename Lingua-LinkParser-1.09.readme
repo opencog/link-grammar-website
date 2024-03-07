@@ -1,0 +1,102 @@
+  ==================================================================
+  Lingua::LinkParser 1.09
+  Copyright 2000-2003 by Dan Brian
+
+  This program is free software; you can redistribute it and/or modify
+  it under the same terms as Perl itself.
+  ==================================================================
+
+LINUX USERS:
+
+   There is a namespace compatability conflict documented at:
+
+     http://rt.cpan.org/NoAuth/Bug.html?id=4428
+
+   If you get segfaults or "dictionary creation" errors, follow the advice 
+   of Alan Buckeridge:
+
+     There's a routine called 'advance' in the file 'read-dict.c' in the
+     parser's source directory.  By replacing each occurrence of "advance"
+     with something else (I used "ad_vance") and recompiling the parser, I
+     was able to 'make' and 'make test' for Lingua::LinkParser.
+
+   This has fixed the problem in all cases, as far as I'm aware. Thanks Alan.
+
+
+Description
+
+   To quote the Link Grammar documentation, "the Link Grammar Parser 
+   is a syntactic parser of English, based on link grammar, an original 
+   theory of English syntax. Given a sentence, the system assigns to it 
+   a syntactic structure, which consists of set of labeled links 
+   connecting pairs of words." Version 1.0 of this module implements the 
+   new 4.0 parser API.
+
+   PLEASE NOTE that there exist memory leaks with the calls that are 
+   supposed to free sentence objects. This means that single processes 
+   parsing many sentences will gradually grow larger. I am working to 
+   resolve this problem.
+
+Requirements
+
+   To install Lingua::LinkParser you must have already downloaded, 
+   compiled and install the Link Parser package from 
+   http://www.link.cs.cmu.edu/link/.
+
+   This module has been compiled and tested with Perl 5.6 and 5.8 on Linux 
+   2.2.13 & 2.2.14, and Perl 5.6 and 5.8 on OS X. Any incompatibilities 
+   *should* be the result of lib issues within the Link Parser itself, but 
+   these seem very stable.
+
+Installation
+
+   To begin installation type:
+
+       perl Makefile.PL
+
+   This will ask you where your Link Parser package directory is 
+   located, and must contain the distribution obj/, include/, and data/
+   directories, with obj/ containing compiled object files. This 
+   might look something like "/home/username/system-4.1/link-4.1".
+
+   Once the Makefile is written, you can build and test with:
+
+      make
+      make test
+
+   On Linux, the make displays several warnings about redefined macros -
+   these messages may be ignored.
+
+   The test will load the parser dictionary files and parse a sample 
+   sentence. If they do not, back up and figure out why before 
+   installation. To install:
+
+      make install
+
+Documentation
+
+   Full documentation is available in pod format within the .pm file:
+
+      perldoc Lingua::LinkParser
+
+   or
+
+      perldoc ./LinkParser.pm
+
+   The scripts in 'scripts/' demonstrate a general overview of the 
+   functionality.
+
+Todo
+
+   There exist problems with the postscript output functions; I have 
+   not debugged these. The output using the "parse" binary with the 
+   "!postscript" toggle outputs PS that looks different from the 
+   "get_postscript" function. For now, cutting and pasting the former 
+   into a template seems to work.
+
+   I need to add quite a few tests, since lots of stuff has been added.
+
+Author
+
+   Dan Brian <dan@brians.org>
+
