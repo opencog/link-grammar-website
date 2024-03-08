@@ -6,3 +6,6 @@ website.  You can
 
 If you have Link-Grammar related content that you want to publicize,
 please open an issue or pull request here.
+
+If you have talents in website design and can help make this site
+prettier, please, get in touch!
