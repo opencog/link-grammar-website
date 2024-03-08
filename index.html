@@ -1,6 +1,10 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
+  <head>
+    <title>Link Grammar</title>
+  </head>
 <body>
-<h2>Link Grammar Parser</h2>
+<h2>Link Grammar</h2>
 <hr />
 
 <h3>News</h3>
@@ -659,80 +663,7 @@ in the AtomSpace; avoiding the need to export the language model.
 <li>The regex library PCRE2 is required by default.
 </ul>
 
-<p>Version 5.10.5 (17 June 2022)</p>
 <p>
-This version is the first to contain the final version of the Thai
-dictionary.
-<p>
-<ul>
-<li>Updated Docker files. #1288
-<li>English dict: broader handling of ellipsis.
-<li>Updated Thai dicts: #1292, #1294
-<li>Fix Thai regex's to work even with basic C++ regex lib. #1297
-<li>Performance improvements. #1298
-</ul>
-
-<p>Version 5.10.4 (4 March 2022)</p>
-<p>
-This is a notable and important release, as it is the first to
-include a complete Thai dictionary!
-<p>
-<ul>
-<li>English dict: fix relative clause, per mailing list.
-<li>Remove assorted length restrictions on word-size. #1283
-<li>Add missing files for building link-generator on Windows. #1285
-<li>Strip the internally added "._I" from subscripted idioms. #1287
-<li>New: Provisional Thai dictionary. #1279
-</ul>
-
-<p>Version 5.10.3 (14 February 2022)</p>
-<p>
-<ul>
-<li>Remove `node.js/package-lock.json` from tarball distribution. #1251
-<li>Fix Windows MSVC build break. #1253
-<li>Fix memory leak in the "!" link-parser command. #1256
-<li>Add C++ regex support. It is now the default for MSVC builds. #1258
-<li>Fix spell-guess for run-on words. #1249
-<li>Port link-generator to MS-Windows. #1269
-<li>Fix apostrophe handling for link-generator w/sqlite3 dicts. #1276
-</ul>
-
-<p>Version 5.10.2 (16 September 2021)</p>
-<p>
-<ul>
-<li>Fix python install path.
-<li>Fix size in brand-new `link-generator` (hits 32-bit & ARM) #1247
-</ul>
-
-<p>Version 5.10.1 (7 September 2021)</p>
-<p>
-<ul>
-<li>Fix perl bindings build fail. #1248
-</ul>
-
-<p>Version 5.10.0 (4 September 2021)</p>
-<p>
-The minor version number has been bumped because of a change to the
-link types used for idioms. Subscripts with an underbar are now
-reserved.
-<p>
-Users of the unsupervised language learning project will need
-this version. It contains fixes for random corpora generation.
-<p>
-<ul>
-<li>Expanded English vocabulary
-<li>Support dictionary "#define allow-duplicate-words true". #1204
-<li>Fix crash for sentences containing wildcard words. #1206
-<li>Connector names starting with "ID" are no longer reserved. #1208
-<li>Connector names starting with underbar are reserved for internal use.
-<li>".I" subscripts are no longer reserved; "._" subscripts are reserved.
-    These last three changes introduce linkage incompatibilities.
-<li>Fix parsing with nulls when using an sqlite3 dictionary.
-<li>Fix regexes for NetBSD when using libc regexes. #1223
-<li>English dict: fix many "how?" questions.
-<li>English dict: fix conditional sentences #1240
-</ul>
-
 <b>A list of older changes can be found
    <a href="older-changes.html">here</a>.</b>
 
