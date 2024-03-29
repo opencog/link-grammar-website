@@ -18,9 +18,10 @@ These changes are permanent, and are expected to remain valid into the
 indefinite future.
 
 <p>28 March, 2024: <a href="#download">link-grammar 5.12.4 released!</a>
-This release provides some performance improvements, and a build fix
-for Apple MacOS.
-See below for a description of other changes in this release.
+<i>This release fixes several rare thread-related issues, including one
+involving regex. Disables aspell by default; aspell leaks memory!
+Includes new optimizations for the AtomSpace dictionary.</i>
+See ChangeLog at bottom for a description of other changes in this release.
 </p>
 <h3>What is Link Grammar?</h3>
 
@@ -606,8 +607,6 @@ of time, published on websites that no longer exist.
 <li>Assorted Atomese fixes.
 <li>Fix SAT-solver build breaks.
 <li>Add dictionary flag to disable built-in capitlization rules. #1468
-<li>Fix several rare thread-related issues, including one w/ regex.
-<li>Disable aspell by default; aspell leaks memory!
 </ul>
 
 <p>Version 5.12.2 (9 March 2023)</p>
