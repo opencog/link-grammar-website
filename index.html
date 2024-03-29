@@ -17,10 +17,9 @@ Downloads of current and older source code tarballs are available at
 These changes are permanent, and are expected to remain valid into the
 indefinite future.
 
-<p>March, 2023: <a href="#download">link-grammar 5.12.3 released!</a>
-<i>This release fixes several rare thread-related issues, including one
-involving regex. Disables aspell by default; aspell leaks memory!
-Includes new optimizations for the AtomSpace dictionary.</i>
+<p>28 March, 2024: <a href="#download">link-grammar 5.12.4 released!</a>
+<i>This release provides some performance improvements, and a build fix
+for Apple Mac's.</i>
 See below for a description of other changes in this release.
 </p>
 <h3>What is Link Grammar?</h3>
@@ -354,8 +353,8 @@ directory</a> in the
 <h3>Downloading Link Grammar</h3>
 <p>The source code to the system can be downloaded as a tarball. The
    current stable version is
-   <a href="https://www.gnucash.org/link-grammar/downloads/5.12.3/link-grammar-5.12.3.tar.gz">Link
-   Grammar 5.12.3</a> (March 2023). Older versions are available
+   <a href="https://www.gnucash.org/link-grammar/downloads/5.12.4/link-grammar-5.12.4.tar.gz">Link
+   Grammar 5.12.4</a> (March 2024). Older versions are available
    <a href="https://www.gnucash.org/downloads/link-grammar/">here</a>.
    </p>
 <p>GitHub hosts <a href="https://github.com/opencog/link-grammar">the
@@ -589,6 +588,17 @@ of time, published on websites that no longer exist.
 
 <hr />
 <h3>Recent Changes</h3>
+
+<p>Version 5.12.4 (28 March 2024)</p>
+<p>
+<ul>
+<li>Minor English dict fixes. #1470
+<li>Use correct guard macro for glibc heap functions. #1471
+<li>MacOS build fix #1473
+<li>Silence javascript build errors. #1377
+<li>Reduce memory use, improve performance, via Parse_set. #1480
+<li>Optimize solutions with cycles. #1481
+</ul>
 
 <p>Version 5.12.3 (24 March 2023)</p>
 <p>
