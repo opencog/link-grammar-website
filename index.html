@@ -9,6 +9,13 @@
 
 <h3>News</h3>
 
+<p>31 May, 2024: <a href="#download">link-grammar 5.12.5 released!</a>
+<i>This release fixes MS Windows build issues; removes
+<tt>.lg_history</tt> litter, and fixes memory consumption issues
+related to large machine-learned dictionaries.</i>
+See ChangeLog at bottom for a description of other changes in this release.
+</p>
+
 <p>March, 2024: The abisource.com website is gone forever, and the new
 Link Grammar home page is here, on
 <a href="https://opencog.github.io/link-grammar-website/">https://opencog.github.io/link-grammar-website/</a>.
@@ -17,12 +24,6 @@ Downloads of current and older source code tarballs are available at
 These changes are permanent, and are expected to remain valid into the
 indefinite future.
 
-<p>28 March, 2024: <a href="#download">link-grammar 5.12.4 released!</a>
-<i>This release fixes several rare thread-related issues, including one
-involving regex. Disables aspell by default; aspell leaks memory!
-Includes new optimizations for the AtomSpace dictionary.</i>
-See ChangeLog at bottom for a description of other changes in this release.
-</p>
 <h3>What is Link Grammar?</h3>
 
 <p>The Link Grammar Parser exhibits the linguistic (natural language)
@@ -354,8 +355,8 @@ directory</a> in the
 <h3>Downloading Link Grammar</h3>
 <p>The source code to the system can be downloaded as a tarball. The
    current stable version is
-   <a href="https://www.gnucash.org/link-grammar/downloads/5.12.4/link-grammar-5.12.4.tar.gz">Link
-   Grammar 5.12.4</a> (March 2024). Older versions are available
+   <a href="https://www.gnucash.org/link-grammar/downloads/5.12.5/link-grammar-5.12.5.tar.gz">Link
+   Grammar 5.12.5</a> (May 2024). Older versions are available
    <a href="https://www.gnucash.org/downloads/link-grammar/">here</a>.
    </p>
 <p>GitHub hosts <a href="https://github.com/opencog/link-grammar">the
@@ -589,6 +590,17 @@ of time, published on websites that no longer exist.
 
 <hr />
 <h3>Recent Changes</h3>
+
+<p>Version 5.12.5 (31 May 2024)</p>
+<p>
+<ul>
+<li>Bugfix tracon table size management. #1486
+<li>Bugfix connector hashing for fewer hash collisions. #1487, #1528
+<li>Bugfix python unit test for Thai on Apple. #1530
+<li>New autogen.sh #1531
+<li>Stop litering .lg_history in current directory. #1443 #1534
+<li>MS Windows build fixes #1537
+</ul>
 
 <p>Version 5.12.4 (28 March 2024)</p>
 <p>
